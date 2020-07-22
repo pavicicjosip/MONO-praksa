@@ -1,12 +1,10 @@
 # Praksa2020-g03-03
 <h1>Projektni zadatak: TMDb</h1>
-<hr>
 <h2>Uvod</h2>
 <br>
 <p>
 TMDb je Web aplikacija koja pruža informacije o milijunima filmova i televizijskih programa, kao i o njihovoj glumačkoj ekipi i produkciji. Ime aplikacije je akronim za The Movie Database. 
 </p>
-<hr>
 <h2>Opis aplikacije</h2>
 <br>
 <p>✓	Korisnik će moći napraviti account, potrebno će biti email, username i password, a prilikom login-a od korisnika će se tražiti da unese email ili username, te lozinku 
