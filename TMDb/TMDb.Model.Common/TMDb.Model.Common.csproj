@@ -69,6 +69,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAccount.cs" />
+    <Compile Include="ICastAndCrew.cs" />
+    <Compile Include="ICCMovie.cs" />
+    <Compile Include="IFileStorage.cs" />
+    <Compile Include="IGenre.cs" />
+    <Compile Include="IGenreMovie.cs" />
+    <Compile Include="IMovie.cs" />
+    <Compile Include="IMovieLists.cs" />
+    <Compile Include="IReview.cs" />
+    <Compile Include="IUserGenre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
