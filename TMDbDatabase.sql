@@ -23,7 +23,7 @@ CREATE TABLE Account (
 	UserPassword VARCHAR(20) NOT NULL,
 	FileID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT Account_fk_FileStorage
-        REFERENCES FileStorage(FileID)	
+        	REFERENCES FileStorage(FileID)	
 );
 
 CREATE TABLE Genre(
@@ -39,7 +39,7 @@ CREATE TABLE CastAndCrew(
 	Gender VARCHAR(10) NOT NULL,
 	FileID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT CastAndCrew_fk_FileStorage
-        REFERENCES FileStorage(FileID)
+        	REFERENCES FileStorage(FileID)
 );
 
 CREATE TABLE Movie(
@@ -51,26 +51,26 @@ CREATE TABLE Movie(
 	PlotOutline VARCHAR(400) NOT NULL,
 	FileID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT Movie_fk_FileStorage
-        REFERENCES FileStorage(FileID)
+        	REFERENCES FileStorage(FileID)
 );
 
 CREATE TABLE GenreMovie(
 	MovieID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT GenreMovie_fk_Movie
-        REFERENCES Movie(MovieID) ON DELETE CASCADE,
-    GenreID UNIQUEIDENTIFIER NOT NULL
+       		REFERENCES Movie(MovieID) ON DELETE CASCADE,
+   	GenreID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT GenreMovie_fk_Genre
-        REFERENCES Genre(GenreID),
-    CONSTRAINT GenreMovie_pk PRIMARY KEY (MovieID, GenreID)
+        	REFERENCES Genre(GenreID),
+    	CONSTRAINT GenreMovie_pk PRIMARY KEY (MovieID, GenreID)
 );
 
 CREATE TABLE CCMovie(
 	MovieID UNIQUEIDENTIFIER NOT NULL 
 		CONSTRAINT CCMovie_fk_Movie
-        REFERENCES Movie(MovieID) ON DELETE CASCADE,
-    CastID UNIQUEIDENTIFIER NOT NULL
+        	REFERENCES Movie(MovieID) ON DELETE CASCADE,
+   	CastID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT CCMovie_fk_CastAndCrew
-        REFERENCES Genre(GenreID),
+        	REFERENCES Genre(GenreID),
 	RoleInMovie VARCHAR(30) NOT NULL,
 	CONSTRAINT CCMovie_pk PRIMARY KEY (MovieID, CastID)
 );
@@ -92,11 +92,11 @@ CREATE TABLE MovieLists(
 	ListID UNIQUEIDENTIFIER default NEWID(),
 	MovieID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT MovieList_fk_Movie
-        REFERENCES Movie(MovieID),
-    AccountID UNIQUEIDENTIFIER NOT NULL
+       		REFERENCES Movie(MovieID),
+    	AccountID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT MovieList_fk_Account
 		REFERENCES Account(AccountID) ON DELETE CASCADE,
-    CONSTRAINT MovieList_pk PRIMARY KEY (ListID, MovieID, AccountID)
+    	CONSTRAINT MovieList_pk PRIMARY KEY (ListID, MovieID, AccountID)
 );
 
 CREATE TABLE UserGenre(
