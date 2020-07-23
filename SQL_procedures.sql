@@ -172,23 +172,4 @@ GO
 
 
 
-INSERT INTO FileStorage
-VALUES ('85e5e579-07cb-4da4-a46d-f813a8c314ef','asd','asd');
-
-EXEC p_selectAll_account;
-EXEC p_select_by_user_and_pass @UserName = 'P',
-							   @UserPassword = '123';
-EXEC p_insert_account @AccountID = '9E3D7E2B-7486-44BF-890E-BD00A0E3C901',
-					  @Email = 'P@gmail.com',
-					  @UserName = 'P',
-					  @UserPassword = '123',
-					  @FileID = '85e5e579-07cb-4da4-a46d-f813a8c314ef';
-
-EXEC p_update_account @AccountID = '9E3D7E2B-7486-44BF-890E-BD00A0E3C901',
-					  @Email = 'por@gmail.com',
-					  @UserName = 'P',
-					  @UserPassword = 'srbija',
-					  @FileID = '85e5e579-07cb-4da4-a46d-f813a8c314ef';
-
-EXEC p_delete_account @AccountID = '9E3D7E2B-7486-44BF-890E-BD00A0E3C901';
 
