@@ -108,3 +108,30 @@ CREATE TABLE UserGenre(
         REFERENCES Genre(GenreID)
 	CONSTRAINT UserGenre_pk PRIMARY KEY(AccountID, GenreID)
 );
+
+INSERT INTO Genre VALUES(default, 'Action');
+INSERT INTO Genre VALUES(default, 'Adventure');
+INSERT INTO Genre VALUES(default, 'Animation');
+INSERT INTO Genre VALUES(default, 'Biography');
+INSERT INTO Genre VALUES(default, 'Comedy');
+INSERT INTO Genre VALUES(default, 'Crime');
+INSERT INTO Genre VALUES(default, 'Documentary');
+INSERT INTO Genre VALUES(default, 'Drama');
+INSERT INTO Genre VALUES(default, 'Family');
+INSERT INTO Genre VALUES(default, 'Fantasy');
+INSERT INTO Genre VALUES(default, 'Film Noir');
+INSERT INTO Genre VALUES(default, 'History');
+INSERT INTO Genre VALUES(default, 'Horor');
+INSERT INTO Genre VALUES(default, 'Music');
+INSERT INTO Genre VALUES(default, 'Musical');
+INSERT INTO Genre VALUES(default, 'Mystery');
+INSERT INTO Genre VALUES(default, 'Romance');
+INSERT INTO Genre VALUES(default, 'Sci-Fi');
+INSERT INTO Genre VALUES(default, 'Short Film');
+INSERT INTO Genre VALUES(default, 'Sport');
+INSERT INTO Genre VALUES(default, 'Superhero');
+INSERT INTO Genre VALUES(default, 'Thriller');
+INSERT INTO Genre VALUES(default, 'War');
+INSERT INTO Genre VALUES(default, 'Western');
+
+SELECT* FROM Genre;
