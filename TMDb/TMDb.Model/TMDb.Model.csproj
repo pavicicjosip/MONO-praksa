@@ -69,11 +69,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="CastAndCrew.cs" />
+    <Compile Include="CCMovie.cs" />
+    <Compile Include="FileStorage.cs" />
+    <Compile Include="Genre.cs" />
+    <Compile Include="GenreMovie.cs" />
+    <Compile Include="Movie.cs" />
+    <Compile Include="MovieLists.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Review.cs" />
+    <Compile Include="UserGenre.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMDb.Model.Common\TMDb.Model.Common.csproj">
+      <Project>{7284a685-10fa-4593-9bb7-15c152171d52}</Project>
+      <Name>TMDb.Model.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
