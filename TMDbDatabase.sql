@@ -8,12 +8,22 @@ DROP TABLE CastAndCrew;
 DROP TABLE Genre;
 DROP TABLE Account;
 DROP TABLE FileStorage;
-
+DROP TABLE AdministratorAccount
 
 CREATE TABLE FileStorage(
 	FileID UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
 	ImageName VARCHAR(40) NOT NULL,
 	ImagePath VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE AdministratorAccount (
+	AccountID UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
+	Email VARCHAR(50) NOT NULL,
+	UserName VARCHAR(30) NOT NULL UNIQUE,
+	UserPassword VARCHAR(20) NOT NULL,
+	FileID UNIQUEIDENTIFIER NOT NULL
+		CONSTRAINT AdministratorAccount_fk_FileStorage
+        	REFERENCES FileStorage(FileID)	
 );
 
 CREATE TABLE Account (

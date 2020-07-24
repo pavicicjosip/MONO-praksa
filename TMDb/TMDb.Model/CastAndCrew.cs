@@ -15,17 +15,15 @@ namespace TMDb.Model
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
-        public string RoleInMovie { get; set; }
         public Guid FileID { get; set; }
 
-        public CastAndCrew(Guid castID, string firstName, string lastName, DateTime dateOfBirth, string gender, string roleInMovie, Guid fileID)
+        public CastAndCrew(Guid castID, string firstName, string lastName, DateTime dateOfBirth, string gender, Guid fileID)
         {
             this.CastID = castID;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.DateOfBirth = dateOfBirth;
             this.Gender = gender;
-            this.RoleInMovie = roleInMovie;
             this.FileID = fileID;
         }
     }
