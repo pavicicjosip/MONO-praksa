@@ -11,6 +11,7 @@ namespace TMDb.Model.Common
         Guid ReviewID { get; set; }
         int NumberOfStars { get; set; }
         string Comment { get; set; }
+        DateTime DateAndTime { get; set; }
         Guid AccountID { get; set; }
         Guid MovieID { get; set; }
     }

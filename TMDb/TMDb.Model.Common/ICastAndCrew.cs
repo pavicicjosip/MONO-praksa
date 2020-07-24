@@ -13,7 +13,6 @@ namespace TMDb.Model.Common
         string LastName { get; set; }
         DateTime DateOfBirth { get; set; }
         string Gender { get; set; }
-        string RoleInMovie { get; set; }
         Guid FileID { get; set; }
     }
 }

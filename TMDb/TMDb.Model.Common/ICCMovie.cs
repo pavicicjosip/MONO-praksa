@@ -10,5 +10,6 @@ namespace TMDb.Model.Common
     {
         Guid CastID { get; set; }
         Guid MovieID { get; set; }
+        string RoleInMovie { get; set; }
     }
 }

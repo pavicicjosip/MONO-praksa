@@ -12,11 +12,13 @@ namespace TMDb.Model
     {
         public Guid CastID { get; set; }
         public Guid MovieID { get; set; }
+        public string RoleInMovie { get; set; }
 
-        public CCMovie(Guid castID, Guid movieID)
+        public CCMovie(Guid castID, Guid movieID, string roleInMovie)
         {
             this.CastID = castID;
             this.MovieID = movieID;
+            this.RoleInMovie = roleInMovie;
         }
     }
 }
