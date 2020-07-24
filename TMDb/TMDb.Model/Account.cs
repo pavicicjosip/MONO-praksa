@@ -13,13 +13,15 @@ namespace TMDb.Model
         public Guid AccountID { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
+        public string UserPassword { get; set; }
         public Guid FileID { get; set; }
 
-        public Account(Guid accountID, string email, string username, Guid fileID)
+        public Account(Guid accountID, string email, string username, string userPassword, Guid fileID)
         {
             this.AccountID = accountID;
             this.Email = email;
             this.Username = username;
+            this.UserPassword = userPassword;
             this.FileID = fileID;
         }
     }
