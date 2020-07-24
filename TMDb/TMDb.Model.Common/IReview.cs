@@ -12,7 +12,7 @@ namespace TMDb.Model.Common
         int NumberOfStars { get; set; }
         string Comment { get; set; }
         DateTime DateAndTime { get; set; }
-        Guid AccountID { get; set; }
+        string Username { get; set; }
         Guid MovieID { get; set; }
     }
 }
