@@ -14,6 +14,7 @@ namespace TMDb.Repository
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AccountRepository>().As<IAccountRepository>();
+            builder.RegisterType<ReviewRepository>().As<IReviewRepository>();
         }
 
     }

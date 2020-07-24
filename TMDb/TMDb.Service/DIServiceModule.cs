@@ -13,6 +13,7 @@ namespace TMDb.Service
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AccountService>().As<IAccountService>();
+            builder.RegisterType<ReviewService>().As<IReviewService>();
         }
     }
 }
