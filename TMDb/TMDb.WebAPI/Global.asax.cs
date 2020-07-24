@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Routing;
 using TMDb.Repository;
@@ -19,11 +20,15 @@ namespace TMDb.WebAPI
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             var builder = new ContainerBuilder();
+            var assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>();
+            var config = GlobalConfiguration.Configuration;
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            builder.RegisterModule(new DIServiceModule());
-            builder.RegisterModule(new DIRepositoryModule());
+            foreach (var assemblie in assemblies)
+            {
+                builder.RegisterAssemblyModules(assemblie);
+            }
 
             var container = builder.Build();
 
