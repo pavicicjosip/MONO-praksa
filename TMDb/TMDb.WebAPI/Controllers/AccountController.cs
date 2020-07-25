@@ -12,10 +12,10 @@ using Autofac;
 
 namespace TMDb.WebAPI.Controllers
 {
-    public class AccController : ApiController
+    public class AccountController : ApiController
     {
         protected IAccountService _IAccountService { get; set; }
-        public AccController(IAccountService iAccountService)
+        public AccountController(IAccountService iAccountService)
         {
             this._IAccountService = iAccountService;
         }
