@@ -13,20 +13,26 @@ namespace TMDb.Repository
 {
     public class AccountRepository : IAccountRepository
     {
-        static string connStr = ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString;
-        static SqlConnection sqlCon = new SqlConnection(connStr);
+        private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
 
-        public async Task<Account> SelectAccountAsync(string username, string userPassword)
+        public async Task<Account> SelectAccountAsync(Account acc)
         {
-            await sqlCon.OpenAsync();
-
             string sql = "SELECT * FROM Account WHERE UserName = @Username AND UserPassword = @UserPassword; ";
-            SqlCommand command = new SqlCommand(sql, sqlCon);
-            command.Parameters.AddWithValue("@Username", username);
-            command.Parameters.AddWithValue("@UserPassword", userPassword);
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@Username", acc.Username);
+            command.Parameters.AddWithValue("@UserPassword", acc.UserPassword);
+
+            Account account = new Account();
+
+            await connection.OpenAsync();
             SqlDataReader reader = await command.ExecuteReaderAsync();
 
-            return new Account(reader.GetGuid(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),  reader.GetGuid(5)  );
+            await reader.ReadAsync();
+
+            account = new Account(reader.GetGuid(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetGuid(4));
+            reader.Close();
+            connection.Close();
+            return account;
         }
 
         /*

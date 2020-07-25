@@ -10,6 +10,6 @@ namespace TMDb.Service.Common
 {
     public interface IAccountService
     {
-        Task<Account> SelectAccountAsync(string username, string userPassword);
+        Task<Account> SelectAccountAsync(Account acc);
     }
 }

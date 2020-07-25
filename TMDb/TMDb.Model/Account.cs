@@ -16,6 +16,8 @@ namespace TMDb.Model
         public string UserPassword { get; set; }
         public Guid FileID { get; set; }
 
+        public Account() { }
+
         public Account(Guid accountID, string email, string username, string userPassword, Guid fileID)
         {
             this.AccountID = accountID;

@@ -9,7 +9,7 @@ namespace TMDb.Repository.Common
 {
     public interface IAccountRepository
     {
-        Task<Account> SelectAccountAsync(string username, string userPassword);
+        Task<Account> SelectAccountAsync(Account acc);
         /*
         Task DeleteAccountAsync(Guid accountID);
         Task UpdateAccount(Account acc);
