@@ -1,6 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -17,6 +19,7 @@ namespace TMDb.Repository
         {
             var list = new List<Movie>();
             var command = new SqlCommand("p_GetMovieByName", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Title", title);
             connection.Open();
             SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -38,6 +41,7 @@ namespace TMDb.Repository
         {
             var list = new List<Movie>();
             var command = new SqlCommand("p_GetMovieByYear", connection);
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@YearOfProduction", yearOfProduction);
             connection.Open();
             SqlDataReader reader = await command.ExecuteReaderAsync();

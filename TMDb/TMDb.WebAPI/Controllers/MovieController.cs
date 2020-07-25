@@ -21,16 +21,18 @@ namespace TMDb.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/Movie/Title/{title}")]
-        public async Task<HttpResponseMessage> SelectMovieByTitleAsync(string title)
+        public async Task<HttpResponseMessage> SelectMovieByTitleAsync([FromUri] string title)
         {
             var mapper = Mapper.CreateMapper();
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByTitleAsync(title));
             return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }
 
-        /*[HttpGet]
+        /*
+
+        [HttpGet]
         [Route("api/Movie/Year/{year}")]
-        public async Task<HttpResponseMessage> SelectMovieByYearAsync(int yearOfProduction)
+        public async Task<HttpResponseMessage> SelectMovieByYearAsync([FromUri] int yearOfProduction)
         {
             var mapper = Mapper.CreateMapper();
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByTitleAsync(yearOfProduction));

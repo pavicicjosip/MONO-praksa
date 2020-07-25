@@ -11,5 +11,8 @@ namespace TMDb.Service.Common
     public interface IAccountService
     {
         Task<Account> SelectAccountAsync(Account acc);
+        Task DeleteAccountAsync(Guid accountID);
+        Task UpdateAccountAsync(Account acc);
+        Task<Account> SelectAccountAsync(Guid accountID);
     }
 }
