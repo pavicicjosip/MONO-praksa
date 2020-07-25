@@ -18,9 +18,9 @@ namespace TMDb.Service
             this._IAccountRepository = _IAccountRepository;
         }
 
-        public async Task<Account> SelectAccountAsync(string username, string userPassword)
+        public async Task<Account> SelectAccountAsync(Account acc)
         {
-            return await _IAccountRepository.SelectAccountAsync(username, userPassword);
+            return await _IAccountRepository.SelectAccountAsync(acc);
         }
     }
 }

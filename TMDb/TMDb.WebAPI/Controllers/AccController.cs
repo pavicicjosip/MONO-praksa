@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,10 +21,10 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route ("api/Acc/SelectAccountAsync/{username}/{password}")]
-        public async Task<HttpResponseMessage> SelectAccountAsync([FromUri] string username, [FromUri] string password)
+        [Route("api/Acc/SelectAccountAsync")]
+        public async Task<HttpResponseMessage> SelectAccountAsync([FromBody] Account acc)
         {
-            Account account = await _IAccountService.SelectAccountAsync(username, password);
+            Account account = await _IAccountService.SelectAccountAsync(acc);
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, account);
@@ -34,5 +35,11 @@ namespace TMDb.WebAPI.Controllers
             }
         }
 
+    }
+
+    public class RestAccount
+    {
+        public string Username { get; set; }
+        public string UserPassword { get; set; }
     }
 }
