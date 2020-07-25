@@ -31,6 +31,36 @@ namespace TMDb.WebAPI.Controllers
             List<RestReview> restReviewList = mapper.Map<List<RestReview>>(await reviewService.ReturnMovieReviewsAsync(movieID));
             return Request.CreateResponse(HttpStatusCode.OK, restReviewList);
         }
+
+        [HttpGet]
+        [Route("api/Review/Movie/{MovieID}/{Column}/{Order}")]
+        public async Task<HttpResponseMessage> GetMovieReviewsOrderedAsync(Guid movieID, string column, bool order)
+        {
+            var mapper = Mapper.CreateMapper();
+            List<RestReview> restReviewList = mapper.Map<List<RestReview>>(await reviewService.ReturnMovieReviewsOrderedAsync(movieID, column, order));
+            return Request.CreateResponse(HttpStatusCode.OK, restReviewList);
+        }
+
+        [HttpGet]
+        [Route("api/Review/User/{AccountID}/{Column}/{Order}")]
+        public async Task<HttpResponseMessage> GetUserReviewsOrderedAsync(Guid accountID, string column, bool order)
+        {
+            var mapper = Mapper.CreateMapper();
+            List<RestReview> restReviewList = mapper.Map<List<RestReview>>(await reviewService.ReturnUserReviewsOrderedAsync(accountID, column, order));
+            return Request.CreateResponse(HttpStatusCode.OK, restReviewList);
+        }
+
+        [HttpDelete]
+        [Route("api/Review/{ReviewID}")]
+        public async Task<HttpResponseMessage> DeleteReviewAsync(Guid reviewID)
+        {
+            await reviewService.RemoveReviewAsync(reviewID);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+
+        //update comment, create comment 
+        //U movie controller get sve filmove koje je ocijenio user
     }
 
     public class RestReview
