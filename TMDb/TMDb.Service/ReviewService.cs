@@ -24,5 +24,34 @@ namespace TMDb.Service
         {
             return await reviewRepository.SelectMovieReviewsAsync(movieID);
         }
+
+        public async Task<List<Review>> ReturnMovieReviewsOrderedAsync(Guid movieID, string column, bool order)
+        {
+            if (order)
+            {
+                return await reviewRepository.SelectMovieReviewsOrderedAsync(movieID, column, "ASC");
+            }
+            else
+            {
+                return await reviewRepository.SelectMovieReviewsOrderedAsync(movieID, column, "DESC");
+            }
+        }
+
+        public async Task<List<Review>> ReturnUserReviewsOrderedAsync(Guid accountID, string column, bool order)
+        {
+            if (order)
+            {
+                return await reviewRepository.SelectUserReviewsOrderedAsync(accountID, column, "ASC");
+            }
+            else
+            {
+                return await reviewRepository.SelectUserReviewsOrderedAsync(accountID, column, "DESC");
+            }
+        }
+
+        public async Task RemoveReviewAsync(Guid reviewID)
+        {
+            await reviewRepository.DeleteReviewAsync(reviewID);
+        }
     }
 }
