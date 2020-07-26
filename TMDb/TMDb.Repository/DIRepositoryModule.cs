@@ -15,6 +15,8 @@ namespace TMDb.Repository
         {
             builder.RegisterType<AccountRepository>().As<IAccountRepository>();
             builder.RegisterType<ReviewRepository>().As<IReviewRepository>();
+            builder.RegisterType<MovieRepository>().As<IMovieRepository>();
+            builder.RegisterType<CastAndCrewRepository>().As<ICastAndCrewRepository>();
         }
 
     }

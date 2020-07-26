@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="IAccountRepository.cs" />
     <Compile Include="IMovieRepository.cs" />
+    <Compile Include="ICastAndCrewRepository.cs" />
     <Compile Include="IReviewRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -12,6 +12,13 @@ AS
 	WHERE UserName = @Username AND UserPassword = @UserPassword;
 GO
 
+CREATE OR ALTER PROCEDURE p_SelectByAccountID
+( @AccountID UNIQUEIDENTIFIER)
+AS
+	SELECT * FROM Account
+	WHERE AccountID = @AccountID;
+GO
+
 CREATE OR ALTER PROCEDURE p_InsertAccount 
 ( @AccountID    UNIQUEIDENTIFIER,
   @Email        VARCHAR(50),
@@ -97,10 +104,11 @@ AS
 GO
 
 CREATE OR ALTER PROCEDURE p_GetByDateOfBirth
-( @DateOfBirth DATE )
+( @DateOfBirth VARCHAR(10) )
 AS
-	SELECT * FROM CastAndCrew WHERE DateOfBirth = @DateOfBirth;
+	SELECT * FROM CastAndCrew WHERE DateOfBirth = CAST(@DateOfBirth AS DATE);
 GO
+
 
 CREATE OR ALTER PROCEDURE p_InsertReview
 ( @ReviewID UNIQUEIDENTIFIER,
@@ -169,7 +177,5 @@ AS
 	DELETE FROM MovieLists WHERE MovieID = @MovieID;
 GO
 	
-
-
 
 

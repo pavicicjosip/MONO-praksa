@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountRepository.cs" />
+    <Compile Include="CastAndCrewRepository.cs" />
     <Compile Include="DIRepositoryModule.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
