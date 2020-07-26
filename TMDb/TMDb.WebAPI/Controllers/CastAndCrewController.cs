@@ -54,7 +54,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/CastAndCrew/SelectByDateOfBirthAsync")]
         public async Task<HttpResponseMessage> SelectByDateOfBirthAsync([FromBody] CastAndCrewDateOfBirth cacDate)
         {
-            List<CastAndCrew> _out = await _ICastAndCrewService.SelectByLastNameAsync(cacDate.Date);
+            List<CastAndCrew> _out = await _ICastAndCrewService.SelectByDateOfBirthAsync(cacDate.Date);
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, _out);
