@@ -49,6 +49,16 @@ namespace TMDb.Service
             }
         }
 
+        public async Task CreateReviewAsync(Review review, Guid accountID)
+        {
+            await reviewRepository.InsertReviewAsync(review, accountID);
+        }
+
+        public async Task UpdateReviewAsync(Review review)
+        {
+            await reviewRepository.UpdateReviewAsync(review);
+        }
+
         public async Task RemoveReviewAsync(Guid reviewID)
         {
             await reviewRepository.DeleteReviewAsync(reviewID);
