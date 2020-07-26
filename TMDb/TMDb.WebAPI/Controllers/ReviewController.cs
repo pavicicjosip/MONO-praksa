@@ -16,7 +16,7 @@ namespace TMDb.WebAPI.Controllers
         protected IReviewService reviewService
         { get; private set; }
 
-        static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Review, RestReview>());
+        static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Review, RestReview>().ReverseMap());
 
         public ReviewController(IReviewService reviewService)
         {
@@ -48,6 +48,28 @@ namespace TMDb.WebAPI.Controllers
             var mapper = Mapper.CreateMapper();
             List<RestReview> restReviewList = mapper.Map<List<RestReview>>(await reviewService.ReturnUserReviewsOrderedAsync(accountID, column, order));
             return Request.CreateResponse(HttpStatusCode.OK, restReviewList);
+        }
+
+        [HttpPost]
+        [Route("api/Review/{MovieID}/{AccountID}")]
+        public async Task<HttpResponseMessage> PostReviewAsync(Guid movieID, Guid accountID, RestReview restReview)
+        {
+            var mapper = Mapper.CreateMapper();
+            Review review = mapper.Map<Review>(restReview);
+            review.MovieID = movieID;
+            await reviewService.CreateReviewAsync(review, accountID);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/Review/{ReviewID}")]
+        public async Task<HttpResponseMessage> PutReviewAsync(Guid reviewID, RestReview restReview)
+        {
+            var mapper = Mapper.CreateMapper();
+            Review review = mapper.Map<Review>(restReview);
+            review.ReviewID = reviewID;
+            await reviewService.UpdateReviewAsync(review);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpDelete]

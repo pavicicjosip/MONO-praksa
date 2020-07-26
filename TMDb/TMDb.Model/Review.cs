@@ -16,6 +16,7 @@ namespace TMDb.Model
         public string Username { get; set; }
         public Guid MovieID { get; set; }
 
+        public Review() { }
         public Review(Guid reviewID, int numberOfStars, string comment, DateTime dateAntTime, string username, Guid movieID)
         {
             this.ReviewID = reviewID;

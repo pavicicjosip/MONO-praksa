@@ -87,6 +87,24 @@ namespace TMDb.Repository
             return list;
         }
 
+        public async Task InsertReviewAsync(Review review, Guid accountID)
+        {
+            connection.Open();
+            var command = new SqlCommand(String.Format("INSERT INTO Review(NumberOfStars, Comment, DateAndTime, AccountID, MovieID)" +
+                " VALUES({0}, '{1}', GETDATE(), '{2}', '{3}')", review.NumberOfStars, review.Comment, accountID, review.MovieID), connection);
+            await command.ExecuteReaderAsync();
+            connection.Close();
+        }
+
+        public async Task UpdateReviewAsync(Review review)
+        {
+            connection.Open();
+            var command = new SqlCommand(String.Format("UPDATE Review SET NumberOfStars = {0}, Comment = '{1}' " +
+                "WHERE ReviewID = '{2}'",review.NumberOfStars, review.Comment, review.ReviewID), connection);
+            await command.ExecuteReaderAsync();
+            connection.Close();
+        }
+
         public async Task DeleteReviewAsync(Guid reviewID)
         {
             connection.Open();

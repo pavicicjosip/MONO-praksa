@@ -10,6 +10,8 @@ namespace TMDb.Service.Common
         Task<List<Review>> ReturnMovieReviewsAsync(Guid movieID);
         Task<List<Review>> ReturnMovieReviewsOrderedAsync(Guid movieID, string column, bool order);
         Task<List<Review>> ReturnUserReviewsOrderedAsync(Guid accountID, string column, bool order);
+        Task CreateReviewAsync(Review review, Guid accountID);
+        Task UpdateReviewAsync(Review review);
         Task RemoveReviewAsync(Guid reviewID);
     }
 }
