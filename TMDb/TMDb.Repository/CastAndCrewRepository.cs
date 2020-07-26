@@ -70,7 +70,7 @@ namespace TMDb.Repository
             await connection.OpenAsync();
             List<CastAndCrew> _out = new List<CastAndCrew>();
 
-            SqlCommand command = new SqlCommand("p_GetByLastName", connection);
+            SqlCommand command = new SqlCommand("p_GetByDateOfBirth", connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add(new SqlParameter("@DateOfBirth", date));
 
