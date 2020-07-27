@@ -30,5 +30,16 @@ namespace TMDb.Service
             return await movieRepository.SelectMovieByYearAsync(yearOfProduction);
         }
 
+        public async Task<List<Movie>> GetMoviesByGenreAsync(string genreTitle)
+        {
+            return await movieRepository.GetMoviesByGenreAsync(genreTitle);
+        }
+
+        public async Task<List<Movie>> GetMovieCastAndCrewAsync(string title)
+        {
+            return await movieRepository.GetMovieCastAndCrewAsync(title);
+        }
+
+
     }
 }
