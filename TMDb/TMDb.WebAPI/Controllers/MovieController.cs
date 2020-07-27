@@ -32,7 +32,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/Movie/Year/{year}")]
+        [Route("api/Movie/Year/{yearOfProduction}")]
         public async Task<HttpResponseMessage> SelectMovieByYearAsync([FromUri] int yearOfProduction)
         {
             var mapper = Mapper.CreateMapper();
