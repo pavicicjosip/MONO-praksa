@@ -59,5 +59,47 @@ namespace TMDb.Repository
             return list;
         }
 
+        public async Task<List<Movie>> GetMoviesByGenreAsync(string genreTitle)
+        {
+            var list = new List<Movie>();
+            var command = new SqlCommand("p_GetMovieByGenre", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Title", genreTitle);
+            connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+
+            if (reader.HasRows)
+            {
+                while(await reader.ReadAsync())
+                {
+                    list.Add(new Movie(reader.GetGuid(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetGuid(6)));
+                }
+            }
+
+            reader.Close();
+            connection.Close();
+            return list;
+        }
+
+        public async Task<List<Movie>> GetMovieCastAndCrewAsync(string title)
+        {
+            var list = new List<Movie>();
+            var command = new SqlCommand("p_GetMovieCastAndCrew", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Title", title);
+            connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+
+            if (reader.HasRows)
+            {
+                while (await reader.ReadAsync())
+                {
+                    list.Add(new Movie(reader.GetGuid(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetGuid(6)));
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return list;
+        }
     }
 }

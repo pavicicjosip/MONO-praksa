@@ -14,6 +14,9 @@ namespace TMDb.WebAPI.Controllers
     {
         protected IMovieService movieService { get; private set; }
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Movie, RestMovie>());
+        public MovieController()
+        {
+        }
         public MovieController(IMovieService movieService)
         {
             this.movieService = movieService;
@@ -28,17 +31,32 @@ namespace TMDb.WebAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }
 
-        /*
-
-        [HttpGet]
+        /*[HttpGet]
         [Route("api/Movie/Year/{year}")]
         public async Task<HttpResponseMessage> SelectMovieByYearAsync([FromUri] int yearOfProduction)
         {
             var mapper = Mapper.CreateMapper();
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByTitleAsync(yearOfProduction));
-            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+           return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }*/
 
+        [HttpGet]
+        [Route("api/Movie/Genre/{genreTitle}")]
+        public async Task<HttpResponseMessage> GetMovieByGenreAsync([FromUri] string genreTitle)
+        {
+            var mapper = Mapper.CreateMapper();
+            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.GetMoviesByGenreAsync(genreTitle));
+            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+        }
+
+        [HttpGet]
+        [Route("api/Movie/CastAndCrew/{title}")]
+        public async Task<HttpResponseMessage> GetMovieCastAndCrewAsync([FromUri] string title)
+        {
+            var mapper = Mapper.CreateMapper();
+            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.GetMovieCastAndCrewAsync(title));
+            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+        }
         public class RestMovie
         {
             public Guid MovieID
