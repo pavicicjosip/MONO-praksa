@@ -295,3 +295,6 @@ C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.WebAPI\obj\Debug\TMDb.WebA
 C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.WebAPI\obj\Debug\TMDb.WebAPI.csproj.CopyComplete
 C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.WebAPI\obj\Debug\TMDb.WebAPI.dll
 C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.WebAPI\obj\Debug\TMDb.WebAPI.pdb
+C:\Users\josip\Desktop\TMBd\TMDb\TMDb.WebAPI\bin\TMDb.Common.dll
+C:\Users\josip\Desktop\TMBd\TMDb\TMDb.WebAPI\bin\TMDb.Common.pdb
+C:\Users\josip\Desktop\TMBd\TMDb\TMDb.WebAPI\bin\TMDb.Common.dll.config

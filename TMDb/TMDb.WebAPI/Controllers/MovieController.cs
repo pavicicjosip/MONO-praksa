@@ -7,27 +7,39 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using TMDb.Model;
 using TMDb.Service.Common;
+using TMDb.Common;
 
 namespace TMDb.WebAPI.Controllers
 {
     public class MovieController : ApiController
     {
         protected IMovieService movieService { get; private set; }
+        protected IMovieFacade movieFacade { get; private set; }
+
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Movie, RestMovie>());
         public MovieController()
         {
         }
-        public MovieController(IMovieService movieService)
+        public MovieController(IMovieService movieService, IMovieFacade movieFacade)
         {
             this.movieService = movieService;
+            this.movieFacade = movieFacade;
         }
 
         [HttpGet]
-        [Route("api/Movie/Title/{title}")]
-        public async Task<HttpResponseMessage> SelectMovieByTitleAsync([FromUri] string title)
+        [Route("api/Movie/Title/{pageNumber}/{pageSize}")]
+        public async Task<HttpResponseMessage> SelectMovieByTitleAsync( [FromUri] int pageNumber, [FromUri] int pageSize, string yearOfProduction = "default"
+            , string genre = "default", string title = "default")
         {
             var mapper = Mapper.CreateMapper();
-            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByTitleAsync(title));
+
+            PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
+
+            movieFacade.movieYearOfProduction.YearOfProduction = yearOfProduction;
+            movieFacade.movieTitle.Title = title;
+            movieFacade.movieGenre.Genre = genre;
+
+            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByTitleAsync(pagedResponse, movieFacade));
             return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }
 

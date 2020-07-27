@@ -128,6 +128,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TMDb.Common\TMDb.Common.csproj">
+      <Project>{45a6e807-9b75-446f-891d-9e80ea79c016}</Project>
+      <Name>TMDb.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMDb.Model\TMDb.Model.csproj">
       <Project>{70f7ddf6-f454-4464-ae20-9c63ba0924cb}</Project>
       <Name>TMDb.Model</Name>

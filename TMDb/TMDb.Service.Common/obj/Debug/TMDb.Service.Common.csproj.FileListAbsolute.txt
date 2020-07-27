@@ -109,3 +109,6 @@ C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.Service.Common\obj\Debug\T
 C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.Service.Common\obj\Debug\TMDb.Service.Common.csproj.CopyComplete
 C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.Service.Common\obj\Debug\TMDb.Service.Common.dll
 C:\Users\Tea\Source\Repos\Praksa2020-g03-03\TMDb\TMDb.Service.Common\obj\Debug\TMDb.Service.Common.pdb
+C:\Users\josip\Desktop\TMBd\TMDb\TMDb.Service.Common\bin\Debug\TMDb.Common.dll
+C:\Users\josip\Desktop\TMBd\TMDb\TMDb.Service.Common\bin\Debug\TMDb.Common.pdb
+C:\Users\josip\Desktop\TMBd\TMDb\TMDb.Service.Common\bin\Debug\TMDb.Common.dll.config

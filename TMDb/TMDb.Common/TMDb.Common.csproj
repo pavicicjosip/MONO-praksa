@@ -69,6 +69,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DIMovieModule.cs" />
+    <Compile Include="IMovieFacade.cs" />
+    <Compile Include="IMovieGenre.cs" />
+    <Compile Include="IMovieTitle.cs" />
+    <Compile Include="IMovieYearOfProduction.cs" />
+    <Compile Include="MovieFacade.cs" />
+    <Compile Include="MovieTitle.cs" />
+    <Compile Include="MovieGenre.cs" />
+    <Compile Include="MovieYearOfProduction.cs" />
+    <Compile Include="PagedResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

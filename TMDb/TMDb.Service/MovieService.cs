@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TMDb.Model;
 using TMDb.Service.Common;
 using TMDb.Repository.Common;
-
+using TMDb.Common;
 
 namespace TMDb.Service
 {
@@ -20,9 +20,23 @@ namespace TMDb.Service
             this.movieRepository = movieRepository;
         }
 
-        public async Task<List<Movie>> SelectMovieByTitleAsync(string title)
+        public async Task<List<Movie>> SelectMovieByTitleAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade)
         {
-            return await movieRepository.SelectMovieByTitleAsync(title);
+            int pageNumberStart = (pagedResponse.PageNumber - 1) * pagedResponse.PageSize;
+
+            string whereStatement = imovieFacade.WhereStatement();
+            string stripedWhereStatement = "";
+
+            if ( !(whereStatement == "" )  && whereStatement[0] == '€' )
+                stripedWhereStatement = whereStatement.Remove(0, 1);
+
+            if ( whereStatement != stripedWhereStatement)
+                return await movieRepository.SelectMovieByTitleAsyncWith(pageNumberStart, pageNumberStart + pagedResponse.PageSize, stripedWhereStatement);
+            else
+                return await movieRepository.SelectMovieByTitleAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, stripedWhereStatement);
+
+
+
         }
 
         public async Task<List<Movie>> SelectMovieByYearAsync(int yearOfProduction)

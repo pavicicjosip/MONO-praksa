@@ -64,10 +64,20 @@ GO
 
 
 CREATE OR ALTER PROCEDURE p_GetMovieByName
-( @Title VARCHAR(80) )
+( @Title VARCHAR(80), 
+  @PageNumberStart INT,
+  @PageNumberEnd INT)
 AS
-	SELECT * FROM Movie WHERE Title = @Title;
+	SELECT  *
+	FROM    ( SELECT    ROW_NUMBER() OVER ( ORDER BY Title ) AS RowNum, *
+			  FROM      Movie
+			  WHERE     Title = @Title
+			) AS RowConstrainedResult
+	WHERE   RowNum >= @PageNumberStart
+		AND RowNum <= @PageNumberEnd
+	ORDER BY RowNum;
 GO
+
 
 CREATE OR ALTER PROCEDURE p_GetMovieByYear
 ( @YearOfProduction VARCHAR(80) )
@@ -179,3 +189,14 @@ GO
 	
 
 
+INSERT INTO Movie(Title, YearOfProduction, CountryOfOrigin, Duration, PlotOutline, FileID)
+VALUES ('Test', 1234, 'RVATIII', '45', 'Srp', '1180C2F6-A482-49F1-9628-5CA3D7EA6A3B' );
+
+SELECT * FROM Movie;
+
+
+SELECT m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID
+FROM Movie m, GenreMovie gm, Genre g
+WHERE  g.Title = 'Sport' AND gm.GenreID = g.GenreID AND m.MovieID = gm.MovieID ;
+
+SELECT * FROM Movie;
