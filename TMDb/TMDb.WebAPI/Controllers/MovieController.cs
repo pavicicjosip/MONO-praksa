@@ -31,14 +31,14 @@ namespace TMDb.WebAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }
 
-        /*[HttpGet]
+        [HttpGet]
         [Route("api/Movie/Year/{year}")]
         public async Task<HttpResponseMessage> SelectMovieByYearAsync([FromUri] int yearOfProduction)
         {
             var mapper = Mapper.CreateMapper();
-            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByTitleAsync(yearOfProduction));
+            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByYearAsync(yearOfProduction));
            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
-        }*/
+        }
 
         [HttpGet]
         [Route("api/Movie/Genre/{genreTitle}")]
