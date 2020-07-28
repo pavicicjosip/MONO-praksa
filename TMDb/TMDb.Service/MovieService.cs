@@ -20,21 +20,30 @@ namespace TMDb.Service
             this.movieRepository = movieRepository;
         }
 
-        public async Task<List<Movie>> SelectMovieByTitleAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade)
+        public async Task<List<Movie>> SelectMovieAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade, ISorting sort)
         {
             int pageNumberStart = (pagedResponse.PageNumber - 1) * pagedResponse.PageSize;
+            if (sort.Column == "default")
+            {
+                sort.Column = "m.Title";
+                sort.Order = true;
+            }
 
             string whereStatement = imovieFacade.WhereStatement();
             string stripedWhereStatement = "";
-
-            if ( !(whereStatement == "" )  && whereStatement[0] == '€' )
+            string joinTables = "";
+            if (!(whereStatement == "") && whereStatement[0] == '€')
                 stripedWhereStatement = whereStatement.Remove(0, 1);
 
-            if ( whereStatement != stripedWhereStatement)
-                return await movieRepository.SelectMovieByTitleAsyncWith(pageNumberStart, pageNumberStart + pagedResponse.PageSize, stripedWhereStatement);
+            if (stripedWhereStatement != "")
+            {
+                joinTables = ", GenreMovie gm, Genre g ";
+                return await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, stripedWhereStatement, joinTables, sort);
+            }
             else
-                return await movieRepository.SelectMovieByTitleAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, stripedWhereStatement);
-
+            {
+                return await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, sort);
+            }
 
 
         }

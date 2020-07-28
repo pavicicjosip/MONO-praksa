@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISorting.cs" />
+    <Compile Include="Sorting.cs" />
     <Compile Include="DIMovieModule.cs" />
     <Compile Include="IMovieFacade.cs" />
     <Compile Include="IMovieGenre.cs" />

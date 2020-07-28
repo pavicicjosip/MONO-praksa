@@ -16,13 +16,15 @@ namespace TMDb.Repository
     public class MovieRepository : IMovieRepository
     {
         private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
-        public async Task<List<Movie>> SelectMovieByTitleAsync( int pageNumberStart, int pageNumberEnd, string whereStatement)
-        {
+        /*
+        public async Task<List<Movie>> SelectMovieByTitleAsync( int pageNumberStart, int pageNumberEnd, string whereStatement, ISort sort)
+        {   
             var list = new List<Movie>();
+            string orderBy = sort.OrderBy();
             var command = new SqlCommand(
                 "SELECT * FROM " +
-                " (SELECT ROW_NUMBER() OVER ( ORDER BY m.Title )  AS RowNum, * " +
-                " FROM Movie m" +
+                String.Format(" (SELECT ROW_NUMBER() OVER ( ORDER BY {0})  AS RowNum, * ", orderBy) +
+                " FROM Movie m " +
                 whereStatement + " ) AS RowConstrainedResult " +
                 "WHERE   RowNum >= @PageNumberStart " +
                 "AND RowNum <= @PageNumberEnd " +
@@ -47,15 +49,16 @@ namespace TMDb.Repository
             connection.Close();
             return list;
         }
+        */
 
-
-        public async Task<List<Movie>> SelectMovieByTitleAsyncWith(int pageNumberStart, int pageNumberEnd, string whereStatement)
+        public async Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, ISorting sort)
         {
             var list = new List<Movie>();
+            string orderBy = sort.OrderBy();
             var command = new SqlCommand(
                 "SELECT * FROM " +
-                " (SELECT ROW_NUMBER() OVER ( ORDER BY m.Title ) AS RowNum, m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID " +
-                " FROM Movie m, GenreMovie gm, Genre g " +
+                String.Format(" (SELECT ROW_NUMBER() OVER ( ORDER BY {0}) AS RowNum, m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID ", orderBy) +
+                String.Format(" FROM Movie m {0}", joinTables) +
                 whereStatement + " ) AS RowConstrainedResult " +
                 "WHERE   RowNum >= @PageNumberStart " +
                 "AND RowNum <= @PageNumberEnd " +
@@ -64,7 +67,6 @@ namespace TMDb.Repository
 
             command.Parameters.AddWithValue("@PageNumberStart", pageNumberStart);
             command.Parameters.AddWithValue("@PageNumberEnd", pageNumberEnd);
-
             connection.Open();
             SqlDataReader reader = await command.ExecuteReaderAsync();
 
@@ -116,7 +118,7 @@ namespace TMDb.Repository
 
             if (reader.HasRows)
             {
-                while(await reader.ReadAsync())
+                while (await reader.ReadAsync())
                 {
                     list.Add(new Movie(reader.GetGuid(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetGuid(6)));
                 }

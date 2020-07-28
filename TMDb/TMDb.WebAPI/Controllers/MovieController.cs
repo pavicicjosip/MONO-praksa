@@ -28,18 +28,19 @@ namespace TMDb.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/Movie/Title/{pageNumber}/{pageSize}")]
-        public async Task<HttpResponseMessage> SelectMovieByTitleAsync( [FromUri] int pageNumber, [FromUri] int pageSize, string yearOfProduction = "default"
-            , string genre = "default", string title = "default")
+        public async Task<HttpResponseMessage> SelectMovieAsync([FromUri] int pageNumber, [FromUri] int pageSize, string yearOfProduction = "default"
+            , string genre = "default", string title = "default", string column = "default", bool order = true)
         {
             var mapper = Mapper.CreateMapper();
 
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
+            Sorting sort = new Sorting { Column = column, Order = order };
 
             movieFacade.movieYearOfProduction.YearOfProduction = yearOfProduction;
             movieFacade.movieTitle.Title = title;
             movieFacade.movieGenre.Genre = genre;
 
-            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByTitleAsync(pagedResponse, movieFacade));
+            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieAsync(pagedResponse, movieFacade, sort));
             return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }
 
@@ -49,7 +50,7 @@ namespace TMDb.WebAPI.Controllers
         {
             var mapper = Mapper.CreateMapper();
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByYearAsync(yearOfProduction));
-           return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }
 
         [HttpGet]
