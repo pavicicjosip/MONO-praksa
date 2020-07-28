@@ -69,6 +69,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AccountAccountID.cs" />
+    <Compile Include="Account\AccountFacade.cs" />
+    <Compile Include="Account\AccountUserName.cs" />
+    <Compile Include="Account\AccountUserPassword.cs" />
+    <Compile Include="Account\DIAccountModule.cs" />
+    <Compile Include="Account\IAccountAccountID.cs" />
+    <Compile Include="Account\IAccountFacade.cs" />
+    <Compile Include="Account\IAccountUserName.cs" />
+    <Compile Include="Account\IAccountUserPassword.cs" />
     <Compile Include="ISorting.cs" />
     <Compile Include="Sorting.cs" />
     <Compile Include="DIMovieModule.cs" />

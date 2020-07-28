@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using TMDb.Repository.Common;
 using TMDb.Model;
 using TMDb.Service.Common;
+using System.Security.Cryptography;
+using TMDb.Common.Account;
+using TMDb.Common;
 
 namespace TMDb.Service
 {
@@ -18,14 +21,13 @@ namespace TMDb.Service
             this._IAccountRepository = _IAccountRepository;
         }
 
-        public async Task<Account> SelectAccountAsync(Guid accountID)
+        public async Task<Account> SelectAccountAsync(IAccountFacade iAccountFacade)
         {
-            return await _IAccountRepository.SelectAccountAsync(accountID);
-        }
+            if (iAccountFacade.UserPassword.UserPassword != "")
+                iAccountFacade.UserPassword.UserPassword = Sha256Hash(iAccountFacade.UserPassword.UserPassword);
+            string whereStatement = iAccountFacade.WhereStatement();
 
-        public async Task<Account> SelectAccountAsync(Account acc)
-        {
-            return await _IAccountRepository.SelectAccountAsync(acc);
+            return await _IAccountRepository.SelectAccountAsync(whereStatement);
         }
 
         public async Task DeleteAccountAsync(Guid accountID)
@@ -35,19 +37,40 @@ namespace TMDb.Service
 
         public async Task UpdateAccountAsync(Account acc)
         {
-            Account account = await _IAccountRepository.SelectAccountAsync(acc.AccountID);
+            Account account = await _IAccountRepository.SelectAccountAsync(" WHERE AccountID = " + "'" + acc.AccountID + "'");
 
 
             if (acc.Email != "")
                 account.Email = acc.Email;
-            if (acc.Username != "")
-                account.Username = acc.Username;
+            if (acc.UserName != "")
+                account.UserName = acc.UserName;
             if (acc.UserPassword != "")
-                account.UserPassword = acc.UserPassword;
+                account.UserPassword = Sha256Hash(acc.UserPassword);
             if (acc.FileID.ToString() != "")
                 account.FileID = acc.FileID;
 
             await _IAccountRepository.UpdateAccountAsync(account);
+        }
+
+        public async Task InsertAccountAsync(Account acc)
+        {
+            acc.UserPassword = Sha256Hash(acc.UserPassword);
+            await _IAccountRepository.InsertAccountAsync(acc);
+        }
+
+        static string Sha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }

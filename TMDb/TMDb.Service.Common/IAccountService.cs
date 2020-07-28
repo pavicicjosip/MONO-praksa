@@ -5,14 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TMDb.Repository.Common;
 using TMDb.Model;
+using TMDb.Common.Account;
+using TMDb.Common;
 
 namespace TMDb.Service.Common
 {
     public interface IAccountService
     {
-        Task<Account> SelectAccountAsync(Account acc);
+        Task<Account> SelectAccountAsync(IAccountFacade iAccountFacade);
         Task DeleteAccountAsync(Guid accountID);
         Task UpdateAccountAsync(Account acc);
-        Task<Account> SelectAccountAsync(Guid accountID);
+        Task InsertAccountAsync(Account acc);
     }
 }

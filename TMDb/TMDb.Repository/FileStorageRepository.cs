@@ -12,7 +12,7 @@ using System.Data;
 
 namespace TMDb.Repository
 {
-    public class FileStorageRepository
+    public class FileStorageRepository : IFileStorageRepository
     {
        private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
        public async Task RemoveFileAsync(Guid fileID)
