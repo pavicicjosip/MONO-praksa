@@ -22,7 +22,7 @@ namespace TMDb.Model
         {
             this.AccountID = accountID;
             this.Email = email;
-            this.Username = username;
+            this.UserName = username;
             this.UserPassword = userPassword;
             this.FileID = fileID;
         }

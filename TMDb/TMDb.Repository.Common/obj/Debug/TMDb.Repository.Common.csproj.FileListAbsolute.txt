@@ -106,3 +106,6 @@ C:\Users\josip\Desktop\TMBd\TMDb\TMDb.Repository.Common\bin\Debug\TMDb.Common.dl
 C:\Users\Tea\source\repos\Praksa2020-g03-03\TMDb\TMDb.Repository.Common\bin\Debug\TMDb.Common.dll
 C:\Users\Tea\source\repos\Praksa2020-g03-03\TMDb\TMDb.Repository.Common\bin\Debug\TMDb.Common.pdb
 C:\Users\Tea\source\repos\Praksa2020-g03-03\TMDb\TMDb.Repository.Common\bin\Debug\TMDb.Common.dll.config
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Repository.Common\bin\Debug\TMDb.Common.dll
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Repository.Common\bin\Debug\TMDb.Common.pdb
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Repository.Common\bin\Debug\TMDb.Common.dll.config

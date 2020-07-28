@@ -10,7 +10,7 @@ namespace TMDb.Model.Common
     {
         Guid AccountID { get; set; }
         string Email { get; set; }
-        string Username { get; set; }
+        string UserName { get; set; }
         string UserPassword { get; set; }
         Guid FileID { get; set; }
     }
