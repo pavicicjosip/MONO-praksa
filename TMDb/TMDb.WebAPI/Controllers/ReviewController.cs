@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace TMDb.WebAPI.Controllers
 {
+    /// <summary>
+    /// paging, sorting, filtering treba dodat
+    /// </summary>
     public class ReviewController : ApiController
     {
         protected IReviewService reviewService
