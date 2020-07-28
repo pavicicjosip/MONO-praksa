@@ -11,7 +11,8 @@ namespace TMDb.WebAPI.Controllers
     {
         ///<summary>
         ///insert
-        ///delete
+        ///delete po accountID i listName
+        ///Delete po accountID, listName i MovieID
         ///get po accountID
         ///promjena na bazi
         ///promjeniti model od movielists
