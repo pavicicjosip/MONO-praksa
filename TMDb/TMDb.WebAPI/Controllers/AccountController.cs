@@ -12,6 +12,9 @@ using AutoMapper;
 
 namespace TMDb.WebAPI.Controllers
 {
+    /// <summary>
+    /// hash lozinka i kada napravimo tokenizaciju bit će promjena 
+    /// </summary>
     public class AccountController : ApiController
     {
         protected IAccountService _IAccountService { get; set; }

@@ -70,6 +70,17 @@ namespace TMDb.WebAPI.Controllers
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.GetMovieCastAndCrewAsync(title));
             return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
         }
+
+        /*
+        - Popraviti paging
+        - get sve filmove koje je ocjenio određeni user
+        - get filmove po broju komentara, sortiranje 
+        - get za najolje ocjenje filmove, sortiranje
+        - delete
+        - update
+        - insert
+        */
+
         public class RestMovie
         {
             public Guid MovieID

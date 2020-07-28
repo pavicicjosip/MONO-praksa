@@ -12,6 +12,10 @@ using AutoMapper;
 
 namespace TMDb.WebAPI.Controllers
 {
+    /// <summary>
+    /// dodati get svi koji sudjeluju na određenom filmu
+    /// dodati paging, sorting, filtering
+    /// </summary>
     public class CastAndCrewController : ApiController
     {
         protected ICastAndCrewService _ICastAndCrewService { get; set; }
