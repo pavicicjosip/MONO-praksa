@@ -35,7 +35,7 @@ namespace TMDb.Repository
         public async Task<FileStorage> ReturnFileByIdAsync(Guid fileID)
         {
             FileStorage file;
-            var command = new SqlCommand(String.Format("SELECT * FROM FileStorage WHERE Id = '{0}'", fileID), connection);
+            var command = new SqlCommand(String.Format("SELECT * FROM FileStorage WHERE FileID = '{0}'", fileID), connection);
             connection.Open();
             SqlDataReader reader = await command.ExecuteReaderAsync();
             if (reader.HasRows)
