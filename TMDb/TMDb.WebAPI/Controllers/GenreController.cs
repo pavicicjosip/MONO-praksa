@@ -27,7 +27,7 @@ namespace TMDb.WebAPI.Controllers
             this.genreService = genreService;
 
         }
-
+        [HttpGet]
         [Route("api/Genre/getAllGenres")]
         public async Task<HttpResponseMessage> ReturnAllGenresAsync()
         {

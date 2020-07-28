@@ -37,6 +37,7 @@ namespace TMDb.WebAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        [HttpPost]
         [Route("api/FileStorage")]
         public async Task<HttpResponseMessage> InsertFileAsync(string imageName, string imagePath)
         {
@@ -44,16 +45,17 @@ namespace TMDb.WebAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, String.Format("{0} {1} inserted in the database", imageName, imagePath));
         }
 
+        [HttpGet]
         [Route("api/FileStorage")]
         public async Task<HttpResponseMessage> ReturnFileByIdAsync(Guid fileID)
         {
             var mapper = Mapper.CreateMapper();
             RestFileStorage file = mapper.Map<RestFileStorage>(await fileStorageService.ReturnFileByIdAsync(fileID));
-            var Path = System.Web.Hosting.HostingEnvironment.MapPath("~/" + file.ImagePath + file.ImageName);
             if (file == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, String.Format("There is no file with Id: {0}", fileID));
             }
+            var Path = System.Web.Hosting.HostingEnvironment.MapPath("~/" + file.ImagePath + file.ImageName);
             return Request.CreateResponse(HttpStatusCode.OK, Path);
         }
         public class RestFileStorage
