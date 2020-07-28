@@ -28,7 +28,6 @@ namespace TMDb.WebAPI.Controllers
 
         }
 
-
         [Route("api/Genre/getAllGenres")]
         public async Task<HttpResponseMessage> ReturnAllGenresAsync()
         {
@@ -37,10 +36,13 @@ namespace TMDb.WebAPI.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, restGenreList);
         }
-
         public class RestGenre
         {
             public string Title { get; set; }
+            public RestGenre(string title)
+            {
+                this.Title = title;
+            }
         }
 
     }

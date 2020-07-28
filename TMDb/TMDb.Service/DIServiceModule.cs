@@ -16,6 +16,8 @@ namespace TMDb.Service
             builder.RegisterType<ReviewService>().As<IReviewService>();
             builder.RegisterType<MovieService>().As<IMovieService>();
             builder.RegisterType<CastAndCrewService>().As<ICastAndCrewService>();
+            builder.RegisterType<GenreService>().As<IGenreService>();
+            builder.RegisterType<FileStorageService>.As<IFileStorageService>();
         }
     }
 }
