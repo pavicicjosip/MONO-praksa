@@ -22,7 +22,7 @@ namespace TMDb.WebAPI.Controllers
         protected IFileStorageService fileStorageService
         { get; private set; }
 
-        static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Review, RestReview>().ReverseMap());
+        static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileStorage, RestFileStorage>().ReverseMap());
 
         public FileStorageController(IFileStorageService fileStorageService)
         {

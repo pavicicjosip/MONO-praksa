@@ -73,6 +73,7 @@
     <Compile Include="CastAndCrewService.cs" />
     <Compile Include="DIServiceModule.cs" />
     <Compile Include="FileStorageService.cs" />
+    <Compile Include="GenreService.cs" />
     <Compile Include="MovieService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReviewService.cs" />

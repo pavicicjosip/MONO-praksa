@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="IAccountRepository.cs" />
     <Compile Include="IFileStorageRepository.cs" />
+    <Compile Include="IGenreRepository.cs" />
     <Compile Include="IMovieRepository.cs" />
     <Compile Include="ICastAndCrewRepository.cs" />
     <Compile Include="IReviewRepository.cs" />

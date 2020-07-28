@@ -9,9 +9,10 @@ using TMDb.Model.Common;
 namespace TMDb.Model
 {
     public class Genre : IGenre
-    {
-        public Guid GenreID { get; set; }
+    {        
         public string Title { get; set; }
+        public Guid GenreID { get; set; }
+
 
         public Genre(Guid genreID, string title)
         {
