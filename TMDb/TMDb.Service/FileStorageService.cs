@@ -9,7 +9,7 @@ using TMDb.Service.Common;
 
 namespace TMDb.Service
 {
-    class FileStorageService : IFileStorageService
+    public class FileStorageService : IFileStorageService
     {
         protected IFileStorageRepository fileStorageRepository
         { get; private set; }
