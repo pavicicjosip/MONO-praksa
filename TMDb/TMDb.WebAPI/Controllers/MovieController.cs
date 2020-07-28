@@ -16,7 +16,7 @@ namespace TMDb.WebAPI.Controllers
         protected IMovieService movieService { get; private set; }
         protected IMovieFacade movieFacade { get; private set; }
 
-        static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Movie, RestMovie>());
+        static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Movie, RestMovie>().ReverseMap());
         public MovieController()
         {
         }
@@ -27,8 +27,8 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/Movie/Title/{pageNumber}/{pageSize}")]
-        public async Task<HttpResponseMessage> SelectMovieAsync([FromUri] int pageNumber, [FromUri] int pageSize, string yearOfProduction = "default"
+        [Route("api/Movie")]
+        public async Task<HttpResponseMessage> SelectMovieAsync(int pageNumber = 1, [FromUri] int pageSize = 10, string yearOfProduction = "default"
             , string genre = "default", string title = "default", string column = "default", bool order = true)
         {
             var mapper = Mapper.CreateMapper();
@@ -39,46 +39,67 @@ namespace TMDb.WebAPI.Controllers
             movieFacade.movieYearOfProduction.YearOfProduction = yearOfProduction;
             movieFacade.movieTitle.Title = title;
             movieFacade.movieGenre.Genre = genre;
-
-            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieAsync(pagedResponse, movieFacade, sort));
-            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+            var movieTuple = await movieService.SelectMovieAsync(pagedResponse, movieFacade, sort);
+            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(movieTuple.Item2);
+            var restMovieTuple = new Tuple<int, List<Movie>>(movieTuple.Item1, movieTuple.Item2);
+            return Request.CreateResponse(HttpStatusCode.OK, restMovieTuple);
         }
 
-        [HttpGet]
-        [Route("api/Movie/Year/{yearOfProduction}")]
-        public async Task<HttpResponseMessage> SelectMovieByYearAsync([FromUri] int yearOfProduction)
+        [HttpPost]
+        [Route("api/Movie")]
+        public async Task<HttpResponseMessage> PostMovieAsync(RestMovie restMovie)
         {
             var mapper = Mapper.CreateMapper();
-            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.SelectMovieByYearAsync(yearOfProduction));
-            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+            Movie movie = mapper.Map<Movie>(restMovie);
+            await movieService.CreateMovieAsync(movie);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [HttpGet]
-        [Route("api/Movie/Genre/{genreTitle}")]
-        public async Task<HttpResponseMessage> GetMovieByGenreAsync([FromUri] string genreTitle)
+        [HttpPut]
+        [Route("api/Movie")]
+        public async Task<HttpResponseMessage> PutMovieAsync(Guid movieID, RestMovie restMovie)
         {
             var mapper = Mapper.CreateMapper();
-            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.GetMoviesByGenreAsync(genreTitle));
-            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+            Movie movie = mapper.Map<Movie>(restMovie);
+            movie.MovieID = movieID;
+            await movieService.UpdateMovieAsync(movie);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [HttpGet]
-        [Route("api/Movie/CastAndCrew/{title}")]
-        public async Task<HttpResponseMessage> GetMovieCastAndCrewAsync([FromUri] string title)
+        [HttpDelete]
+        [Route("api/Movie")]
+        public async Task<HttpResponseMessage> DeleteMoviewAsync(Guid movieID)
         {
-            var mapper = Mapper.CreateMapper();
-            List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(await movieService.GetMovieCastAndCrewAsync(title));
-            return Request.CreateResponse(HttpStatusCode.OK, restMovieList);
+            await movieService.RemoveMovieAsync(movieID);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         /*
-        - Popraviti paging
         - get sve filmove koje je ocjenio određeni user
+        SELECT m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID
+        FROM Movie m, Review r
+        WHERE r.MovieID = m.MovieID AND r.AccountID = '8EAA8D25-5014-4108-9486-33592DBF56D8'
+        GROUP BY m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID
+        
+        OVO GORE MOZDA MOZE U GORNJI GET
+        --------------------------------------------------------------------------------------------------------
         - get filmove po broju komentara, sortiranje 
+        podupit:
+        SELECT COUNT(ReviewID), MovieID
+        FROM Review
+        GROUP BY MovieID
+        ORDER BY COUNT(ReviewID) ASC
+
+        --------------------------------------------------------------------------------------------------------
         - get za najolje ocjenje filmove, sortiranje
-        - delete
-        - update
-        - insert
+        podupit:
+        SELECT AVG(NumberOfStars), MovieID
+        FROM Review
+        GROUP BY MovieID
+        ORDER BY AVG(NumberOfStars) ASC
+
+
+        CAST(NumberOfStars AS FLOAT) gore u AVG umjesto NumberOfStars? (ili promijeniti NumberOfStars u float u tablici?)
         */
 
         public class RestMovie

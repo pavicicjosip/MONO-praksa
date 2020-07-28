@@ -8,10 +8,9 @@ namespace TMDb.Service.Common
 {
     public interface IMovieService
     {
-        Task<List<Movie>> SelectMovieAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade, ISorting sort);
-        Task<List<Movie>> SelectMovieByYearAsync(int yearOfProduction);
-        Task<List<Movie>> GetMoviesByGenreAsync(string genreTitle);
-        Task<List<Movie>> GetMovieCastAndCrewAsync(string title);
-
+        Task<Tuple<int, List<Movie>>> SelectMovieAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade, Sorting sort);
+        Task CreateMovieAsync(Movie movie);
+        Task UpdateMovieAsync(Movie movie);
+        Task RemoveMovieAsync(Guid movieID);
     }
 }
