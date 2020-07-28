@@ -8,9 +8,10 @@ namespace TMDb.Repository.Common
 {
     public interface IMovieRepository
     {
-        Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, ISorting sort);
-        Task<List<Movie>> SelectMovieByYearAsync(int yearOfProduction);
-        Task<List<Movie>> GetMoviesByGenreAsync(string genreTitle);
-        Task<List<Movie>> GetMovieCastAndCrewAsync(string title);
+        Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, Sorting sort);
+        Task<int> SelectNumberOfResultsAsync(string whereStatement, string joinTables);
+        Task InsertMovieAsync(Movie movie);
+        Task UpdateMovieAsync(Movie movie);
+        Task DeleteMovieAsync(Guid movieID);
     }
 }

@@ -20,7 +20,7 @@ namespace TMDb.Service
             this.movieRepository = movieRepository;
         }
 
-        public async Task<List<Movie>> SelectMovieAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade, ISorting sort)
+        public async Task<Tuple<int, List<Movie>>> SelectMovieAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade, Sorting sort)
         {
             int pageNumberStart = (pagedResponse.PageNumber - 1) * pagedResponse.PageSize;
             if (sort.Column == "default")
@@ -32,37 +32,37 @@ namespace TMDb.Service
             string whereStatement = imovieFacade.WhereStatement();
             string stripedWhereStatement = "";
             string joinTables = "";
+            int numberOfResults;
+
             if (!(whereStatement == "") && whereStatement[0] == '€')
                 stripedWhereStatement = whereStatement.Remove(0, 1);
 
             if (stripedWhereStatement != "")
             {
                 joinTables = ", GenreMovie gm, Genre g ";
-                return await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, stripedWhereStatement, joinTables, sort);
+                numberOfResults = await movieRepository.SelectNumberOfResultsAsync(stripedWhereStatement, joinTables);
+                return new Tuple<int, List<Movie>>(numberOfResults, await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, stripedWhereStatement, joinTables, sort));
             }
             else
             {
-                return await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, sort);
+                numberOfResults = await movieRepository.SelectNumberOfResultsAsync(whereStatement, joinTables);
+                return new Tuple<int, List<Movie>>(numberOfResults, await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, sort));
             }
-
-
         }
 
-        public async Task<List<Movie>> SelectMovieByYearAsync(int yearOfProduction)
+        public async Task CreateMovieAsync(Movie movie)
         {
-            return await movieRepository.SelectMovieByYearAsync(yearOfProduction);
+            await movieRepository.InsertMovieAsync(movie);
         }
 
-        public async Task<List<Movie>> GetMoviesByGenreAsync(string genreTitle)
+        public async Task UpdateMovieAsync(Movie movie)
         {
-            return await movieRepository.GetMoviesByGenreAsync(genreTitle);
+            await movieRepository.UpdateMovieAsync(movie);
         }
 
-        public async Task<List<Movie>> GetMovieCastAndCrewAsync(string title)
+        public async Task RemoveMovieAsync(Guid movieID)
         {
-            return await movieRepository.GetMovieCastAndCrewAsync(title);
+            await movieRepository.DeleteMovieAsync(movieID);
         }
-
-
     }
 }
