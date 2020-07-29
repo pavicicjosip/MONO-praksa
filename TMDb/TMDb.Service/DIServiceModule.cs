@@ -19,6 +19,7 @@ namespace TMDb.Service
             builder.RegisterType<GenreService>().As<IGenreService>();
             builder.RegisterType<FileStorageService>().As<IFileStorageService>();
             builder.RegisterType<GenreMovieService>().As<IGenreMovieService>();
+            builder.RegisterType<UserGenreService>().As<IUserGenreService>();
         }
     }
 }

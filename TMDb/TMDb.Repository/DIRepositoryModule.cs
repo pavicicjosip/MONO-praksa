@@ -20,6 +20,7 @@ namespace TMDb.Repository
             builder.RegisterType<GenreRepository>().As<IGenreRepository>();
             builder.RegisterType<FileStorageRepository>().As<IFileStorageRepository>();
             builder.RegisterType<GenreMovieRepository>().As<IGenreMovieRepository>();
+            builder.RegisterType<UserGenreRepository>().As<IUserGenreRepository>();
         }
 
     }
