@@ -14,6 +14,10 @@ namespace TMDb.WebAPI.Controllers
     public class GenreMovieController : ApiController
     {
         protected IGenreMovieService genreMovieService { get; private set; }
+        public GenreMovieController(IGenreMovieService genreMovieService) 
+        { 
+            this.genreMovieService = genreMovieService; 
+        }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<GenreMovie, RestGenreMovie>().ReverseMap());
 
@@ -42,8 +46,8 @@ namespace TMDb.WebAPI.Controllers
         }
         public class RestGenreMovie
         {
-            public Guid GenreID { get; set; }
             public Guid MovieID { get; set; }
+            public Guid GenreID { get; set; }
         }
 
     }

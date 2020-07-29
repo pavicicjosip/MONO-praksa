@@ -14,9 +14,5 @@ namespace TMDb.Service.Common
     {
         Task InsertGenreMovieAsync(GenreMovie genreMovie);
         Task<List<string>> GetGenreOfMovieAsync(Guid movieID);
-
-
-
-
     }
 }

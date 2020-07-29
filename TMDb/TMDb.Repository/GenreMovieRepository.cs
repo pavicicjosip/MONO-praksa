@@ -20,8 +20,10 @@ namespace TMDb.Repository
         {
             await connection.OpenAsync();
 
-            SqlCommand command = new SqlCommand("p_InsertGenreMovie", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            SqlCommand command = new SqlCommand("p_InsertGenreMovie", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
             command.Parameters.Add(new SqlParameter("@MovieID", genreMovie.MovieID));
             command.Parameters.Add(new SqlParameter("@GenreID", genreMovie.GenreID));
             await command.ExecuteNonQueryAsync();
@@ -32,8 +34,10 @@ namespace TMDb.Repository
         {
             await connection.OpenAsync();
             List<string> list = new List<string>();
-            var command = new SqlCommand("p_SelectGenreOfMovie", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            var command = new SqlCommand("p_SelectGenreOfMovie", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
             command.Parameters.Add(new SqlParameter("@MovieID", movieID));
             SqlDataReader reader = await command.ExecuteReaderAsync();
             if (reader.HasRows)
