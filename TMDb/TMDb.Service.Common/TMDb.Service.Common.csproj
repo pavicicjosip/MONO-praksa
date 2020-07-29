@@ -76,6 +76,7 @@
     <Compile Include="IGenreService.cs" />
     <Compile Include="IMovieService.cs" />
     <Compile Include="IReviewService.cs" />
+    <Compile Include="IUserGenreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

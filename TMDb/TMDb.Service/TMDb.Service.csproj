@@ -78,6 +78,7 @@
     <Compile Include="MovieService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReviewService.cs" />
+    <Compile Include="UserGenreService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -79,6 +79,7 @@
     <Compile Include="MovieRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReviewRepository.cs" />
+    <Compile Include="UserGenreRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
