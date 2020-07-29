@@ -8,5 +8,6 @@ namespace TMDb.Service.Common
 {
     public interface ICCMovieService
     {
+        Task InsertCCMovieAsync(CCMovie ccMovie);
     }
 }

@@ -7,5 +7,6 @@ namespace TMDb.Repository.Common
 {
     public interface ICCMovieRepository
     {
+        Task InsertCCMovieAsync(CCMovie ccMovie);
     }
 }
