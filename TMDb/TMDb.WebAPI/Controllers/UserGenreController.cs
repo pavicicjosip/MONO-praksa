@@ -17,7 +17,6 @@ namespace TMDb.WebAPI.Controllers
         ///<summary>
         ///get po accountID - vraća 10 najbolje ocjenjenih filmova od jednog, drugog, trećeg ... žanra
         ///get da  vrati najdraže žanrove od usera
-        ///delete
         ///</summary>
 
         protected IUserGenreService userGenreService { get; private set; }
@@ -36,6 +35,28 @@ namespace TMDb.WebAPI.Controllers
             UserGenre userGenre = mapper.Map<UserGenre>(restUserGenre);
             await userGenreService.InsertUserGenreAsync(userGenre);
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+        [HttpDelete]
+        [Route("api/UserGenre/deleteUserGenre")]
+        public async Task<HttpResponseMessage> RemoveUserGenreAsync(Guid accountID, Guid genreID)
+        {
+            await userGenreService.RemoveUserGenreAsync(accountID, genreID);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [HttpGet]
+        [Route("api/UserGenre/{accountID}")]
+        public async Task<HttpResponseMessage> SelectFavouriteGenreAsync(Guid accountID)
+        {
+            List<Genre> list = await userGenreService.SelectFavouriteGenreAsync(accountID);
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, list);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
         }
 
         public class RestUserGenre
