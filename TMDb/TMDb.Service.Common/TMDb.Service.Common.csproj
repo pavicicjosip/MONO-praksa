@@ -70,11 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAccountService.cs" />
+    <Compile Include="ICastAndCrewService.cs" />
     <Compile Include="IFileStorageService.cs" />
     <Compile Include="IGenreMovieService.cs" />
     <Compile Include="IGenreService.cs" />
     <Compile Include="IMovieService.cs" />
-    <Compile Include="ICastAndCrewService.cs" />
     <Compile Include="IReviewService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

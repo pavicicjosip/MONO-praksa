@@ -78,6 +78,17 @@
     <Compile Include="Account\IAccountFacade.cs" />
     <Compile Include="Account\IAccountUserName.cs" />
     <Compile Include="Account\IAccountUserPassword.cs" />
+    <Compile Include="CastAndCrew\CACDateOfBirth.cs" />
+    <Compile Include="CastAndCrew\CACFirstName.cs" />
+    <Compile Include="CastAndCrew\CACLastName.cs" />
+    <Compile Include="CastAndCrew\CACMovieID.cs" />
+    <Compile Include="CastAndCrew\CastAndCrewFacade.cs" />
+    <Compile Include="CastAndCrew\DICastAndCrewModule.cs" />
+    <Compile Include="CastAndCrew\ICACDateOfBirth.cs" />
+    <Compile Include="CastAndCrew\ICACFirstName.cs" />
+    <Compile Include="CastAndCrew\ICACLastName.cs" />
+    <Compile Include="CastAndCrew\ICACMovieID.cs" />
+    <Compile Include="CastAndCrew\ICastAndCrewFacade.cs" />
     <Compile Include="ISorting.cs" />
     <Compile Include="Sorting.cs" />
     <Compile Include="DIMovieModule.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TMDb.Repository.Common;
 using TMDb.Service.Common;
 using TMDb.Model;
+using TMDb.Common.CastAndCrew;
 
 namespace TMDb.Service
 {
@@ -17,19 +18,9 @@ namespace TMDb.Service
         {
             this._ICastAndCrewRepository = _ICastAndCrewRepository;
         }
-        public async Task<List<CastAndCrew>> SelectByFirstNameAsync(string firstName)
+        public async Task<List<CastAndCrew>> SelectAsync(ICastAndCrewFacade castAndCrewFacade)
         {
-            return await _ICastAndCrewRepository.SelectByFirstNameAsync(firstName);
-        }
-
-        public async Task<List<CastAndCrew>> SelectByLastNameAsync(string lastName)
-        {
-            return await _ICastAndCrewRepository.SelectByLastNameAsync(lastName);
-        }
-
-        public async Task<List<CastAndCrew>> SelectByDateOfBirthAsync(string date)
-        {
-            return await _ICastAndCrewRepository.SelectByDateOfBirthAsync(date);
+            return await _ICastAndCrewRepository.SelectAsync(castAndCrewFacade);
         }
     }
 }

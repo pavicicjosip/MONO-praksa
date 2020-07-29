@@ -9,78 +9,38 @@ using TMDb.Service.Common;
 using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
+using System.Web;
+using TMDb.Common.CastAndCrew;
 
 namespace TMDb.WebAPI.Controllers
 {
     /// <summary>
-    /// dodati get svi koji sudjeluju na određenom filmu
-    /// dodati paging, sorting, filtering
+    /// dodati paging, sorting
     /// </summary>
     public class CastAndCrewController : ApiController
     {
         protected ICastAndCrewService _ICastAndCrewService { get; set; }
-        public CastAndCrewController(ICastAndCrewService iCastAndCrewService)
+        protected ICastAndCrewFacade castAndCrewFacade { get; set; }
+        public CastAndCrewController(ICastAndCrewService iCastAndCrewService, ICastAndCrewFacade iCastAndCrewFacade)
         {
             this._ICastAndCrewService = iCastAndCrewService;
+            this.castAndCrewFacade = iCastAndCrewFacade;
         }
 
         [HttpGet]
-        [Route("api/CastAndCrew/SelectByFirstNameAsync")]
-        public async Task<HttpResponseMessage> SelectByFirstNameAsync([FromBody] CastAndCrewFirstName firstName)
+        [Route("api/CastAndCrew/SelectAsync")]
+        public async Task<HttpResponseMessage> SelectAsync(string firstName = default(String), string lastName = default(String), string dateOfBirth = default(String), Guid? movieID = null)
         {
-            List<CastAndCrew> _out = await _ICastAndCrewService.SelectByFirstNameAsync(firstName.FirstName);
-            try
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, _out);
-            }
-            catch
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
+            castAndCrewFacade.FirstName.FirstName = firstName;
+            castAndCrewFacade.LastName.LastName = lastName;
+            castAndCrewFacade.DateOfBirth.DateOfBirth = dateOfBirth;
+            castAndCrewFacade.MovieID.MovieID = movieID;
+
+
+            List<CastAndCrew> _out = await _ICastAndCrewService.SelectAsync(castAndCrewFacade);
+            return Request.CreateResponse(HttpStatusCode.OK, _out);
         }
 
-        [HttpGet]
-        [Route("api/CastAndCrew/SelectByLastNameAsync")]
-        public async Task<HttpResponseMessage> SelectByLastNameAsync([FromBody] CastAndCrewlastName lastName)
-        {
-            List<CastAndCrew> _out = await _ICastAndCrewService.SelectByLastNameAsync(lastName.LastName);
-            try
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, _out);
-            }
-            catch
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
-
-        [HttpGet]
-        [Route("api/CastAndCrew/SelectByDateOfBirthAsync")]
-        public async Task<HttpResponseMessage> SelectByDateOfBirthAsync([FromBody] CastAndCrewDateOfBirth cacDate)
-        {
-            List<CastAndCrew> _out = await _ICastAndCrewService.SelectByDateOfBirthAsync(cacDate.Date);
-            try
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, _out);
-            }
-            catch
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
     }
 
-
-    public class CastAndCrewFirstName
-    {
-        public string FirstName { get; set; }
-    }
-    public class CastAndCrewlastName
-    {
-        public string LastName { get; set; }
-    }
-    public class CastAndCrewDateOfBirth
-    {
-        public string Date { get; set; }
-    }
 }
