@@ -13,12 +13,6 @@ namespace TMDb.WebAPI.Controllers
 {
     public class FileStorageController : ApiController
     {
-        /*
-        - Get po id - paziti da vrati onu putanju ++
-        - DELETE ++
-        - INSERT  ++
-        */
-
         protected IFileStorageService fileStorageService
         { get; private set; }
 
