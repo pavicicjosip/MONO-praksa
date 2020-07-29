@@ -15,6 +15,7 @@ namespace TMDb.Repository
             builder.RegisterType<MovieTitle>().As<IMovieTitle>();
             builder.RegisterType<MovieYearOfProduction>().As<IMovieYearOfProduction>();
             builder.RegisterType<MovieGenre>().As<IMovieGenre>();
+            builder.RegisterType<MovieAccountReview>().As<IMovieAccountReview>();
             builder.RegisterType<MovieFacade>().As<IMovieFacade>();
         }
 
