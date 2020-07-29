@@ -14,5 +14,17 @@ namespace TMDb.Repository
 {
     public class CCMovieRepository : ICCMovieRepository
     {
+        private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
+        public async Task InsertCCMovieAsync(CCMovie ccMovie)
+        {
+            await connection.OpenAsync();
+            SqlCommand command = new SqlCommand("p_InsertCCMovie", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@MovieID", ccMovie.MovieID));
+            command.Parameters.Add(new SqlParameter("@CastID", ccMovie.CastID));
+            command.Parameters.Add(new SqlParameter("@RoleInMovie", ccMovie.RoleInMovie));
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+        }
     }
 }
