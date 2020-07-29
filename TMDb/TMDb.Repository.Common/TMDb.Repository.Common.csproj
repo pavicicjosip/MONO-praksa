@@ -71,9 +71,11 @@
   <ItemGroup>
     <Compile Include="IAccountRepository.cs" />
     <Compile Include="ICastAndCrewRepository.cs" />
+    <Compile Include="ICCMovieRepository.cs" />
     <Compile Include="IFileStorageRepository.cs" />
     <Compile Include="IGenreMovieRepository.cs" />
     <Compile Include="IGenreRepository.cs" />
+    <Compile Include="IMovieListsRepository.cs" />
     <Compile Include="IMovieRepository.cs" />
     <Compile Include="IReviewRepository.cs" />
     <Compile Include="IUserGenreRepository.cs" />

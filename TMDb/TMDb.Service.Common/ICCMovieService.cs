@@ -6,8 +6,7 @@ using TMDb.Common;
 
 namespace TMDb.Service.Common
 {
-    public interface IUserGenreService
+    public interface ICCMovieService
     {
-        Task InsertUserGenreAsync(UserGenre userGenre);
     }
 }
