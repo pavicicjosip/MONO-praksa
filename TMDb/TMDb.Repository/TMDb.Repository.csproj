@@ -74,6 +74,7 @@
     <Compile Include="CastAndCrewRepository.cs" />
     <Compile Include="DIRepositoryModule.cs" />
     <Compile Include="FileStorageRepository.cs" />
+    <Compile Include="GenreMovieRepository.cs" />
     <Compile Include="GenreRepository.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
