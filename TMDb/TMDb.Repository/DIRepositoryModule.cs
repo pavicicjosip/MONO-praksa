@@ -19,6 +19,7 @@ namespace TMDb.Repository
             builder.RegisterType<CastAndCrewRepository>().As<ICastAndCrewRepository>();
             builder.RegisterType<GenreRepository>().As<IGenreRepository>();
             builder.RegisterType<FileStorageRepository>().As<IFileStorageRepository>();
+            builder.RegisterType<GenreMovieRepository>().As<IGenreMovieRepository>();
         }
 
     }
