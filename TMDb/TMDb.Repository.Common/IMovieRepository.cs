@@ -8,7 +8,7 @@ namespace TMDb.Repository.Common
 {
     public interface IMovieRepository
     {
-        Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, Sorting sort);
+        Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, string extraColumn, string groupBy, Sorting sort);
         Task<int> SelectNumberOfResultsAsync(string whereStatement, string joinTables);
         Task InsertMovieAsync(Movie movie);
         Task UpdateMovieAsync(Movie movie);

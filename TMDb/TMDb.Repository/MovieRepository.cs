@@ -17,15 +17,15 @@ namespace TMDb.Repository
     {
         private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
 
-        public async Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, Sorting sort)
+        public async Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, string extraColumn, string groupBy, Sorting sort)
         {
             var list = new List<Movie>();
             string orderBy = sort.OrderBy();
             var command = new SqlCommand(
                 "SELECT * FROM " +
-                String.Format(" (SELECT ROW_NUMBER() OVER ( ORDER BY {0}) AS RowNum, m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID ", orderBy) +
+                String.Format(" (SELECT ROW_NUMBER() OVER ( ORDER BY {0}) AS RowNum, m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID {1}", orderBy, extraColumn) +
                 String.Format(" FROM Movie m {0}", joinTables) +
-                whereStatement + " ) AS RowConstrainedResult " +
+                whereStatement + groupBy + " ) AS RowConstrainedResult " +
                 "WHERE   RowNum > @PageNumberStart " +
                 "AND RowNum <= @PageNumberEnd " +
                 "ORDER BY RowNum;",
@@ -53,7 +53,7 @@ namespace TMDb.Repository
         {
             int returnValue;
             var command = new SqlCommand(
-                "SELECT COUNT(m.MovieID) " +
+                "SELECT COUNT(DISTINCT m.MovieID) " +
                 String.Format(" FROM Movie m {0}", joinTables) +
                 whereStatement, connection);
 

@@ -11,7 +11,11 @@ namespace TMDb.Common
         IMovieGenre movieGenre { get; set; }
         IMovieYearOfProduction movieYearOfProduction { get; set; }
         IMovieTitle movieTitle { get; set; }
-
+        IMovieAccountReview movieAccountReview { get; set; }
+        bool GroupByBool { get; set; }
         string WhereStatement();
+        bool AccountReviewNull();
+        bool GenreNull();
+        string GroupBy();
     }
 }
