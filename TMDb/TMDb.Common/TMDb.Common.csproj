@@ -89,7 +89,9 @@
     <Compile Include="CastAndCrew\ICACLastName.cs" />
     <Compile Include="CastAndCrew\ICACMovieID.cs" />
     <Compile Include="CastAndCrew\ICastAndCrewFacade.cs" />
+    <Compile Include="IMovieAccountReview.cs" />
     <Compile Include="ISorting.cs" />
+    <Compile Include="MovieAccountReview.cs" />
     <Compile Include="Sorting.cs" />
     <Compile Include="DIMovieModule.cs" />
     <Compile Include="IMovieFacade.cs" />

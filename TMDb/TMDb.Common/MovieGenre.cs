@@ -25,7 +25,7 @@ namespace TMDb.Common
 
         public bool Default()
         {
-            return Genre == "default";    
+            return Genre == "default";
         }
     }
 }

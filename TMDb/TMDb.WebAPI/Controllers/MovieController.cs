@@ -28,7 +28,7 @@ namespace TMDb.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/Movie")]
-        public async Task<HttpResponseMessage> SelectMovieAsync(int pageNumber = 1, [FromUri] int pageSize = 10, string yearOfProduction = "default"
+        public async Task<HttpResponseMessage> SelectMovieAsync(Guid? accountID = null, int pageNumber = 1, int pageSize = 10, string yearOfProduction = "default"
             , string genre = "default", string title = "default", string column = "default", bool order = true)
         {
             var mapper = Mapper.CreateMapper();
@@ -39,6 +39,15 @@ namespace TMDb.WebAPI.Controllers
             movieFacade.movieYearOfProduction.YearOfProduction = yearOfProduction;
             movieFacade.movieTitle.Title = title;
             movieFacade.movieGenre.Genre = genre;
+            if (accountID.HasValue)
+            {
+                movieFacade.movieAccountReview.AccountID = accountID.Value;
+            }
+            else
+            {
+                movieFacade.movieAccountReview.AccountID = Guid.Empty;
+            }
+
             var movieTuple = await movieService.SelectMovieAsync(pagedResponse, movieFacade, sort);
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(movieTuple.Item2);
             var restMovieTuple = new Tuple<int, List<Movie>>(movieTuple.Item1, movieTuple.Item2);
@@ -73,34 +82,6 @@ namespace TMDb.WebAPI.Controllers
             await movieService.RemoveMovieAsync(movieID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
-        /*
-        - get sve filmove koje je ocjenio određeni user
-        SELECT m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID
-        FROM Movie m, Review r
-        WHERE r.MovieID = m.MovieID AND r.AccountID = '8EAA8D25-5014-4108-9486-33592DBF56D8'
-        GROUP BY m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID
-        
-        OVO GORE MOZDA MOZE U GORNJI GET
-        --------------------------------------------------------------------------------------------------------
-        - get filmove po broju komentara, sortiranje 
-        podupit:
-        SELECT COUNT(ReviewID), MovieID
-        FROM Review
-        GROUP BY MovieID
-        ORDER BY COUNT(ReviewID) ASC
-
-        --------------------------------------------------------------------------------------------------------
-        - get za najolje ocjenje filmove, sortiranje
-        podupit:
-        SELECT AVG(NumberOfStars), MovieID
-        FROM Review
-        GROUP BY MovieID
-        ORDER BY AVG(NumberOfStars) ASC
-
-
-        CAST(NumberOfStars AS FLOAT) gore u AVG umjesto NumberOfStars? (ili promijeniti NumberOfStars u float u tablici?)
-        */
 
         public class RestMovie
         {
