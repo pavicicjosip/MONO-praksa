@@ -27,5 +27,37 @@ namespace TMDb.Repository
             await command.ExecuteNonQueryAsync();
             connection.Close();
         }
+
+        public async Task RemoveUserGenreAsync(Guid accountID, Guid genreID)
+        {
+            await connection.OpenAsync();
+            var command = new SqlCommand(String.Format("DELETE FROM UserGenre WHERE AccountID = '{0}' AND GenreID = '{1}'", accountID, genreID), connection);
+            await command.ExecuteReaderAsync();
+            connection.Close();
+        }
+
+        public async Task<List<Genre>> SelectFavouriteGenreAsync(Guid accountID)
+        {
+            var list = new List<Genre>();
+            var command = new SqlCommand(
+                "SELECT g.GenreID, g.Title " +
+                "FROM Genre g, UserGenre ug " +
+                "WHERE g.GenreID = g.GenreID And ug.AccountID = @AccountID", connection);
+            command.Parameters.AddWithValue("@AccountID", accountID);
+            connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            if (reader.HasRows)
+            {
+                while (await reader.ReadAsync())
+                {
+                    list.Add(new Genre(reader.GetGuid(0), reader.GetString(1)));
+                }
+            }
+
+            reader.Close();
+            connection.Close();
+            return list;
+
+        }
     }
 }

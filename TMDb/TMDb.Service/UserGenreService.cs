@@ -22,5 +22,13 @@ namespace TMDb.Service
         {
             await userGenreRepository.InsertUserGenreAsync(userGenre);
         }
+        public async Task RemoveUserGenreAsync(Guid accountID, Guid genreID)
+        {
+            await userGenreRepository.RemoveUserGenreAsync(accountID, genreID);
+        }
+        public async Task<List<Genre>> SelectFavouriteGenreAsync(Guid accountID)
+        {
+            return await userGenreRepository.SelectFavouriteGenreAsync(accountID);
+        }
     }
 }
