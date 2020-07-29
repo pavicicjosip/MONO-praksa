@@ -71,9 +71,11 @@
   <ItemGroup>
     <Compile Include="IAccountService.cs" />
     <Compile Include="ICastAndCrewService.cs" />
+    <Compile Include="ICCMovieService.cs" />
     <Compile Include="IFileStorageService.cs" />
     <Compile Include="IGenreMovieService.cs" />
     <Compile Include="IGenreService.cs" />
+    <Compile Include="IMovieListsService.cs" />
     <Compile Include="IMovieService.cs" />
     <Compile Include="IReviewService.cs" />
     <Compile Include="IUserGenreService.cs" />

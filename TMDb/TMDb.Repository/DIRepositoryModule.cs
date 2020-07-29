@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using TMDb.Model;
 using TMDb.Repository.Common;
 
 
@@ -21,6 +22,8 @@ namespace TMDb.Repository
             builder.RegisterType<FileStorageRepository>().As<IFileStorageRepository>();
             builder.RegisterType<GenreMovieRepository>().As<IGenreMovieRepository>();
             builder.RegisterType<UserGenreRepository>().As<IUserGenreRepository>();
+            builder.RegisterType<MovieListsRepository>().As<IMovieListsRepository>();
+            builder.RegisterType<CCMovieRepository>().As<ICCMovieRepository>();
         }
 
     }
