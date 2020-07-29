@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using TMDb.Model;
 using TMDb.Repository.Common;
 
@@ -31,7 +32,32 @@ namespace TMDb.Repository
 
             reader.Close();
             connection.Close();
-            return list;
+            var sortedList = list.OrderBy(x => x.Title).ToList();
+            return sortedList;
+        }
+
+        public async Task<Genre> ReturnGenreByTitleAsync(string title)
+        {
+            Genre genre;
+            var command = new SqlCommand(String.Format("SELECT GenreID FROM Genre WHERE Title = '{0}'", title), connection);
+            connection.Open();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            if (reader.HasRows)
+            {
+                await reader.ReadAsync();
+                genre = new Genre(reader.GetGuid(0), "");
+            }
+            else
+            {
+                reader.Close();
+                connection.Close();
+                return null;
+            }
+
+            reader.Close();
+            connection.Close();
+            return genre;
+
         }
     }
 }

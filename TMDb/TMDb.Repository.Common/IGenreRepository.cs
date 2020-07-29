@@ -9,5 +9,7 @@ namespace TMDb.Repository.Common
     public interface IGenreRepository
     {
         Task<List<Genre>> ReturnAllGenresAsync();
+        Task<Genre> ReturnGenreByTitleAsync(string title);
+
     }
 }

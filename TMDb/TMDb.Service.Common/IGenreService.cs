@@ -9,5 +9,6 @@ namespace TMDb.Service.Common
     public interface IGenreService
     {
         Task<List<Genre>> ReturnAllGenresAsync();
+        Task<Genre> ReturnGenreByTitleAsync(string title);
     }
 }
