@@ -199,4 +199,12 @@ SELECT m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.
 FROM Movie m, GenreMovie gm, Genre g
 WHERE  g.Title = 'Sport' AND gm.GenreID = g.GenreID AND m.MovieID = gm.MovieID ;
 
+CREATE OR ALTER PROCEDURE p_SelectGenreOfMovie
+( @MovieID     UNIQUEIDENTIFIER)
+AS
+	SELECT Title 
+	FROM Genre g, GenreMovie gm 
+	WHERE g.GenreID = gm.GenreID AND gm.MovieID = @MovieID;
+GO
+
 SELECT * FROM Movie;
