@@ -94,6 +94,13 @@
     <Compile Include="IMovieAccountReview.cs" />
     <Compile Include="ISorting.cs" />
     <Compile Include="MovieAccountReview.cs" />
+    <Compile Include="Review\DIReviewModule.cs" />
+    <Compile Include="Review\IReviewAccountID.cs" />
+    <Compile Include="Review\IReviewFacade.cs" />
+    <Compile Include="Review\IReviewMovieID.cs" />
+    <Compile Include="Review\ReviewAccountID.cs" />
+    <Compile Include="Review\ReviewFacade.cs" />
+    <Compile Include="Review\ReviewMovieID.cs" />
     <Compile Include="Sorting.cs" />
     <Compile Include="DIMovieModule.cs" />
     <Compile Include="IMovieFacade.cs" />

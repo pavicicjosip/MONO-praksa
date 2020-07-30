@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMDb.Common;
 using TMDb.Model;
 using TMDb.Repository.Common;
 
@@ -13,22 +14,29 @@ namespace TMDb.Repository
     public class ReviewRepository : IReviewRepository
     {
         private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
-        public async Task<List<Review>> SelectMovieReviewsAsync(Guid movieID)
+        public async Task<List<Review>> SelectReviewsAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, Sorting sort)
         {
             var list = new List<Review>();
+            string orderBy = sort.OrderBy();
             var command = new SqlCommand(
-                "SELECT r.ReviewID, r.NumberOfStars, r.Comment, r.DateAndTime, acc.Username, r.MovieID " +
+                "SELECT * FROM " +
+                String.Format("( SELECT ROW_NUMBER() OVER(ORDER BY {0}) AS RowNum", sort.OrderBy()) +
+                ", r.ReviewID, r.NumberOfStars, r.Comment, r.DateAndTime, acc.Username, r.MovieID " +
                 "FROM Review r, Account acc " +
-                "WHERE r.AccountID = acc.AccountID AND r.MovieID = @MovieID", connection);
-            command.Parameters.AddWithValue("@MovieID", movieID);
+                String.Format("WHERE r.AccountID = acc.AccountID {0}) AS RowConstrainedResult ", whereStatement) +
+                " WHERE RowNum > @PageNumberStart AND RowNum <= @PageNumberEnd ORDER BY RowNum", connection);
+            
+            command.Parameters.AddWithValue("@PageNumberStart", pageNumberStart);
+            command.Parameters.AddWithValue("@PageNumberEnd", pageNumberEnd);
             connection.Open();
+            
             SqlDataReader reader = await command.ExecuteReaderAsync();
 
             if (reader.HasRows)
             {
                 while (await reader.ReadAsync())
                 {
-                    list.Add(new Review(reader.GetGuid(0), reader.GetInt32(1), reader.GetString(2), reader.GetDateTime(3), reader.GetString(4), reader.GetGuid(5)));
+                    list.Add(new Review(reader.GetGuid(1), reader.GetInt32(2), reader.GetString(3), reader.GetDateTime(4), reader.GetString(5), reader.GetGuid(6)));
                 }
             }
 
@@ -37,54 +45,20 @@ namespace TMDb.Repository
             return list;
         }
 
-        public async Task<List<Review>> SelectMovieReviewsOrderedAsync(Guid movieID, string column, string order)
+        public async Task<int> SelectNumberOfResultsAsync(string whereStatement)
         {
-            var list = new List<Review>();
+            int returnValue;
             var command = new SqlCommand(
-                "SELECT r.ReviewID, r.NumberOfStars, r.Comment, r.DateAndTime, acc.Username, r.MovieID " +
-                "FROM Review r, Account acc " +
-                "WHERE r.AccountID = acc.AccountID AND r.MovieID = @MovieID " +
-                String.Format("ORDER BY {0} {1}", column, order), connection);
-            command.Parameters.AddWithValue("@MovieID", movieID);
+                "SELECT COUNT(r.ReviewID) FROM Review r, Account acc WHERE r.AccountID = acc.AccountID " + whereStatement, connection);
+
             connection.Open();
             SqlDataReader reader = await command.ExecuteReaderAsync();
+            await reader.ReadAsync();
 
-            if (reader.HasRows)
-            {
-                while (await reader.ReadAsync())
-                {
-                    list.Add(new Review(reader.GetGuid(0), reader.GetInt32(1), reader.GetString(2), reader.GetDateTime(3), reader.GetString(4), reader.GetGuid(5)));
-                }
-            }
-
+            returnValue = reader.GetInt32(0);
             reader.Close();
             connection.Close();
-            return list;
-        }
-
-        public async Task<List<Review>> SelectUserReviewsOrderedAsync(Guid accountID, string column, string order)
-        {
-            var list = new List<Review>();
-            var command = new SqlCommand(
-                "SELECT r.ReviewID, r.NumberOfStars, r.Comment, r.DateAndTime, acc.Username, r.MovieID " +
-                "FROM Review r, Account acc " +
-                "WHERE r.AccountID = acc.AccountID AND r.AccountID = @AccountID " +
-                String.Format("ORDER BY {0} {1}", column, order), connection);
-            command.Parameters.AddWithValue("@AccountID", accountID);
-            connection.Open();
-            SqlDataReader reader = await command.ExecuteReaderAsync();
-
-            if (reader.HasRows)
-            {
-                while (await reader.ReadAsync())
-                {
-                    list.Add(new Review(reader.GetGuid(0), reader.GetInt32(1), reader.GetString(2), reader.GetDateTime(3), reader.GetString(4), reader.GetGuid(5)));
-                }
-            }
-
-            reader.Close();
-            connection.Close();
-            return list;
+            return returnValue;
         }
 
         public async Task InsertReviewAsync(Review review, Guid accountID)
