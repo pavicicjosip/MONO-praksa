@@ -11,5 +11,6 @@ namespace TMDb.Service.Common
         Task InsertUserGenreAsync(UserGenre userGenre);
         Task RemoveUserGenreAsync(Guid accountID, Guid genreID);
         Task<List<Genre>> SelectFavouriteGenreAsync(Guid accountID);
+        Task<List<Movie>> SelectMoviesFromGenreAsync(PagedResponse pagedResponse, Guid accountID);
     }
 }
