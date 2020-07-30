@@ -63,16 +63,16 @@ namespace TMDb.Repository
             var list = new List<Movie>();
             var command = new SqlCommand(
                 " SELECT * FROM " +
-                " SELECT ROW_NUMBER() OVER ( ORDER BY AVG(CAST(r.NumberOfStars AS FLOAT)) DESC) AS RowNum, AVG(CAST(r.NumberOfStars AS FLOAT)) AS prosjek, m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.FileID, m.PlotOutline " +
+                " (SELECT ROW_NUMBER() OVER ( ORDER BY AVG(CAST(r.NumberOfStars AS FLOAT)) DESC) AS RowNum, AVG(CAST(r.NumberOfStars AS FLOAT)) AS prosjek, m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID " +
                 " FROM Review r, Movie m, ( " +
                 " SELECT m.MovieID " +
                 " FROM Movie m, Genre g, GenreMovie gm, Account ac, UserGenre ug " +
-                " WHERE m.MovieID = gm.MovieID AND gm.GenreID = g.GenreID AND ug.AccountID = ac.AccountID AND ug.GenreID = g.GenreID AND ac.AccountID = '@AccountID' " +
+                " WHERE m.MovieID = gm.MovieID AND gm.GenreID = g.GenreID AND ug.AccountID = ac.AccountID AND ug.GenreID = g.GenreID AND ac.AccountID = @AccountID " +
                 " GROUP BY m.MovieID " +
                 " EXCEPT " +
                 " SELECT DISTINCT m.MovieID " +
                 " FROM Movie m, Review r " +
-                " WHERE r.AccountID = '@AccountID' AND r.MovieID = m.MovieID " +
+                " WHERE r.AccountID = @AccountID AND r.MovieID = m.MovieID " +
                 " ) AS temp " +
                 " WHERE m.MovieID = r.MovieID AND temp.MovieID = m.MovieID " +
                 " GROUP BY m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.FileID, m.PlotOutline) AS RowConstrainedResult " +
@@ -91,7 +91,7 @@ namespace TMDb.Repository
             {
                 while (await reader.ReadAsync())
                 {
-                    list.Add(new Movie(reader.GetGuid(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetGuid(7)));
+                    list.Add(new Movie(reader.GetGuid(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetGuid(8)));
                 }
             }
 
