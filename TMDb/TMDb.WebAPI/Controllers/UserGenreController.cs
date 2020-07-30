@@ -16,7 +16,6 @@ namespace TMDb.WebAPI.Controllers
     {
         ///<summary>
         ///get po accountID - vraća 10 najbolje ocjenjenih filmova od jednog, drugog, trećeg ... žanra
-        ///get da  vrati najdraže žanrove od usera
         ///</summary>
 
         protected IUserGenreService userGenreService { get; private set; }

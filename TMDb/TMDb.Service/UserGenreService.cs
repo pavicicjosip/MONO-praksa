@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TMDb.Model;
 using TMDb.Service.Common;
 using TMDb.Repository.Common;
+using TMDb.Common;
 
 namespace TMDb.Service
 {
@@ -30,5 +31,23 @@ namespace TMDb.Service
         {
             return await userGenreRepository.SelectFavouriteGenreAsync(accountID);
         }
+        public async Task<List<Movie>> SelectMoviesFromGenreAsync(PagedResponse pagedResponse, Guid accountID)
+        {
+            int pageNumberStart = (pagedResponse.PageNumber - 1) * pagedResponse.PageSize;
+            int limit = pageNumberStart + pagedResponse.PageSize;
+            int maxNumberOfResults = 50;
+            
+            if(limit > maxNumberOfResults)
+            {
+                limit = maxNumberOfResults;
+            }
+
+            if(pageNumberStart > 50)
+            {
+                pageNumberStart = maxNumberOfResults;
+            }
+            return await userGenreRepository.SelectMoviesFromGenreAsync(pagedResponse, accountID);
+        }
+
     }
 }
