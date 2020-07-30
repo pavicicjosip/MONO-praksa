@@ -50,7 +50,7 @@ namespace TMDb.WebAPI.Controllers
 
             var movieTuple = await movieService.SelectMovieAsync(pagedResponse, movieFacade, sort);
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(movieTuple.Item2);
-            var restMovieTuple = new Tuple<int, List<Movie>>(movieTuple.Item1, movieTuple.Item2);
+            var restMovieTuple = new Tuple<int, List<RestMovie>>(movieTuple.Item1, restMovieList);
             return Request.CreateResponse(HttpStatusCode.OK, restMovieTuple);
         }
 

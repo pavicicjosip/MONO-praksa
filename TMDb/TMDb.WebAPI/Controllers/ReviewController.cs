@@ -8,49 +8,56 @@ using TMDb.Model;
 using TMDb.Service.Common;
 using AutoMapper;
 using System.Threading.Tasks;
+using TMDb.Common;
+using TMDb.Common.Review;
 
 namespace TMDb.WebAPI.Controllers
 {
-    /// <summary>
-    /// paging, sorting, filtering treba dodat
-    /// </summary>
     public class ReviewController : ApiController
     {
         protected IReviewService reviewService
         { get; private set; }
+        protected IReviewFacade reviewFacade { get; private set; }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Review, RestReview>().ReverseMap());
 
-        public ReviewController(IReviewService reviewService)
+        public ReviewController(IReviewService reviewService, IReviewFacade reviewFacade)
         {
             this.reviewService = reviewService;
+            this.reviewFacade = reviewFacade;
         }
 
         [HttpGet]
-        [Route("api/Review/Movie/{MovieID}")]
-        public async Task<HttpResponseMessage> GetMovieReviewsAsync(Guid movieID)
+        [Route("api/Review")]
+        public async Task<HttpResponseMessage> GetReviewsAsync(Guid? movieID = null, Guid? accountID = null, string column = "default", bool order = true,int pageNumber = 1, int pageSize = 10)
         {
             var mapper = Mapper.CreateMapper();
-            List<RestReview> restReviewList = mapper.Map<List<RestReview>>(await reviewService.ReturnMovieReviewsAsync(movieID));
-            return Request.CreateResponse(HttpStatusCode.OK, restReviewList);
-        }
 
-        [HttpGet]
-        [Route("api/Review/Movie/{MovieID}/{Column}/{Order}")]
-        public async Task<HttpResponseMessage> GetMovieReviewsOrderedAsync(Guid movieID, string column, bool order)
-        {
-            var mapper = Mapper.CreateMapper();
-            List<RestReview> restReviewList = mapper.Map<List<RestReview>>(await reviewService.ReturnMovieReviewsOrderedAsync(movieID, column, order));
-            return Request.CreateResponse(HttpStatusCode.OK, restReviewList);
-        }
+            PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
+            Sorting sort = new Sorting { Column = column, Order = order };
+            if (accountID.HasValue)
+            {
+                reviewFacade.reviewAccountID.AccountID = accountID.Value;
+            }
+            else
+            {
+                reviewFacade.reviewAccountID.AccountID = Guid.Empty;
+            }
 
-        [HttpGet]
-        [Route("api/Review/User/{AccountID}/{Column}/{Order}")]
-        public async Task<HttpResponseMessage> GetUserReviewsOrderedAsync(Guid accountID, string column, bool order)
-        {
-            var mapper = Mapper.CreateMapper();
-            List<RestReview> restReviewList = mapper.Map<List<RestReview>>(await reviewService.ReturnUserReviewsOrderedAsync(accountID, column, order));
-            return Request.CreateResponse(HttpStatusCode.OK, restReviewList);
+            if (movieID.HasValue)
+            {
+                reviewFacade.reviewMovieID.MovieID = movieID.Value;
+            }
+            else
+            {
+                reviewFacade.reviewMovieID.MovieID = Guid.Empty;
+            }
+
+            var reviewTuple = await reviewService.SelectReviewsAsync(pagedResponse, reviewFacade, sort);
+
+            List<RestReview> restReviewList = mapper.Map<List<RestReview>>(reviewTuple.Item2);
+            var restReviewTuple = new Tuple<int, List<RestReview>>(reviewTuple.Item1, restReviewList);
+            return Request.CreateResponse(HttpStatusCode.OK, restReviewTuple);
         }
 
         [HttpPost]
@@ -82,10 +89,6 @@ namespace TMDb.WebAPI.Controllers
             await reviewService.RemoveReviewAsync(reviewID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
-
-        //update comment, create comment 
-        //U movie controller get sve filmove koje je ocijenio user
     }
 
     public class RestReview

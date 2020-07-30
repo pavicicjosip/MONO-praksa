@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using TMDb.Model;
 using TMDb.Service.Common;
 using TMDb.Repository.Common;
-
+using TMDb.Common;
+using TMDb.Common.Review;
 
 namespace TMDb.Service
 {
@@ -20,33 +21,19 @@ namespace TMDb.Service
             this.reviewRepository = reviewRepository;
         }
 
-        public async Task<List<Review>> ReturnMovieReviewsAsync(Guid movieID)
+        public async Task<Tuple<int, List<Review>>> SelectReviewsAsync(PagedResponse pagedResponse, IReviewFacade reviewFacade, Sorting sort)
         {
-            return await reviewRepository.SelectMovieReviewsAsync(movieID);
-        }
+            int pageNumberStart = (pagedResponse.PageNumber - 1) * pagedResponse.PageSize;
+            string whereStatement = reviewFacade.WhereStatement();
+            int numberOfResults;
 
-        public async Task<List<Review>> ReturnMovieReviewsOrderedAsync(Guid movieID, string column, bool order)
-        {
-            if (order)
+            if (sort.Column == "default")
             {
-                return await reviewRepository.SelectMovieReviewsOrderedAsync(movieID, column, "ASC");
+                sort.Column = "r.DateAndTime";
+                sort.Order = true;
             }
-            else
-            {
-                return await reviewRepository.SelectMovieReviewsOrderedAsync(movieID, column, "DESC");
-            }
-        }
-
-        public async Task<List<Review>> ReturnUserReviewsOrderedAsync(Guid accountID, string column, bool order)
-        {
-            if (order)
-            {
-                return await reviewRepository.SelectUserReviewsOrderedAsync(accountID, column, "ASC");
-            }
-            else
-            {
-                return await reviewRepository.SelectUserReviewsOrderedAsync(accountID, column, "DESC");
-            }
+            numberOfResults = await reviewRepository.SelectNumberOfResultsAsync(whereStatement);
+            return new Tuple<int, List<Review>>(numberOfResults, await reviewRepository.SelectReviewsAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, sort));
         }
 
         public async Task CreateReviewAsync(Review review, Guid accountID)
