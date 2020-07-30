@@ -14,10 +14,6 @@ namespace TMDb.WebAPI.Controllers
 {
     public class UserGenreController : ApiController
     {
-        ///<summary>
-        ///get po accountID - vraća 10 najbolje ocjenjenih filmova od jednog, drugog, trećeg ... žanra
-        ///</summary>
-
         protected IUserGenreService userGenreService { get; private set; }
         public UserGenreController(IUserGenreService userGenreService)
         {
@@ -58,6 +54,22 @@ namespace TMDb.WebAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/UserGenre/selectMoviesFromGenreAsync")]
+        public async Task<HttpResponseMessage> SelectMoviesFromGenreAsync(Guid accountID, int pageNumber = 1, int pageSize = 10)
+        {
+            PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
+            List<Movie> list = await userGenreService.SelectMoviesFromGenreAsync(pagedResponse, accountID);
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, list);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+        }
         public class RestUserGenre
         {
             public Guid AccountID { get; set; }

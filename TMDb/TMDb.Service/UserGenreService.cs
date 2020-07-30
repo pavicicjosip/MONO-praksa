@@ -34,19 +34,21 @@ namespace TMDb.Service
         public async Task<List<Movie>> SelectMoviesFromGenreAsync(PagedResponse pagedResponse, Guid accountID)
         {
             int pageNumberStart = (pagedResponse.PageNumber - 1) * pagedResponse.PageSize;
-            int limit = pageNumberStart + pagedResponse.PageSize;
+            int pageNumberEnd = pageNumberStart + pagedResponse.PageSize;
             int maxNumberOfResults = 50;
             
-            if(limit > maxNumberOfResults)
+            if(pageNumberEnd > maxNumberOfResults)
             {
-                limit = maxNumberOfResults;
+                pageNumberEnd = maxNumberOfResults;
             }
 
-            if(pageNumberStart > 50)
+            if(pageNumberStart > maxNumberOfResults)
             {
                 pageNumberStart = maxNumberOfResults;
             }
-            return await userGenreRepository.SelectMoviesFromGenreAsync(pagedResponse, accountID);
+            List<Movie> list = await userGenreRepository.SelectMoviesFromGenreAsync(pageNumberStart, pageNumberEnd, accountID);
+            return list;
+            
         }
 
     }

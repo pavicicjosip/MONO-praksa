@@ -11,6 +11,6 @@ namespace TMDb.Repository.Common
         Task InsertUserGenreAsync(UserGenre userGenre);
         Task RemoveUserGenreAsync(Guid accountID, Guid genreID);
         Task<List<Genre>> SelectFavouriteGenreAsync(Guid accountID);
-        Task<List<Movie>> SelectMoviesFromGenreAsync(PagedResponse pagedResponse, Guid accountID);
+        Task<List<Movie>> SelectMoviesFromGenreAsync(int pagedpageNumberStart, int pageNumberEnd, Guid accountID);
     }
 }
