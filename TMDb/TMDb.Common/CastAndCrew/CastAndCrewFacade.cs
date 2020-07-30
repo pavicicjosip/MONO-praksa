@@ -21,42 +21,43 @@ namespace TMDb.Common.CastAndCrew
             this.MovieID = movieID;
         }
 
+
         public string SQLStatement()
         {
             bool bFirstName = FirstName.Default();
             bool bLastName = LastName.Default();
             bool bDateOfBirth = DateOfBirth.Default();
             bool bMovieID = MovieID.Default();
+            ICACSort iCACSort = new CACSort();
 
-            string join = " SELECT cac.CastID, cac.FirstName, cac.LastName, cac.DateOfBirth, cac.Gender, cac.FileID FROM CastAndCrew cac, CCMovie ccm WHERE cac.CastID = ccm.CastID ";
-            string notJoin = " SELECT * FROM CastAndCrew cac ";
+            string join = String.Format(" SELECT ROW_NUMBER() OVER ( {0} ) AS RowNum, cac.CastID, cac.FirstName, cac.LastName, cac.DateOfBirth, cac.Gender, cac.FileID FROM CastAndCrew cac, CCMovie ccm WHERE cac.CastID = ccm.CastID ", iCACSort.OrderBy());
             string _out = "";
 
             switch (bMovieID)
             {
                 case true when bFirstName && bLastName && bDateOfBirth:
-                    _out = notJoin;
+                    _out = join;
                     break;
                 case true when bFirstName && bLastName && !bDateOfBirth:
-                    _out = notJoin +  " WHERE " + DateOfBirth.WhereStatement();
+                    _out = join + " AND " + DateOfBirth.WhereStatement();
                     break;
                 case true when bFirstName && !bLastName && bDateOfBirth:
-                    _out = notJoin + " WHERE " + LastName.WhereStatement();
+                    _out = join + " AND " + LastName.WhereStatement();
                     break;
                 case true when bFirstName && !bLastName && !bDateOfBirth:
-                    _out = notJoin + " WHERE " + LastName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
+                    _out = join + " AND " + LastName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
                     break;
                 case true when !bFirstName && bLastName && bDateOfBirth:
-                    _out = notJoin + " WHERE " + FirstName.WhereStatement();
+                    _out = join + " AND " + FirstName.WhereStatement();
                     break;
                 case true when !bFirstName && bLastName && !bDateOfBirth:
-                    _out = notJoin + " WHERE " + FirstName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
+                    _out = join + " AND " + FirstName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
                     break;
                 case true when !bFirstName && !bLastName && bDateOfBirth:
-                    _out = notJoin + " WHERE " + FirstName.WhereStatement() + " AND " + LastName.WhereStatement();
+                    _out = join + " AND " + FirstName.WhereStatement() + " AND " + LastName.WhereStatement();
                     break;
                 case true when !bFirstName && !bLastName && !bDateOfBirth:
-                    _out = notJoin + " WHERE " + FirstName.WhereStatement() + " AND " + LastName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
+                    _out = join + " AND " + FirstName.WhereStatement() + " AND " + LastName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
                     break;
                 case false when bFirstName && bLastName && bDateOfBirth:
                     _out = join + " AND " + MovieID.WhereStatement();

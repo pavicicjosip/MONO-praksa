@@ -119,6 +119,60 @@ AS
 	SELECT * FROM CastAndCrew WHERE DateOfBirth = CAST(@DateOfBirth AS DATE);
 GO
 
+CREATE OR ALTER PROCEDURE p_InsertCastAndCrew
+( @FirstName    VARCHAR(25),
+  @LastName     VARCHAR(40),
+  @DateOfBirth  VARCHAR(10),
+  @Gender       VARCHAR(10),
+  @FileID       UNIQUEIDENTIFIER)
+AS
+	BEGIN TRY
+	BEGIN TRAN
+		INSERT INTO CastAndCrew(FirstName, LastName, DateOfBirth,Gender,FileID)
+		VALUES (@FirstName, @LastName, @DateOfBirth, @Gender, @FileID);
+	COMMIT TRAN;
+END TRY
+BEGIN CATCH
+	ROLLBACK TRAN;
+END CATCH
+GO
+
+CREATE OR ALTER PROCEDURE p_UpdateCastAndCrew
+( @CastID       UNIQUEIDENTIFIER,
+  @FirstName    VARCHAR(25),
+  @LastName     VARCHAR(40),
+  @DateOfBirth  VARCHAR(10),
+  @Gender       VARCHAR(10),
+  @FileID       UNIQUEIDENTIFIER)
+AS
+	BEGIN TRY
+	BEGIN TRAN
+		UPDATE  CastAndCrew
+		SET  FirstName = @FirstName, LastName = @LastName, DateOfBirth = @DateOfBirth,Gender = @Gender, FileID = @FileID
+		WHERE CastID = @CastID;
+	COMMIT TRAN;
+END TRY
+BEGIN CATCH
+	ROLLBACK TRAN;
+END CATCH
+GO
+
+CREATE OR ALTER PROCEDURE p_DeleteCastAndCrew
+( @CastID       UNIQUEIDENTIFIER)
+AS
+	BEGIN TRY
+	BEGIN TRAN
+		DELETE  CastAndCrew
+		WHERE CastID = @CastID;
+	COMMIT TRAN;
+END TRY
+BEGIN CATCH
+	ROLLBACK TRAN;
+END CATCH
+GO
+
+
+
 
 CREATE OR ALTER PROCEDURE p_InsertReview
 ( @ReviewID UNIQUEIDENTIFIER,
@@ -166,14 +220,14 @@ AS
 GO
 
 CREATE OR ALTER PROCEDURE p_InsertMovieToList
-( @ListID UNIQUEIDENTIFIER,
+( @ListName VARCHAR(50),
   @MovieID UNIQUEIDENTIFIER,
   @AccountID UNIQUEIDENTIFIER)
 AS
 BEGIN TRY
 	BEGIN TRAN
-		INSERT INTO MovieLists(ListID, MovieID, AccountID)
-		VALUES (@ListID, @MovieID, @AccountID);
+		INSERT INTO MovieLists(ListName, MovieID, AccountID)
+		VALUES (@ListName, @MovieID, @AccountID);
 		COMMIT TRAN;
 	END TRY
 	BEGIN CATCH
@@ -188,17 +242,6 @@ AS
 GO
 	
 
-
-INSERT INTO Movie(Title, YearOfProduction, CountryOfOrigin, Duration, PlotOutline, FileID)
-VALUES ('Test', 1234, 'RVATIII', '45', 'Srp', '1180C2F6-A482-49F1-9628-5CA3D7EA6A3B' );
-
-SELECT * FROM Movie;
-
-
-SELECT m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID
-FROM Movie m, GenreMovie gm, Genre g
-WHERE  g.Title = 'Sport' AND gm.GenreID = g.GenreID AND m.MovieID = gm.MovieID ;
-
 CREATE OR ALTER PROCEDURE p_SelectGenreOfMovie
 ( @MovieID     UNIQUEIDENTIFIER)
 AS
@@ -207,7 +250,6 @@ AS
 	WHERE g.GenreID = gm.GenreID AND gm.MovieID = @MovieID;
 GO
 
-SELECT * FROM Movie;
 
 CREATE OR ALTER PROCEDURE p_InsertGenreMovie
 ( @MovieId    UNIQUEIDENTIFIER,
@@ -254,3 +296,15 @@ BEGIN TRY
 		ROLLBACK TRAN;
 	END CATCH
 GO
+
+CREATE OR ALTER PROCEDURE p_HowManyCastAndCrew
+AS
+	SELECT COUNT(CastAndCrew.CastID)
+	FROM CastAndCrew, CCMovie
+	WHERE CastAndCrew.CastID = CCMovie.CastID;
+GO
+
+
+SELECT ROW_NUMBER() OVER (  ORDER BY RoleInMovie ASC, LastName ASC, FirstName ASC  ) AS RowNum,
+cac.CastID, cac.FirstName, cac.LastName, cac.DateOfBirth, cac.Gender, cac.FileID, ccm.RoleInMovie FROM CastAndCrew cac, CCMovie ccm 
+WHERE cac.CastID = ccm.CastID 

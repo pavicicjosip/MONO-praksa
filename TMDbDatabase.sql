@@ -20,7 +20,7 @@ CREATE TABLE AdministratorAccount (
 	AccountID UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
 	Email VARCHAR(50) NOT NULL,
 	UserName VARCHAR(30) NOT NULL UNIQUE,
-	UserPassword VARCHAR(20) NOT NULL,
+	UserPassword VARCHAR(64) NOT NULL,
 	FileID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT AdministratorAccount_fk_FileStorage
         	REFERENCES FileStorage(FileID)	
@@ -30,7 +30,7 @@ CREATE TABLE Account (
 	AccountID UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
 	Email VARCHAR(50) NOT NULL,
 	UserName VARCHAR(30) NOT NULL UNIQUE,
-	UserPassword VARCHAR(20) NOT NULL,
+	UserPassword VARCHAR(64) NOT NULL,
 	FileID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT Account_fk_FileStorage
         	REFERENCES FileStorage(FileID)	
@@ -80,7 +80,7 @@ CREATE TABLE CCMovie(
         	REFERENCES Movie(MovieID) ON DELETE CASCADE,
    	CastID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT CCMovie_fk_CastAndCrew
-        	REFERENCES Genre(GenreID),
+        	REFERENCES CastAndCrew(CastID),
 	RoleInMovie VARCHAR(30) NOT NULL,
 	CONSTRAINT CCMovie_pk PRIMARY KEY (MovieID, CastID)
 );

@@ -17,6 +17,7 @@ namespace TMDb.Model
         public string Gender { get; set; }
         public Guid FileID { get; set; }
 
+        public CastAndCrew() { }
         public CastAndCrew(Guid castID, string firstName, string lastName, DateTime dateOfBirth, string gender, Guid fileID)
         {
             this.CastID = castID;

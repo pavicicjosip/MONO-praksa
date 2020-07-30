@@ -10,6 +10,11 @@ namespace TMDb.Repository.Common
 {
     public interface ICastAndCrewRepository
     {
-        Task<List<CastAndCrew>> SelectAsync(ICastAndCrewFacade castAndCrewFacade);
+        Task<List<CastAndCrew>> SelectAsync(int pageNumberStart, int pageNumberEnd, ICastAndCrewFacade castAndCrewFacade);
+
+        Task<int> HowMany();
+        Task InsertAsync(CastAndCrew castAndCrew);
+        Task UpdateAsync(Guid castID, CastAndCrew castAndCrew);
+        Task DeleteAsync(Guid castID);
     }
 }
