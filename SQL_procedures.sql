@@ -324,3 +324,9 @@ SELECT  COUNT(m.MovieID)
 FROM CastAndCrew cac, CCMovie ccm, Movie m
 WHERE m.MovieID = ccm.MovieID AND cac.CastID = '8BBAA813-3B19-4BA1-8CF6-3F2F20BBE991'
 
+CREATE OR ALTER PROCEDURE p_DeleteGenreMovie
+( @MovieID UNIQUEIDENTIFIER,
+  @GenreID UNIQUEIDENTIFIER)
+AS
+	DELETE FROM GenreMovie WHERE MovieID = @MovieID AND GenreID = @GenreID;
+GO
