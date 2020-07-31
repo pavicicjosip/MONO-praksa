@@ -8,7 +8,7 @@ DROP TABLE CastAndCrew;
 DROP TABLE Genre;
 DROP TABLE Account;
 DROP TABLE FileStorage;
-DROP TABLE AdministratorAccount
+DROP TABLE AccountRole;
 
 CREATE TABLE FileStorage(
 	FileID UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
@@ -16,15 +16,7 @@ CREATE TABLE FileStorage(
 	ImagePath VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE AdministratorAccount (
-	AccountID UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
-	Email VARCHAR(50) NOT NULL,
-	UserName VARCHAR(30) NOT NULL UNIQUE,
-	UserPassword VARCHAR(64) NOT NULL,
-	FileID UNIQUEIDENTIFIER NOT NULL
-		CONSTRAINT AdministratorAccount_fk_FileStorage
-        	REFERENCES FileStorage(FileID)	
-);
+
 
 CREATE TABLE Account (
 	AccountID UNIQUEIDENTIFIER PRIMARY KEY default NEWID(),
@@ -99,14 +91,14 @@ CREATE TABLE Review(
 );
 
 CREATE TABLE MovieLists(
-	ListID UNIQUEIDENTIFIER default NEWID(),
+	ListName VARCHAR(50) default NEWID(),
 	MovieID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT MovieList_fk_Movie
        		REFERENCES Movie(MovieID),
     	AccountID UNIQUEIDENTIFIER NOT NULL
 		CONSTRAINT MovieList_fk_Account
 		REFERENCES Account(AccountID) ON DELETE CASCADE,
-    	CONSTRAINT MovieList_pk PRIMARY KEY (ListID, MovieID, AccountID)
+    	CONSTRAINT MovieList_pk PRIMARY KEY (ListName, MovieID, AccountID)
 );
 
 CREATE TABLE UserGenre(
@@ -117,6 +109,14 @@ CREATE TABLE UserGenre(
 		CONSTRAINT UserGenre_fk_AGenre
         REFERENCES Genre(GenreID)
 	CONSTRAINT UserGenre_pk PRIMARY KEY(AccountID, GenreID)
+);
+
+CREATE TABLE AccountRole(
+	Role VARCHAR(20) NOT NULL,
+	AccountID UNIQUEIDENTIFIER NOT NULL
+		CONSTRAINT AccountRole_fk_Account
+       		REFERENCES Account(AccountID) ON DELETE CASCADE,
+    	CONSTRAINT AccountRole_pk PRIMARY KEY (AccountID, Role)
 );
 
 INSERT INTO Genre VALUES(default, 'Action');

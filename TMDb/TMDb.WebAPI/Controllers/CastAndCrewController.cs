@@ -33,7 +33,7 @@ namespace TMDb.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/CastAndCrew/SelectAsync")]
-        public async Task<HttpResponseMessage> SelectAsync(int pageNumber = 1, int pageSize = 10, string firstName = default(String), string lastName = default(String), string dateOfBirth = default(String), Guid? movieID = null)
+        public async Task<HttpResponseMessage> SelectAsync(int pageNumber = 1, int pageSize = 10, string firstName = default(String), string lastName = default(String), string dateOfBirth = default(String), Guid? movieID = null, string role = default(String))
         {
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
 
@@ -41,6 +41,7 @@ namespace TMDb.WebAPI.Controllers
             castAndCrewFacade.LastName.LastName = lastName;
             castAndCrewFacade.DateOfBirth.DateOfBirth = dateOfBirth;
             castAndCrewFacade.MovieID.MovieID = movieID;
+            castAndCrewFacade.Role.Role = role;
 
 
             Tuple<int, List<CastAndCrew>> tuple =  await _ICastAndCrewService.SelectAsync(pagedResponse, castAndCrewFacade);

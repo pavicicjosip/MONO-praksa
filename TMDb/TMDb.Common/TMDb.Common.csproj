@@ -82,6 +82,7 @@
     <Compile Include="CastAndCrew\CACFirstName.cs" />
     <Compile Include="CastAndCrew\CACLastName.cs" />
     <Compile Include="CastAndCrew\CACMovieID.cs" />
+    <Compile Include="CastAndCrew\CACRole.cs" />
     <Compile Include="CastAndCrew\CACSort.cs" />
     <Compile Include="CastAndCrew\CastAndCrewFacade.cs" />
     <Compile Include="CastAndCrew\DICastAndCrewModule.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="CastAndCrew\ICACFirstName.cs" />
     <Compile Include="CastAndCrew\ICACLastName.cs" />
     <Compile Include="CastAndCrew\ICACMovieID.cs" />
+    <Compile Include="CastAndCrew\ICACRole.cs" />
     <Compile Include="CastAndCrew\ICACSort.cs" />
     <Compile Include="CastAndCrew\ICastAndCrewFacade.cs" />
     <Compile Include="IMovieAccountReview.cs" />

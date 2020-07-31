@@ -7,6 +7,9 @@ namespace TMDb.Repository.Common
 {
     public interface ICCMovieRepository
     {
-        Task InsertCCMovieAsync(CCMovie ccMovie);
+        Task InsertAsync(CCMovie ccMovie);
+        Task DeleteAsync(Guid castID, Guid movieID, string roleInMovie);
+        Task<List<Movie>> SelectAsync(int pageStart, int pageEnd, Guid castID);
+        Task<int> HowMany(Guid castID);
     }
 }

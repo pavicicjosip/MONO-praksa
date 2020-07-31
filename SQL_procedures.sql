@@ -305,6 +305,22 @@ AS
 GO
 
 
-SELECT ROW_NUMBER() OVER (  ORDER BY RoleInMovie ASC, LastName ASC, FirstName ASC  ) AS RowNum,
-cac.CastID, cac.FirstName, cac.LastName, cac.DateOfBirth, cac.Gender, cac.FileID, ccm.RoleInMovie FROM CastAndCrew cac, CCMovie ccm 
-WHERE cac.CastID = ccm.CastID 
+CREATE OR ALTER PROCEDURE p_DeleteCCMovie
+( @CastID UNIQUEIDENTIFIER,
+  @MovieID UNIQUEIDENTIFIER,
+  @RoleInMovie VARCHAR(30))
+AS
+	DELETE FROM CCMovie WHERE CastID = @CastID AND MovieID = @MovieID AND RoleInMovie = @RoleInMovie;
+GO
+
+SELECT * FROM (SELECT ROW_NUMBER() OVER ( ORDER BY Title ASC, YearOfProduction DESC ) 
+AS RowNum, m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID
+FROM CastAndCrew cac, CCMovie ccm, Movie m
+WHERE m.MovieID = ccm.MovieID AND cac.CastID = '8BBAA813-3B19-4BA1-8CF6-3F2F20BBE991') AS RowConstrainedResult
+WHERE   RowNum > 0 AND RowNum <= 5;
+
+
+SELECT  COUNT(m.MovieID)
+FROM CastAndCrew cac, CCMovie ccm, Movie m
+WHERE m.MovieID = ccm.MovieID AND cac.CastID = '8BBAA813-3B19-4BA1-8CF6-3F2F20BBE991'
+

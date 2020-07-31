@@ -12,6 +12,7 @@ namespace TMDb.Common.CastAndCrew
         ICACLastName LastName { get; set; }
         ICACDateOfBirth DateOfBirth { get; set; }
         ICACMovieID MovieID { get; set; }
+        ICACRole Role { get; set; }
 
         string SQLStatement();
     }

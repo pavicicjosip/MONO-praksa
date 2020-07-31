@@ -15,6 +15,7 @@ namespace TMDb.Common.CastAndCrew
             builder.RegisterType<CACLastName>().As<ICACLastName>();
             builder.RegisterType<CACDateOfBirth>().As<ICACDateOfBirth>();
             builder.RegisterType<CACMovieID>().As<ICACMovieID>();
+            builder.RegisterType<CACRole>().As<ICACRole>();
             builder.RegisterType<CastAndCrewFacade>().As<ICastAndCrewFacade>();
         }
     }

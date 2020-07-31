@@ -15,9 +15,8 @@ namespace TMDb.WebAPI.Controllers
     public class CCMovieController : ApiController
     {
         ///<summary>
-        ///Get po movie_id
-        ///Get po CastID
-        ///get po uloga i movieID
+        ///Get po CastID, vrati filmove
+        ///get po uloga i movieID, vrati castove
         ///paging, sorting, filtering
         ///</summary>
         protected ICCMovieService ccMovieService { get; private set; }
@@ -26,23 +25,33 @@ namespace TMDb.WebAPI.Controllers
             this.ccMovieService = ccMovieService;
         }
 
-        static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<CCMovie, RestCCMovie>().ReverseMap());
 
         [HttpPost]
-        [Route("api/CCmovie/insertCCMovieAsync")]
-        public async Task<HttpResponseMessage> InsertCCMovieAsync([FromBody] RestCCMovie restCCMovie)
+        [Route("api/CCmovie/InsertAsync")]
+        public async Task<HttpResponseMessage> InsertAsync([FromBody] CCMovie ccMovie)
         {
-            var mapper = Mapper.CreateMapper();
-            CCMovie ccMovie = mapper.Map<CCMovie>(restCCMovie);
-            await ccMovieService.InsertCCMovieAsync(ccMovie);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            await ccMovieService.InsertAsync(ccMovie);
+            return Request.CreateResponse(HttpStatusCode.OK, "Insert successful");
         }
 
-        public class RestCCMovie
+        [HttpDelete]
+        [Route("api/CCmovie/DeleteAsync")]
+        public async Task<HttpResponseMessage> DeleteAsync(Guid castID, Guid movieID, string roleInMovie)
         {
-            public Guid MovieID { get; set; }
-            public Guid CastID { get; set; }
-            public string RoleInMovie { get; set; }
+            await ccMovieService.DeleteAsync(castID, movieID, roleInMovie);
+            return Request.CreateResponse(HttpStatusCode.OK, "Delete successful");
         }
+
+        [HttpGet]
+        [Route("api/CCmovie/SelectAsync")]
+        public async Task<HttpResponseMessage> SelectAsync(Guid castID, int pageNumber = 1, int pageSize = 10)
+        {
+            PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
+            Tuple<int, List<Movie>> tuple = await ccMovieService.SelectAsync(pagedResponse, castID);
+
+            return Request.CreateResponse(HttpStatusCode.OK, tuple.Item2);
+        }
+
+        
     }
 }

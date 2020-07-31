@@ -12,13 +12,15 @@ namespace TMDb.Common.CastAndCrew
         public ICACLastName LastName { get; set; }
         public ICACDateOfBirth DateOfBirth { get; set; }
         public ICACMovieID MovieID { get; set; }
+        public ICACRole Role { get; set; }
 
-        public CastAndCrewFacade(ICACFirstName firstName, ICACLastName lastName, ICACDateOfBirth dateOfBirth, ICACMovieID movieID)
+        public CastAndCrewFacade(ICACFirstName firstName, ICACLastName lastName, ICACDateOfBirth dateOfBirth, ICACMovieID movieID, ICACRole role)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.DateOfBirth = dateOfBirth;
             this.MovieID = movieID;
+            this.Role = role;
         }
 
 
@@ -28,9 +30,10 @@ namespace TMDb.Common.CastAndCrew
             bool bLastName = LastName.Default();
             bool bDateOfBirth = DateOfBirth.Default();
             bool bMovieID = MovieID.Default();
+            bool bRole = Role.Default();
             ICACSort iCACSort = new CACSort();
 
-            string join = String.Format(" SELECT ROW_NUMBER() OVER ( {0} ) AS RowNum, cac.CastID, cac.FirstName, cac.LastName, cac.DateOfBirth, cac.Gender, cac.FileID FROM CastAndCrew cac, CCMovie ccm WHERE cac.CastID = ccm.CastID ", iCACSort.OrderBy());
+            string join = String.Format(" SELECT ROW_NUMBER() OVER ( {0} ) AS RowNum, cac.CastID, cac.FirstName, cac.LastName, cac.DateOfBirth, cac.Gender, cac.FileID, ccm.RoleInMovie FROM CastAndCrew cac, CCMovie ccm WHERE cac.CastID = ccm.CastID ", iCACSort.OrderBy());
             string _out = "";
 
             switch (bMovieID)
@@ -47,7 +50,7 @@ namespace TMDb.Common.CastAndCrew
                 case true when bFirstName && !bLastName && !bDateOfBirth:
                     _out = join + " AND " + LastName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
                     break;
-                case true when !bFirstName && bLastName && bDateOfBirth:
+                case true when !bFirstName && bLastName && bDateOfBirth && bRole:
                     _out = join + " AND " + FirstName.WhereStatement();
                     break;
                 case true when !bFirstName && bLastName && !bDateOfBirth:
@@ -59,7 +62,7 @@ namespace TMDb.Common.CastAndCrew
                 case true when !bFirstName && !bLastName && !bDateOfBirth:
                     _out = join + " AND " + FirstName.WhereStatement() + " AND " + LastName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
                     break;
-                case false when bFirstName && bLastName && bDateOfBirth:
+                case false when bFirstName && bLastName && bDateOfBirth && bRole:
                     _out = join + " AND " + MovieID.WhereStatement();
                     break;
                 case false when bFirstName && bLastName && !bDateOfBirth:
@@ -83,7 +86,9 @@ namespace TMDb.Common.CastAndCrew
                 case false when !bFirstName && !bLastName && !bDateOfBirth:
                     _out = join + " AND " + MovieID.WhereStatement() + " AND " + FirstName.WhereStatement() + " AND " + LastName.WhereStatement() + " AND " + DateOfBirth.WhereStatement();
                     break;
-
+                case false when !bRole:
+                    _out = join + " AND " + MovieID.WhereStatement() + " AND " + Role.WhereStatement();
+                    break;
 
                 default:
                     break;

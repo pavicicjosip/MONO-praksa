@@ -17,6 +17,8 @@ namespace TMDb.Model
         public string Gender { get; set; }
         public Guid FileID { get; set; }
 
+        public string RoleInMovie { get; set; }
+
         public CastAndCrew() { }
         public CastAndCrew(Guid castID, string firstName, string lastName, DateTime dateOfBirth, string gender, Guid fileID)
         {
@@ -26,6 +28,17 @@ namespace TMDb.Model
             this.DateOfBirth = dateOfBirth;
             this.Gender = gender;
             this.FileID = fileID;
+        }
+
+        public CastAndCrew(Guid castID, string firstName, string lastName, DateTime dateOfBirth, string gender, Guid fileID, string roleInMovie)
+        {
+            this.CastID = castID;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.DateOfBirth = dateOfBirth;
+            this.Gender = gender;
+            this.FileID = fileID;
+            this.RoleInMovie = roleInMovie;
         }
     }
 }

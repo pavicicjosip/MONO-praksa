@@ -38,7 +38,7 @@ namespace TMDb.Repository
             {
                 while (reader.Read())
                 {
-                    _out.Add(new CastAndCrew( reader.GetGuid(1), reader.GetString(2), reader.GetString(3), reader.GetDateTime(4).Date , reader.GetString(5), reader.GetGuid(6)));
+                    _out.Add(new CastAndCrew( reader.GetGuid(1), reader.GetString(2), reader.GetString(3), reader.GetDateTime(4).Date , reader.GetString(5), reader.GetGuid(6), reader.GetString(7)));
                 }
             }
 
