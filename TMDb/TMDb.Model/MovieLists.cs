@@ -10,13 +10,13 @@ namespace TMDb.Model
 {
     public class MovieLists : IMovieLists
     {
-        public Guid ListID { get; set; }
+        public string ListName { get; set; }
         public Guid MovieID { get; set; }
         public Guid AccountID { get; set; }
 
-        public MovieLists(Guid listID, Guid accountID, Guid movieID)
+        public MovieLists(string listName, Guid accountID, Guid movieID)
         {
-            this.ListID = listID;
+            this.ListName = listName;
             this.AccountID = accountID;
             this.MovieID = movieID;
         }
