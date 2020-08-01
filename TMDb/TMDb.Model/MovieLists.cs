@@ -14,6 +14,7 @@ namespace TMDb.Model
         public Guid MovieID { get; set; }
         public Guid AccountID { get; set; }
 
+        public MovieLists() { }
         public MovieLists(string listName, Guid accountID, Guid movieID)
         {
             this.ListName = listName;
