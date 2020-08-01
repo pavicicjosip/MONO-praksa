@@ -8,7 +8,7 @@ namespace TMDb.Model.Common
 {
     public interface IMovieLists
     {
-        Guid ListID { get; set; }
+        string ListName { get; set; }
         Guid MovieID { get; set; }
         Guid AccountID { get; set; }
     }
