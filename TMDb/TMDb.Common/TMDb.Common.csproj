@@ -96,6 +96,15 @@
     <Compile Include="IMovieAccountReview.cs" />
     <Compile Include="ISorting.cs" />
     <Compile Include="MovieAccountReview.cs" />
+    <Compile Include="MovieLists\DIMovieListsModule.cs" />
+    <Compile Include="MovieLists\IMovieListsAccountID.cs" />
+    <Compile Include="MovieLists\IMovieListsFacade.cs" />
+    <Compile Include="MovieLists\IMovieListsListName.cs" />
+    <Compile Include="MovieLists\IMovieListsMovieID.cs" />
+    <Compile Include="MovieLists\MovieListsAccountID.cs" />
+    <Compile Include="MovieLists\MovieListsFacade.cs" />
+    <Compile Include="MovieLists\MovieListsListName.cs" />
+    <Compile Include="MovieLists\MovieListsMovieID.cs" />
     <Compile Include="Review\DIReviewModule.cs" />
     <Compile Include="Review\IReviewAccountID.cs" />
     <Compile Include="Review\IReviewFacade.cs" />
