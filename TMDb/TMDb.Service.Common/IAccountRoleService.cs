@@ -10,5 +10,6 @@ namespace TMDb.Service.Common
 {
     public interface IAccountRoleService
     {
+        Task DeleteAccountAsync(Guid accountID, string role);
     }
 }

@@ -12,6 +12,6 @@ namespace TMDb.Repository.Common
     {
         Task InsertGenreMovieAsync(GenreMovie genreMovie);
         Task<List<string>> GetGenreOfMovieAsync(Guid movieID);
-
+        Task RemoveGenreMovieAsync(Guid movieID, Guid genreID);
     }
 }

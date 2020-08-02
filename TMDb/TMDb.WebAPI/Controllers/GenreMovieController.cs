@@ -44,6 +44,13 @@ namespace TMDb.WebAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
+        [HttpDelete]
+        [Route("api/GenreMovie/deleteGenreMovie")]
+        public async Task<HttpResponseMessage> RemoveGenreMovieAsync(Guid movieID, Guid genreID)
+        {
+            await genreMovieService.RemoveGenreMovieAsync(movieID, genreID);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
         public class RestGenreMovie
         {
             public Guid MovieID { get; set; }

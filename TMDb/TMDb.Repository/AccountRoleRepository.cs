@@ -14,5 +14,20 @@ namespace TMDb.Repository
 {
     public class AccountRoleRepository : IAccountRoleRepository
     {
+        private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
+
+        public async Task DeleteAccountAsync(Guid accountID, string role)
+        {
+            await connection.OpenAsync();
+
+            SqlCommand command = new SqlCommand("p_DeleteAccountRole", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.Add(new SqlParameter("@AccountID", accountID));
+            command.Parameters.Add(new SqlParameter("@Role", role));
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+        }
     }
 }

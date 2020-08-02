@@ -22,6 +22,7 @@ namespace TMDb.Service
             builder.RegisterType<UserGenreService>().As<IUserGenreService>();
             builder.RegisterType<CCMovieService>().As<ICCMovieService>();
             builder.RegisterType<MovieListsService>().As<IMovieListsService>();
+            builder.RegisterType<AccountRoleService>().As<IAccountRoleService>();        
         }
     }
 }

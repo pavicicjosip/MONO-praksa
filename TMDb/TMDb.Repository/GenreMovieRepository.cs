@@ -51,5 +51,18 @@ namespace TMDb.Repository
             connection.Close();
             return list;
         }
+        public async Task RemoveGenreMovieAsync(Guid movieID, Guid genreID)
+        {
+            await connection.OpenAsync();
+
+            SqlCommand command = new SqlCommand("p_DeleteGenreMovie", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.Add(new SqlParameter("@MovieID", movieID));
+            command.Parameters.Add(new SqlParameter("@GenreID", genreID));
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
+        }
     }
 }

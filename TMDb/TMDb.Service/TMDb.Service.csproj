@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountroleService.cs" />
+    <Compile Include="AccountRoleService.cs" />
     <Compile Include="AccountService.cs" />
     <Compile Include="CastAndCrewService.cs" />
     <Compile Include="CCMovieService.cs" />

@@ -27,5 +27,9 @@ namespace TMDb.Service
         {
             return await genreMovieRepository.GetGenreOfMovieAsync(movieID);
         }
+        public async Task RemoveGenreMovieAsync(Guid movieID, Guid genreID)
+        {
+            await genreMovieRepository.RemoveGenreMovieAsync(movieID, genreID);
+        }
     }
 }
