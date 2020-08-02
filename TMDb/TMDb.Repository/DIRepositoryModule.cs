@@ -24,6 +24,7 @@ namespace TMDb.Repository
             builder.RegisterType<UserGenreRepository>().As<IUserGenreRepository>();
             builder.RegisterType<MovieListsRepository>().As<IMovieListsRepository>();
             builder.RegisterType<CCMovieRepository>().As<ICCMovieRepository>();
+            builder.RegisterType<AccountRoleRepository>().As<IAccountRoleRepository>();
         }
 
     }

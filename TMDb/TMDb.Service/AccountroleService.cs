@@ -9,7 +9,18 @@ using TMDb.Service.Common;
 
 namespace TMDb.Service
 {
-    public class AccountroleService : IAccountRoleService
+    public class AccountRoleService : IAccountRoleService
     {
+        protected IAccountRoleRepository accountRoleRepository
+        { get; private set; }
+
+        public AccountRoleService(IAccountRoleRepository accountRoleRepository)
+        {
+            this.accountRoleRepository = accountRoleRepository;
+        }
+        public async Task DeleteAccountAsync(Guid accountID, string role)
+        {
+            await accountRoleRepository.DeleteAccountAsync(accountID, role);
+        }
     }
 }

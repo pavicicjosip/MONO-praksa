@@ -9,5 +9,6 @@ namespace TMDb.Repository.Common
 {
     public interface IAccountRoleRepository
     {
+        Task DeleteAccountAsync(Guid accountID, string role);
     }
 }
