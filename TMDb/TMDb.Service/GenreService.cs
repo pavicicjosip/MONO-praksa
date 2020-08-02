@@ -26,5 +26,13 @@ namespace TMDb.Service
         {
             return await genreRepository.ReturnGenreByTitleAsync(title);
         }
+        public async Task InsertGenreAsync(string title)
+        {
+            await genreRepository.InsertGenreAsync(title);
+        }
+        public async Task UpdateGenreAsync(Genre genre)
+        {
+            await genreRepository.UpdateGenreAsync(genre);
+        }
     }
 }

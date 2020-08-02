@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAccountRepository.cs" />
+    <Compile Include="IAccountRoleRepository.cs" />
     <Compile Include="ICastAndCrewRepository.cs" />
     <Compile Include="ICCMovieRepository.cs" />
     <Compile Include="IFileStorageRepository.cs" />
