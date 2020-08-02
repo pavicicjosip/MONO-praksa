@@ -330,3 +330,10 @@ CREATE OR ALTER PROCEDURE p_DeleteGenreMovie
 AS
 	DELETE FROM GenreMovie WHERE MovieID = @MovieID AND GenreID = @GenreID;
 GO
+
+CREATE OR ALTER PROCEDURE p_DeleteAccountRole
+( @AccountID UNIQUEIDENTIFIER,
+  @Role VARCHAR(20))
+AS
+	DELETE FROM AccountRole WHERE AccountID = AccountID AND Role = @Role;
+GO
