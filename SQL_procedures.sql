@@ -337,3 +337,12 @@ CREATE OR ALTER PROCEDURE p_DeleteAccountRole
 AS
 	DELETE FROM AccountRole WHERE AccountID = AccountID AND Role = @Role;
 GO
+
+
+CREATE OR ALTER PROCEDURE p_GetRoleById
+( @AccountID UNIQUEIDENTIFIER)
+AS
+	SELECT Role
+	FROM AccountRole
+	WHERE AccountID = @AccountID; 
+GO
