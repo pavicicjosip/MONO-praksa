@@ -11,24 +11,24 @@ namespace TMDb.Service
 {
     public class AccountRoleService : IAccountRoleService
     {
-        protected IAccountRoleRepository accountRoleRepository
+        protected IAccountRoleRepository AccountRoleRepository
         { get; private set; }
 
         public AccountRoleService(IAccountRoleRepository accountRoleRepository)
         {
-            this.accountRoleRepository = accountRoleRepository;
+            this.AccountRoleRepository = accountRoleRepository;
         }
         public async Task DeleteAccountAsync(Guid accountID, string role)
         {
-            await accountRoleRepository.DeleteAccountAsync(accountID, role);
+            await AccountRoleRepository.DeleteAccountAsync(accountID, role);
         }
         public async Task<List<string>> GetRoleByAccountIdAsync(Guid accountID)
         {
-            return await accountRoleRepository.GetRoleByAccountIdAsync(accountID);
+            return await AccountRoleRepository.GetRoleByAccountIdAsync(accountID);
         }
         public async Task UpdateAccountRoleAsync(AccountRole accountRole)
         {
-            await accountRoleRepository.UpdateAccountRoleAsync(accountRole);
+            await AccountRoleRepository.UpdateAccountRoleAsync(accountRole);
         }
     }
 }

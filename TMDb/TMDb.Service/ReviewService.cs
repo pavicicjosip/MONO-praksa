@@ -13,12 +13,12 @@ namespace TMDb.Service
 {
     public class ReviewService : IReviewService
     {
-        protected IReviewRepository reviewRepository
+        protected IReviewRepository ReviewRepository
         { get; private set; }
 
         public ReviewService(IReviewRepository reviewRepository)
         {
-            this.reviewRepository = reviewRepository;
+            this.ReviewRepository = reviewRepository;
         }
 
         public async Task<Tuple<int, List<Review>>> SelectReviewsAsync(PagedResponse pagedResponse, IReviewFacade reviewFacade, Sorting sort)
@@ -32,23 +32,23 @@ namespace TMDb.Service
                 sort.Column = "r.DateAndTime";
                 sort.Order = true;
             }
-            numberOfResults = await reviewRepository.SelectNumberOfResultsAsync(whereStatement);
-            return new Tuple<int, List<Review>>(numberOfResults, await reviewRepository.SelectReviewsAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, sort));
+            numberOfResults = await ReviewRepository.SelectNumberOfResultsAsync(whereStatement);
+            return new Tuple<int, List<Review>>(numberOfResults, await ReviewRepository.SelectReviewsAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, sort));
         }
 
         public async Task CreateReviewAsync(Review review, Guid accountID)
         {
-            await reviewRepository.InsertReviewAsync(review, accountID);
+            await ReviewRepository.InsertReviewAsync(review, accountID);
         }
 
         public async Task UpdateReviewAsync(Review review)
         {
-            await reviewRepository.UpdateReviewAsync(review);
+            await ReviewRepository.UpdateReviewAsync(review);
         }
 
         public async Task RemoveReviewAsync(Guid reviewID)
         {
-            await reviewRepository.DeleteReviewAsync(reviewID);
+            await ReviewRepository.DeleteReviewAsync(reviewID);
         }
     }
 }

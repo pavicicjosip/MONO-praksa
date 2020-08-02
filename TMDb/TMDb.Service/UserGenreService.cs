@@ -12,25 +12,25 @@ namespace TMDb.Service
 {
     public class UserGenreService : IUserGenreService
     {
-        protected IUserGenreRepository userGenreRepository
+        protected IUserGenreRepository UserGenreRepository
         { get; private set; }
 
         public UserGenreService(IUserGenreRepository userGenreRepository)
         {
-            this.userGenreRepository = userGenreRepository;
+            this.UserGenreRepository = userGenreRepository;
         }
         public async Task InsertUserGenreAsync(UserGenre userGenre)
         {
-            await userGenreRepository.InsertUserGenreAsync(userGenre);
+            await UserGenreRepository.InsertUserGenreAsync(userGenre);
         }
         public async Task RemoveUserGenreAsync(Guid accountID, Guid genreID)
         {
-            await userGenreRepository.RemoveUserGenreAsync(accountID, genreID);
+            await UserGenreRepository.RemoveUserGenreAsync(accountID, genreID);
         }
 
         public async Task<List<Genre>> SelectFavouriteGenreAsync(Guid accountID)
         {
-            return await userGenreRepository.SelectFavouriteGenreAsync(accountID);
+            return await UserGenreRepository.SelectFavouriteGenreAsync(accountID);
         }
         public async Task<List<Movie>> SelectMoviesFromGenreAsync(PagedResponse pagedResponse, Guid accountID)
         {
@@ -47,7 +47,7 @@ namespace TMDb.Service
             {
                 pageNumberStart = maxNumberOfResults;
             }
-            List<Movie> list = await userGenreRepository.SelectMoviesFromGenreAsync(pageNumberStart, pageNumberEnd, accountID);
+            List<Movie> list = await UserGenreRepository.SelectMoviesFromGenreAsync(pageNumberStart, pageNumberEnd, accountID);
             return list;
             
         }

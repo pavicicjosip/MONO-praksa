@@ -14,11 +14,11 @@ namespace TMDb.Service
 {
     public class AccountService : IAccountService
     {
-        protected IAccountRepository _IAccountRepository { get; set; }
+        protected IAccountRepository AccountRepository { get; set; }
 
-        public AccountService(IAccountRepository _IAccountRepository)
+        public AccountService(IAccountRepository accountRepository)
         {
-            this._IAccountRepository = _IAccountRepository;
+            this.AccountRepository = accountRepository;
         }
 
         public async Task<Account> SelectAccountAsync(IAccountFacade iAccountFacade)
@@ -27,17 +27,17 @@ namespace TMDb.Service
                 iAccountFacade.UserPassword.UserPassword = Sha256Hash(iAccountFacade.UserPassword.UserPassword);
             string whereStatement = iAccountFacade.WhereStatement();
 
-            return await _IAccountRepository.SelectAccountAsync(whereStatement);
+            return await AccountRepository.SelectAccountAsync(whereStatement);
         }
 
         public async Task DeleteAccountAsync(Guid accountID)
         {
-            await _IAccountRepository.DeleteAccountAsync(accountID);
+            await AccountRepository.DeleteAccountAsync(accountID);
         }
 
         public async Task UpdateAccountAsync(Account acc)
         {
-            Account account = await _IAccountRepository.SelectAccountAsync(" WHERE AccountID = " + "'" + acc.AccountID + "'");
+            Account account = await AccountRepository.SelectAccountAsync(" WHERE AccountID = " + "'" + acc.AccountID + "'");
 
 
             if (acc.Email != "")
@@ -49,13 +49,13 @@ namespace TMDb.Service
             if (acc.FileID.ToString() != "")
                 account.FileID = acc.FileID;
 
-            await _IAccountRepository.UpdateAccountAsync(account);
+            await AccountRepository.UpdateAccountAsync(account);
         }
 
         public async Task InsertAccountAsync(Account acc)
         {
             acc.UserPassword = Sha256Hash(acc.UserPassword);
-            await _IAccountRepository.InsertAccountAsync(acc);
+            await AccountRepository.InsertAccountAsync(acc);
         }
 
         static string Sha256Hash(string rawData)

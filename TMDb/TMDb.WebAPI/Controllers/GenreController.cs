@@ -14,12 +14,12 @@ namespace TMDb.WebAPI.Controllers
 {
     public class GenreController : ApiController
     {
-        protected IGenreService genreService { get; private set; }
+        protected IGenreService GenreService { get; private set; }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Genre, RestGenre>().ReverseMap());
         public GenreController(IGenreService genreService)
         {
-            this.genreService = genreService;
+            this.GenreService = genreService;
 
         }
 
@@ -28,7 +28,7 @@ namespace TMDb.WebAPI.Controllers
         public async Task<HttpResponseMessage> ReturnAllGenresAsync()
         {
             var mapper = Mapper.CreateMapper();
-            List<RestGenre> restGenreList = mapper.Map<List<RestGenre>>(await genreService.ReturnAllGenresAsync());
+            List<RestGenre> restGenreList = mapper.Map<List<RestGenre>>(await GenreService.ReturnAllGenresAsync());
 
             return Request.CreateResponse(HttpStatusCode.OK, restGenreList);
         }
@@ -38,7 +38,7 @@ namespace TMDb.WebAPI.Controllers
         public async Task<HttpResponseMessage> ReturnGenreByTitleAsync(string title)
         {
             var mapper = Mapper.CreateMapper();
-            RestGenre file = mapper.Map<RestGenre>(await genreService.ReturnGenreByTitleAsync(title));
+            RestGenre file = mapper.Map<RestGenre>(await GenreService.ReturnGenreByTitleAsync(title));
             if (file == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, String.Format("There is no genre with title: {0}", title));
@@ -50,7 +50,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/Genre")]
         public async Task<HttpResponseMessage> InsertGenreAsync(string title)
         {
-            await genreService.InsertGenreAsync(title);
+            await GenreService.InsertGenreAsync(title);
             return Request.CreateResponse(HttpStatusCode.OK, String.Format("{0} inserted in the database", title));
         }
 
@@ -61,7 +61,7 @@ namespace TMDb.WebAPI.Controllers
             var mapper = Mapper.CreateMapper();
             Genre genre = mapper.Map<Genre>(restGenre);
             genre.GenreID = genreID;
-            await genreService.UpdateGenreAsync(genre);
+            await GenreService.UpdateGenreAsync(genre);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 

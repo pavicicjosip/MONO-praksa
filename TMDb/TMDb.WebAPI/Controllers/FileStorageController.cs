@@ -13,21 +13,21 @@ namespace TMDb.WebAPI.Controllers
 {
     public class FileStorageController : ApiController
     {
-        protected IFileStorageService fileStorageService
+        protected IFileStorageService FileStorageService
         { get; private set; }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileStorage, RestFileStorage>().ReverseMap());
 
         public FileStorageController(IFileStorageService fileStorageService)
         {
-            this.fileStorageService = fileStorageService;
+            this.FileStorageService = fileStorageService;
         }
 
         [HttpDelete]
         [Route("api/FileStorage/{fileID}")]
         public async Task<HttpResponseMessage> RemoveFileAsync(Guid fileID)
         {
-            await fileStorageService.RemoveFileAsync(fileID);
+            await FileStorageService.RemoveFileAsync(fileID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -35,7 +35,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/FileStorage")]
         public async Task<HttpResponseMessage> InsertFileAsync(string imageName, string imagePath)
         {
-            await fileStorageService.InsertFileAsync(imageName, imagePath);
+            await FileStorageService.InsertFileAsync(imageName, imagePath);
             return Request.CreateResponse(HttpStatusCode.OK, String.Format("{0} {1} inserted in the database", imageName, imagePath));
         }
 
@@ -44,7 +44,7 @@ namespace TMDb.WebAPI.Controllers
         public async Task<HttpResponseMessage> ReturnFileByIdAsync(Guid fileID)
         {
             var mapper = Mapper.CreateMapper();
-            RestFileStorage file = mapper.Map<RestFileStorage>(await fileStorageService.ReturnFileByIdAsync(fileID));
+            RestFileStorage file = mapper.Map<RestFileStorage>(await FileStorageService.ReturnFileByIdAsync(fileID));
             if (file == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, String.Format("There is no file with Id: {0}", fileID));
@@ -60,7 +60,7 @@ namespace TMDb.WebAPI.Controllers
             var mapper = Mapper.CreateMapper();
             FileStorage fileStorage = mapper.Map<FileStorage>(restFileStorage);
             fileStorage.FileID = fileID;
-            await fileStorageService.UpdateFileStorageAsync(fileStorage);
+            await FileStorageService.UpdateFileStorageAsync(fileStorage);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
         public class RestFileStorage

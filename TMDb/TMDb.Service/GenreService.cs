@@ -11,28 +11,28 @@ namespace TMDb.Service
 {
     public class GenreService : IGenreService
     {
-        protected IGenreRepository genreRepository
+        protected IGenreRepository GenreRepository
         { get; private set; }
 
         public GenreService(IGenreRepository genreRepository)
         {
-            this.genreRepository = genreRepository;
+            this.GenreRepository = genreRepository;
         }
         public async Task<List<Genre>> ReturnAllGenresAsync()
         {            
-            return await genreRepository.ReturnAllGenresAsync();
+            return await GenreRepository.ReturnAllGenresAsync();
         }
         public async Task<Genre> ReturnGenreByTitleAsync(string title)
         {
-            return await genreRepository.ReturnGenreByTitleAsync(title);
+            return await GenreRepository.ReturnGenreByTitleAsync(title);
         }
         public async Task InsertGenreAsync(string title)
         {
-            await genreRepository.InsertGenreAsync(title);
+            await GenreRepository.InsertGenreAsync(title);
         }
         public async Task UpdateGenreAsync(Genre genre)
         {
-            await genreRepository.UpdateGenreAsync(genre);
+            await GenreRepository.UpdateGenreAsync(genre);
         }
     }
 }

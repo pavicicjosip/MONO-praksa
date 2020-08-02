@@ -11,25 +11,25 @@ namespace TMDb.Service
 {
     public class GenreMovieService : IGenreMovieService
     {
-        protected IGenreMovieRepository genreMovieRepository
+        protected IGenreMovieRepository GenreMovieRepository
         { get; private set; }
 
         public GenreMovieService(IGenreMovieRepository genreMovieRepository)
         {
-            this.genreMovieRepository = genreMovieRepository;
+            this.GenreMovieRepository = genreMovieRepository;
         }
         public async Task InsertGenreMovieAsync(GenreMovie genreMovie)
         {
-            await genreMovieRepository.InsertGenreMovieAsync(genreMovie);
+            await GenreMovieRepository.InsertGenreMovieAsync(genreMovie);
         }
 
         public async Task<List<string>> GetGenreOfMovieAsync(Guid movieID)
         {
-            return await genreMovieRepository.GetGenreOfMovieAsync(movieID);
+            return await GenreMovieRepository.GetGenreOfMovieAsync(movieID);
         }
         public async Task RemoveGenreMovieAsync(Guid movieID, Guid genreID)
         {
-            await genreMovieRepository.RemoveGenreMovieAsync(movieID, genreID);
+            await GenreMovieRepository.RemoveGenreMovieAsync(movieID, genreID);
         }
     }
 }

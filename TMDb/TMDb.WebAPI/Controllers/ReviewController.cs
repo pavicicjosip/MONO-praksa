@@ -15,16 +15,16 @@ namespace TMDb.WebAPI.Controllers
 {
     public class ReviewController : ApiController
     {
-        protected IReviewService reviewService
+        protected IReviewService ReviewService
         { get; private set; }
-        protected IReviewFacade reviewFacade { get; private set; }
+        protected IReviewFacade ReviewFacade { get; private set; }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Review, RestReview>().ReverseMap());
 
         public ReviewController(IReviewService reviewService, IReviewFacade reviewFacade)
         {
-            this.reviewService = reviewService;
-            this.reviewFacade = reviewFacade;
+            this.ReviewService = reviewService;
+            this.ReviewFacade = reviewFacade;
         }
 
         [HttpGet]
@@ -37,23 +37,23 @@ namespace TMDb.WebAPI.Controllers
             Sorting sort = new Sorting { Column = column, Order = order };
             if (accountID.HasValue)
             {
-                reviewFacade.reviewAccountID.AccountID = accountID.Value;
+                ReviewFacade.reviewAccountID.AccountID = accountID.Value;
             }
             else
             {
-                reviewFacade.reviewAccountID.AccountID = Guid.Empty;
+                ReviewFacade.reviewAccountID.AccountID = Guid.Empty;
             }
 
             if (movieID.HasValue)
             {
-                reviewFacade.reviewMovieID.MovieID = movieID.Value;
+                ReviewFacade.reviewMovieID.MovieID = movieID.Value;
             }
             else
             {
-                reviewFacade.reviewMovieID.MovieID = Guid.Empty;
+                ReviewFacade.reviewMovieID.MovieID = Guid.Empty;
             }
 
-            var reviewTuple = await reviewService.SelectReviewsAsync(pagedResponse, reviewFacade, sort);
+            var reviewTuple = await ReviewService.SelectReviewsAsync(pagedResponse, ReviewFacade, sort);
 
             List<RestReview> restReviewList = mapper.Map<List<RestReview>>(reviewTuple.Item2);
             var restReviewTuple = new Tuple<int, List<RestReview>>(reviewTuple.Item1, restReviewList);
@@ -67,7 +67,7 @@ namespace TMDb.WebAPI.Controllers
             var mapper = Mapper.CreateMapper();
             Review review = mapper.Map<Review>(restReview);
             review.MovieID = movieID;
-            await reviewService.CreateReviewAsync(review, accountID);
+            await ReviewService.CreateReviewAsync(review, accountID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -78,7 +78,7 @@ namespace TMDb.WebAPI.Controllers
             var mapper = Mapper.CreateMapper();
             Review review = mapper.Map<Review>(restReview);
             review.ReviewID = reviewID;
-            await reviewService.UpdateReviewAsync(review);
+            await ReviewService.UpdateReviewAsync(review);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -86,7 +86,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/Review/{ReviewID}")]
         public async Task<HttpResponseMessage> DeleteReviewAsync(Guid reviewID)
         {
-            await reviewService.RemoveReviewAsync(reviewID);
+            await ReviewService.RemoveReviewAsync(reviewID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
