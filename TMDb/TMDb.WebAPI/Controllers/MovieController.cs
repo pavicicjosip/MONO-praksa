@@ -13,8 +13,8 @@ namespace TMDb.WebAPI.Controllers
 {
     public class MovieController : ApiController
     {
-        protected IMovieService movieService { get; private set; }
-        protected IMovieFacade movieFacade { get; private set; }
+        protected IMovieService MovieService { get; private set; }
+        protected IMovieFacade MovieFacade { get; private set; }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<Movie, RestMovie>().ReverseMap());
         public MovieController()
@@ -22,8 +22,8 @@ namespace TMDb.WebAPI.Controllers
         }
         public MovieController(IMovieService movieService, IMovieFacade movieFacade)
         {
-            this.movieService = movieService;
-            this.movieFacade = movieFacade;
+            this.MovieService = movieService;
+            this.MovieFacade = movieFacade;
         }
 
         [HttpGet]
@@ -36,19 +36,19 @@ namespace TMDb.WebAPI.Controllers
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
             Sorting sort = new Sorting { Column = column, Order = order };
 
-            movieFacade.movieYearOfProduction.YearOfProduction = yearOfProduction;
-            movieFacade.movieTitle.Title = title;
-            movieFacade.movieGenre.Genre = genre;
+            MovieFacade.movieYearOfProduction.YearOfProduction = yearOfProduction;
+            MovieFacade.movieTitle.Title = title;
+            MovieFacade.movieGenre.Genre = genre;
             if (accountID.HasValue)
             {
-                movieFacade.movieAccountReview.AccountID = accountID.Value;
+                MovieFacade.movieAccountReview.AccountID = accountID.Value;
             }
             else
             {
-                movieFacade.movieAccountReview.AccountID = Guid.Empty;
+                MovieFacade.movieAccountReview.AccountID = Guid.Empty;
             }
 
-            var movieTuple = await movieService.SelectMovieAsync(pagedResponse, movieFacade, sort);
+            var movieTuple = await MovieService.SelectMovieAsync(pagedResponse, MovieFacade, sort);
             List<RestMovie> restMovieList = mapper.Map<List<RestMovie>>(movieTuple.Item2);
             var restMovieTuple = new Tuple<int, List<RestMovie>>(movieTuple.Item1, restMovieList);
             return Request.CreateResponse(HttpStatusCode.OK, restMovieTuple);
@@ -60,7 +60,7 @@ namespace TMDb.WebAPI.Controllers
         {
             var mapper = Mapper.CreateMapper();
             Movie movie = mapper.Map<Movie>(restMovie);
-            await movieService.CreateMovieAsync(movie);
+            await MovieService.CreateMovieAsync(movie);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -71,7 +71,7 @@ namespace TMDb.WebAPI.Controllers
             var mapper = Mapper.CreateMapper();
             Movie movie = mapper.Map<Movie>(restMovie);
             movie.MovieID = movieID;
-            await movieService.UpdateMovieAsync(movie);
+            await MovieService.UpdateMovieAsync(movie);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -79,7 +79,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/Movie")]
         public async Task<HttpResponseMessage> DeleteMoviewAsync(Guid movieID)
         {
-            await movieService.RemoveMovieAsync(movieID);
+            await MovieService.RemoveMovieAsync(movieID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 

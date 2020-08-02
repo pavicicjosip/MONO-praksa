@@ -13,10 +13,10 @@ namespace TMDb.WebAPI.Controllers
 {
     public class AccountRoleController : ApiController
     {
-        protected IAccountRoleService accountRoleService { get; private set; }
+        protected IAccountRoleService AccountRoleService { get; private set; }
         public AccountRoleController(IAccountRoleService accountRoleService)
         {
-            this.accountRoleService = accountRoleService;
+            this.AccountRoleService = accountRoleService;
         }
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<AccountRole, RestAccountRole>().ReverseMap());
 
@@ -24,7 +24,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/AccountRole")]
         public async Task<HttpResponseMessage> DeleteAccountAsync(Guid accountID, string role)
         {
-            await accountRoleService.DeleteAccountAsync(accountID, role);
+            await AccountRoleService.DeleteAccountAsync(accountID, role);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -32,7 +32,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/AccountRole")]
         public async Task<HttpResponseMessage> GetRoleByAccountIdAsync(Guid accountID)
         {
-            List<string> list = await accountRoleService.GetRoleByAccountIdAsync(accountID);
+            List<string> list = await AccountRoleService.GetRoleByAccountIdAsync(accountID);
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, list);
@@ -50,7 +50,7 @@ namespace TMDb.WebAPI.Controllers
             var mapper = Mapper.CreateMapper();
             AccountRole accountRole = mapper.Map<AccountRole>(restAccountRole);
             accountRole.AccountID = accountID;
-            await accountRoleService.UpdateAccountRoleAsync(accountRole);
+            await AccountRoleService.UpdateAccountRoleAsync(accountRole);
             return Request.CreateResponse(HttpStatusCode.OK, "Update successful!");
         }
 

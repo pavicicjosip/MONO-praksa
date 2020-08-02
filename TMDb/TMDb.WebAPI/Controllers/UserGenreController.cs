@@ -14,10 +14,10 @@ namespace TMDb.WebAPI.Controllers
 {
     public class UserGenreController : ApiController
     {
-        protected IUserGenreService userGenreService { get; private set; }
+        protected IUserGenreService UserGenreService { get; private set; }
         public UserGenreController(IUserGenreService userGenreService)
         {
-            this.userGenreService = userGenreService;
+            this.UserGenreService = userGenreService;
         }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserGenre, RestUserGenre>().ReverseMap());
@@ -28,14 +28,14 @@ namespace TMDb.WebAPI.Controllers
         {
             var mapper = Mapper.CreateMapper();
             UserGenre userGenre = mapper.Map<UserGenre>(restUserGenre);
-            await userGenreService.InsertUserGenreAsync(userGenre);
+            await UserGenreService.InsertUserGenreAsync(userGenre);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
         [HttpDelete]
         [Route("api/UserGenre/deleteUserGenre")]
         public async Task<HttpResponseMessage> RemoveUserGenreAsync(Guid accountID, Guid genreID)
         {
-            await userGenreService.RemoveUserGenreAsync(accountID, genreID);
+            await UserGenreService.RemoveUserGenreAsync(accountID, genreID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -43,7 +43,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/UserGenre/{accountID}")]
         public async Task<HttpResponseMessage> SelectFavouriteGenreAsync(Guid accountID)
         {
-            List<Genre> list = await userGenreService.SelectFavouriteGenreAsync(accountID);
+            List<Genre> list = await UserGenreService.SelectFavouriteGenreAsync(accountID);
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, list);
@@ -59,7 +59,7 @@ namespace TMDb.WebAPI.Controllers
         public async Task<HttpResponseMessage> SelectMoviesFromGenreAsync(Guid accountID, int pageNumber = 1, int pageSize = 10)
         {
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
-            List<Movie> list = await userGenreService.SelectMoviesFromGenreAsync(pagedResponse, accountID);
+            List<Movie> list = await UserGenreService.SelectMoviesFromGenreAsync(pagedResponse, accountID);
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, list);

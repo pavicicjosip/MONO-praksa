@@ -14,15 +14,10 @@ namespace TMDb.WebAPI.Controllers
 {
     public class CCMovieController : ApiController
     {
-        ///<summary>
-        ///Get po CastID, vrati filmove
-        ///get po uloga i movieID, vrati castove
-        ///paging, sorting, filtering
-        ///</summary>
-        protected ICCMovieService ccMovieService { get; private set; }
+        protected ICCMovieService CCMovieService { get; private set; }
         public CCMovieController(ICCMovieService ccMovieService)
         {
-            this.ccMovieService = ccMovieService;
+            this.CCMovieService = ccMovieService;
         }
 
 
@@ -30,7 +25,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/CCmovie/InsertAsync")]
         public async Task<HttpResponseMessage> InsertAsync([FromBody] CCMovie ccMovie)
         {
-            await ccMovieService.InsertAsync(ccMovie);
+            await CCMovieService.InsertAsync(ccMovie);
             return Request.CreateResponse(HttpStatusCode.OK, "Insert successful");
         }
 
@@ -38,7 +33,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/CCmovie/DeleteAsync")]
         public async Task<HttpResponseMessage> DeleteAsync(Guid castID, Guid movieID, string roleInMovie)
         {
-            await ccMovieService.DeleteAsync(castID, movieID, roleInMovie);
+            await CCMovieService.DeleteAsync(castID, movieID, roleInMovie);
             return Request.CreateResponse(HttpStatusCode.OK, "Delete successful");
         }
 
@@ -47,7 +42,7 @@ namespace TMDb.WebAPI.Controllers
         public async Task<HttpResponseMessage> SelectAsync(Guid castID, int pageNumber = 1, int pageSize = 10)
         {
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
-            Tuple<int, List<Movie>> tuple = await ccMovieService.SelectAsync(pagedResponse, castID);
+            Tuple<int, List<Movie>> tuple = await CCMovieService.SelectAsync(pagedResponse, castID);
 
             return Request.CreateResponse(HttpStatusCode.OK, tuple.Item2);
         }

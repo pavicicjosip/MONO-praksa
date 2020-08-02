@@ -11,28 +11,28 @@ namespace TMDb.Service
 {
     public class FileStorageService : IFileStorageService
     {
-        protected IFileStorageRepository fileStorageRepository
+        protected IFileStorageRepository FileStorageRepository
         { get; private set; }
 
         public FileStorageService(IFileStorageRepository fileStorageRepository)
         {
-            this.fileStorageRepository = fileStorageRepository;
+            this.FileStorageRepository = fileStorageRepository;
         }
         public async Task RemoveFileAsync(Guid fileID)
         {
-            await fileStorageRepository.RemoveFileAsync(fileID);
+            await FileStorageRepository.RemoveFileAsync(fileID);
         }
         public async Task InsertFileAsync(string imageName, string imagePath)
         {
-            await fileStorageRepository.InsertFileAsync(imageName, imagePath);
+            await FileStorageRepository.InsertFileAsync(imageName, imagePath);
         }
         public async Task<FileStorage> ReturnFileByIdAsync(Guid fileID)
         {
-            return await fileStorageRepository.ReturnFileByIdAsync(fileID);
+            return await FileStorageRepository.ReturnFileByIdAsync(fileID);
         }
         public async Task UpdateFileStorageAsync(FileStorage file)
         {
-            await fileStorageRepository.UpdateFileStorageAsync(file);
+            await FileStorageRepository.UpdateFileStorageAsync(file);
         }
 
     }

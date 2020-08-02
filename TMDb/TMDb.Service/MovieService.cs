@@ -12,12 +12,12 @@ namespace TMDb.Service
 {
     public class MovieService : IMovieService
     {
-        protected IMovieRepository movieRepository
+        protected IMovieRepository MovieRepository
         { get; private set; }
 
         public MovieService(IMovieRepository movieRepository)
         {
-            this.movieRepository = movieRepository;
+            this.MovieRepository = movieRepository;
         }
 
         public async Task<Tuple<int, List<Movie>>> SelectMovieAsync(PagedResponse pagedResponse, IMovieFacade imovieFacade, Sorting sort)
@@ -70,27 +70,27 @@ namespace TMDb.Service
             if (!imovieFacade.GenreNull())
             {
                 joinTables += ", GenreMovie gm, Genre g ";
-                numberOfResults = await movieRepository.SelectNumberOfResultsAsync(whereStatement, joinTables);
-                return new Tuple<int, List<Movie>>(numberOfResults, await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, extraColumn, imovieFacade.GroupBy(), sort));
+                numberOfResults = await MovieRepository.SelectNumberOfResultsAsync(whereStatement, joinTables);
+                return new Tuple<int, List<Movie>>(numberOfResults, await MovieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, extraColumn, imovieFacade.GroupBy(), sort));
             }
 
-            numberOfResults = await movieRepository.SelectNumberOfResultsAsync(whereStatement, joinTables);
-            return new Tuple<int, List<Movie>>(numberOfResults, await movieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, extraColumn, imovieFacade.GroupBy(), sort));
+            numberOfResults = await MovieRepository.SelectNumberOfResultsAsync(whereStatement, joinTables);
+            return new Tuple<int, List<Movie>>(numberOfResults, await MovieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, extraColumn, imovieFacade.GroupBy(), sort));
         }
 
         public async Task CreateMovieAsync(Movie movie)
         {
-            await movieRepository.InsertMovieAsync(movie);
+            await MovieRepository.InsertMovieAsync(movie);
         }
 
         public async Task UpdateMovieAsync(Movie movie)
         {
-            await movieRepository.UpdateMovieAsync(movie);
+            await MovieRepository.UpdateMovieAsync(movie);
         }
 
         public async Task RemoveMovieAsync(Guid movieID)
         {
-            await movieRepository.DeleteMovieAsync(movieID);
+            await MovieRepository.DeleteMovieAsync(movieID);
         }
     }
 }

@@ -19,24 +19,24 @@ namespace TMDb.WebAPI.Controllers
     /// </summary>
     public class AccountController : ApiController
     {
-        protected IAccountService _IAccountService { get; set; }
+        protected IAccountService AccountService { get; set; }
 
-        protected IAccountFacade accountFacade { get; set; }
+        protected IAccountFacade AccountFacade { get; set; }
         public AccountController(IAccountService iAccountService, IAccountFacade accountFacade)
         {
-            this._IAccountService = iAccountService;
-            this.accountFacade = accountFacade;
+            this.AccountService = iAccountService;
+            this.AccountFacade = accountFacade;
         }
 
         [HttpGet]
         [Route("api/Account/SelectAccountAsync")]
         public async Task<HttpResponseMessage> SelectAccountAsync(Guid? accountID = null, string userName = "", string userPassword = "")
         {
-            accountFacade.AccountID.AccountID = accountID;
-            accountFacade.UserName.UserName = userName;
-            accountFacade.UserPassword.UserPassword = userPassword;
+            AccountFacade.AccountID.AccountID = accountID;
+            AccountFacade.UserName.UserName = userName;
+            AccountFacade.UserPassword.UserPassword = userPassword;
 
-            Account account = await _IAccountService.SelectAccountAsync(accountFacade);
+            Account account = await AccountService.SelectAccountAsync(AccountFacade);
 
             return Request.CreateResponse(HttpStatusCode.OK, account);
         }
@@ -46,7 +46,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/Account/DeleteAccountAsync/{accountID}")]
         public async Task<HttpResponseMessage> DeleteAccountAsync([FromUri] Guid accountID)
         {
-            await _IAccountService.DeleteAccountAsync(accountID);
+            await AccountService.DeleteAccountAsync(accountID);
 
             return Request.CreateResponse(HttpStatusCode.OK, "Delete successful");
         }
@@ -62,7 +62,7 @@ namespace TMDb.WebAPI.Controllers
 
             acc.AccountID = accountID;
 
-            await _IAccountService.UpdateAccountAsync(acc);
+            await AccountService.UpdateAccountAsync(acc);
 
             return Request.CreateResponse(HttpStatusCode.OK, "Update successful");
         }
@@ -76,7 +76,7 @@ namespace TMDb.WebAPI.Controllers
 
             Account acc = iMapper.Map<RestAccount, Account>(restAcc);
 
-            await _IAccountService.InsertAccountAsync(acc);
+            await AccountService.InsertAccountAsync(acc);
 
             return Request.CreateResponse(HttpStatusCode.OK, "Insert successful");
         }

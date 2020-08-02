@@ -8,8 +8,17 @@ using System.Web;
 using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Routing;
+using System.Configuration;
+using AutoMapper;
+using AutoMapper.Configuration;
 using TMDb.Repository;
 using TMDb.Service;
+using TMDb.Common;
+using TMDb.Model;
+using TMDb.WebAPI.Controllers;
+using TMDb.Service.Common;
+using TMDb.Repository.Common;
+using TMDb.Model.Common;
 
 namespace TMDb.WebAPI
 {

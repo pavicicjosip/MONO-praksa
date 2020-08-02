@@ -106,7 +106,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountRoleController.cs" />
-    <Compile Include="Controllers\AdministratorAccountController.cs" />
     <Compile Include="Controllers\CastAndCrewController.cs" />
     <Compile Include="Controllers\CCMovieController.cs" />
     <Compile Include="Controllers\FileStorageController.cs" />
@@ -140,9 +139,21 @@
       <Project>{45a6e807-9b75-446f-891d-9e80ea79c016}</Project>
       <Name>TMDb.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TMDb.DAL\TMDb.DAL.csproj">
+      <Project>{b12ba9ba-4d13-4018-8d8f-39dae6ce9ef2}</Project>
+      <Name>TMDb.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMDb.Model.Common\TMDb.Model.Common.csproj">
+      <Project>{7284a685-10fa-4593-9bb7-15c152171d52}</Project>
+      <Name>TMDb.Model.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMDb.Model\TMDb.Model.csproj">
       <Project>{70f7ddf6-f454-4464-ae20-9c63ba0924cb}</Project>
       <Name>TMDb.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMDb.Repository.Common\TMDb.Repository.Common.csproj">
+      <Project>{065b0aca-2bb0-467b-8ebe-a06c13d2b343}</Project>
+      <Name>TMDb.Repository.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\TMDb.Repository\TMDb.Repository.csproj">
       <Project>{ee2bb0a2-5f85-420e-940e-6c6ba98e7fff}</Project>

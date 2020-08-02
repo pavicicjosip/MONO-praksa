@@ -17,16 +17,16 @@ namespace TMDb.WebAPI.Controllers
 {
     public class CastAndCrewController : ApiController
     {
-        protected ICastAndCrewService _ICastAndCrewService { get; private set; }
-        protected ICastAndCrewFacade castAndCrewFacade { get; private set; }
+        protected ICastAndCrewService CastAndCrewService { get; private set; }
+        protected ICastAndCrewFacade CastAndCrewFacade { get; private set; }
 
         static MapperConfiguration config = new MapperConfiguration(cfg => { cfg.CreateMap<RestCastAndCrew, CastAndCrew>(); });
         
         public CastAndCrewController() { }
         public CastAndCrewController(ICastAndCrewService iCastAndCrewService, ICastAndCrewFacade iCastAndCrewFacade)
         {
-            this._ICastAndCrewService = iCastAndCrewService;
-            this.castAndCrewFacade = iCastAndCrewFacade;
+            this.CastAndCrewService = iCastAndCrewService;
+            this.CastAndCrewFacade = iCastAndCrewFacade;
         }
 
         
@@ -37,14 +37,14 @@ namespace TMDb.WebAPI.Controllers
         {
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
 
-            castAndCrewFacade.FirstName.FirstName = firstName;
-            castAndCrewFacade.LastName.LastName = lastName;
-            castAndCrewFacade.DateOfBirth.DateOfBirth = dateOfBirth;
-            castAndCrewFacade.MovieID.MovieID = movieID;
-            castAndCrewFacade.Role.Role = role;
+            CastAndCrewFacade.FirstName.FirstName = firstName;
+            CastAndCrewFacade.LastName.LastName = lastName;
+            CastAndCrewFacade.DateOfBirth.DateOfBirth = dateOfBirth;
+            CastAndCrewFacade.MovieID.MovieID = movieID;
+            CastAndCrewFacade.Role.Role = role;
 
 
-            Tuple<int, List<CastAndCrew>> tuple =  await _ICastAndCrewService.SelectAsync(pagedResponse, castAndCrewFacade);
+            Tuple<int, List<CastAndCrew>> tuple =  await CastAndCrewService.SelectAsync(pagedResponse, CastAndCrewFacade);
 
             return Request.CreateResponse(HttpStatusCode.OK, tuple.Item2);
         }
@@ -56,7 +56,7 @@ namespace TMDb.WebAPI.Controllers
             IMapper iMapper = config.CreateMapper();
             CastAndCrew castAndCrew = iMapper.Map<RestCastAndCrew, CastAndCrew>(restCastAndCrew);
 
-            await _ICastAndCrewService.InsertAsync(castAndCrew);
+            await CastAndCrewService.InsertAsync(castAndCrew);
 
             return Request.CreateResponse(HttpStatusCode.OK, "Insert successful");
         }
@@ -68,7 +68,7 @@ namespace TMDb.WebAPI.Controllers
             IMapper iMapper = config.CreateMapper();
             CastAndCrew castAndCrew = iMapper.Map<RestCastAndCrew, CastAndCrew>(restCastAndCrew);
 
-            await _ICastAndCrewService.UpdateAsync(castID, castAndCrew);
+            await CastAndCrewService.UpdateAsync(castID, castAndCrew);
 
             return Request.CreateResponse(HttpStatusCode.OK, "Update successful");
         }
@@ -77,7 +77,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/CastAndCrew/DeleteAsync/{castID}")]
         public async Task<HttpResponseMessage> DeleteAsync([FromUri] Guid castID)
         {
-            await _ICastAndCrewService.DeleteAsync(castID);
+            await CastAndCrewService.DeleteAsync(castID);
 
             return Request.CreateResponse(HttpStatusCode.OK, "Delete successful");
         }

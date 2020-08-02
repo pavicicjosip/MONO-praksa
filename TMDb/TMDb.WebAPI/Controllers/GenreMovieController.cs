@@ -13,10 +13,10 @@ namespace TMDb.WebAPI.Controllers
 {
     public class GenreMovieController : ApiController
     {
-        protected IGenreMovieService genreMovieService { get; private set; }
+        protected IGenreMovieService GenreMovieService { get; private set; }
         public GenreMovieController(IGenreMovieService genreMovieService) 
         { 
-            this.genreMovieService = genreMovieService; 
+            this.GenreMovieService = genreMovieService; 
         }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<GenreMovie, RestGenreMovie>().ReverseMap());
@@ -27,14 +27,14 @@ namespace TMDb.WebAPI.Controllers
         {
             var mapper = Mapper.CreateMapper();
             GenreMovie genreMovie = mapper.Map<GenreMovie>(restGenreMovie);
-            await genreMovieService.InsertGenreMovieAsync(genreMovie);
+            await GenreMovieService.InsertGenreMovieAsync(genreMovie);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
         [HttpGet]
         [Route("api/GenreMovie/getGenreOfMovie")]
         public async Task<HttpResponseMessage> GetGenreOfMovieAsync(Guid movieID)
         {
-            List<string> list = await genreMovieService.GetGenreOfMovieAsync(movieID);
+            List<string> list = await GenreMovieService.GetGenreOfMovieAsync(movieID);
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, list);
@@ -48,7 +48,7 @@ namespace TMDb.WebAPI.Controllers
         [Route("api/GenreMovie/deleteGenreMovie")]
         public async Task<HttpResponseMessage> RemoveGenreMovieAsync(Guid movieID, Guid genreID)
         {
-            await genreMovieService.RemoveGenreMovieAsync(movieID, genreID);
+            await GenreMovieService.RemoveGenreMovieAsync(movieID, genreID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
         public class RestGenreMovie
