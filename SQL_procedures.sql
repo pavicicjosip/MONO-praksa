@@ -346,3 +346,20 @@ AS
 	FROM AccountRole
 	WHERE AccountID = @AccountID; 
 GO
+
+
+CREATE OR ALTER PROCEDURE p_UpdateAccountRole
+( @AccountID UNIQUEIDENTIFIER,
+  @Role VARCHAR(20)) 
+AS
+BEGIN TRY
+	BEGIN TRAN
+		UPDATE  AccountRole
+		SET  Role = Role
+		WHERE AccountID = @AccountID;
+	COMMIT TRAN;
+END TRY
+BEGIN CATCH
+	ROLLBACK TRAN;
+END CATCH
+GO
