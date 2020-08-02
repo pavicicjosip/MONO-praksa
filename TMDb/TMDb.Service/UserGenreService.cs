@@ -27,6 +27,7 @@ namespace TMDb.Service
         {
             await userGenreRepository.RemoveUserGenreAsync(accountID, genreID);
         }
+
         public async Task<List<Genre>> SelectFavouriteGenreAsync(Guid accountID)
         {
             return await userGenreRepository.SelectFavouriteGenreAsync(accountID);

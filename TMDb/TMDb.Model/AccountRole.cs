@@ -12,6 +12,7 @@ namespace TMDb.Model
     {
         public Guid AccountID { get; set; }
         public string Role { get; set; }
+        public AccountRole() { }
         public AccountRole(Guid accountID, string role)
         {
             this.AccountID = accountID;

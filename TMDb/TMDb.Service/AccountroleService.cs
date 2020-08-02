@@ -22,5 +22,13 @@ namespace TMDb.Service
         {
             await accountRoleRepository.DeleteAccountAsync(accountID, role);
         }
+        public async Task<List<string>> GetRoleByAccountIdAsync(Guid accountID)
+        {
+            return await accountRoleRepository.GetRoleByAccountIdAsync(accountID);
+        }
+        public async Task UpdateAccountRoleAsync(AccountRole accountRole)
+        {
+            await accountRoleRepository.UpdateAccountRoleAsync(accountRole);
+        }
     }
 }

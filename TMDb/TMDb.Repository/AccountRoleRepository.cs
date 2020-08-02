@@ -29,5 +29,35 @@ namespace TMDb.Repository
             await command.ExecuteNonQueryAsync();
             connection.Close();
         }
+
+        public async Task<List<string>> GetRoleByAccountIdAsync(Guid accountID)
+        {
+            await connection.OpenAsync();
+            List<string> list = new List<string>();
+            var command = new SqlCommand("p_GetRoleById", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.Add(new SqlParameter("@AccountID", accountID));
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    list.Add(reader.GetString(0));
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return list;
+        }
+        public async Task UpdateAccountRoleAsync(AccountRole accountRole)
+        {
+            connection.Open();
+            var command = new SqlCommand(string.Format("UPDATE AccountRole SET Role = '{0}'" +
+                "WHERE AccountID = '{1}'", accountRole.Role, accountRole.AccountID), connection);
+            await command.ExecuteReaderAsync();
+            connection.Close();
+        }
     }
 }
