@@ -12,6 +12,6 @@ namespace TMDb.Repository.Common
         Task RemoveFileAsync(Guid fileID);
         Task InsertFileAsync(string imageName, string imagePath);
         Task<FileStorage> ReturnFileByIdAsync(Guid fileID);
-
+        Task UpdateFileStorageAsync(FileStorage file);
     }
 }

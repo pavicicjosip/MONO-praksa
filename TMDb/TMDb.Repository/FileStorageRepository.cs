@@ -14,8 +14,8 @@ namespace TMDb.Repository
 {
     public class FileStorageRepository : IFileStorageRepository
     {
-       private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
-       public async Task RemoveFileAsync(Guid fileID)
+        private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AzureConnectionString"].ConnectionString);
+        public async Task RemoveFileAsync(Guid fileID)
         {
             connection.Open();
             var commandDelete = new SqlCommand(String.Format("DELETE FROM FileStorage WHERE FileID = '{0}'", fileID), connection);
@@ -53,6 +53,14 @@ namespace TMDb.Repository
             reader.Close();
             connection.Close();
             return file;
+        }
+        public async Task UpdateFileStorageAsync(FileStorage file)
+        {
+            connection.Open();
+            var command = new SqlCommand(String.Format("UPDATE FileStorage SET ImageName = '{0}', ImagePath = '{1}' " +
+                "WHERE FileID = '{2}'", file.ImageName, file.ImagePath, file.FileID), connection);
+            await command.ExecuteReaderAsync();
+            connection.Close();
         }
     }
 }

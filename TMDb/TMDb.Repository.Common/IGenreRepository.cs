@@ -10,6 +10,7 @@ namespace TMDb.Repository.Common
     {
         Task<List<Genre>> ReturnAllGenresAsync();
         Task<Genre> ReturnGenreByTitleAsync(string title);
-
+        Task InsertGenreAsync(string title);
+        Task UpdateGenreAsync(Genre genre);
     }
 }

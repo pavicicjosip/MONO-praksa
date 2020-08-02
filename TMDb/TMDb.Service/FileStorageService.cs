@@ -30,6 +30,10 @@ namespace TMDb.Service
         {
             return await fileStorageRepository.ReturnFileByIdAsync(fileID);
         }
+        public async Task UpdateFileStorageAsync(FileStorage file)
+        {
+            await fileStorageRepository.UpdateFileStorageAsync(file);
+        }
 
     }
 }

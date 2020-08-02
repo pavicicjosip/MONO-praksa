@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountRoleController.cs" />
     <Compile Include="Controllers\AdministratorAccountController.cs" />
     <Compile Include="Controllers\CastAndCrewController.cs" />
     <Compile Include="Controllers\CCMovieController.cs" />

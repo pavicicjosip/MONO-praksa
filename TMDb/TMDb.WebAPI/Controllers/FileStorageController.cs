@@ -52,6 +52,17 @@ namespace TMDb.WebAPI.Controllers
             var Path = System.Web.Hosting.HostingEnvironment.MapPath("~/" + file.ImagePath + file.ImageName);
             return Request.CreateResponse(HttpStatusCode.OK, Path);
         }
+
+        [HttpPut]
+        [Route("api/FileStorage/{FileID}")]
+        public async Task<HttpResponseMessage> UpdateFileStorageAsync(Guid fileID, RestFileStorage restFileStorage)
+        {
+            var mapper = Mapper.CreateMapper();
+            FileStorage fileStorage = mapper.Map<FileStorage>(restFileStorage);
+            fileStorage.FileID = fileID;
+            await fileStorageService.UpdateFileStorageAsync(fileStorage);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
         public class RestFileStorage
         {
             public string ImageName { get; set; }

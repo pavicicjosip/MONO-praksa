@@ -57,7 +57,22 @@ namespace TMDb.Repository
             reader.Close();
             connection.Close();
             return genre;
-
+        }
+        public async Task InsertGenreAsync(string title)
+        {
+            var command = new SqlCommand(String.Format("INSERT INTO Genre(Title) VALUES('{0}')", title), connection);
+            connection.Open();
+            await command.ExecuteReaderAsync();
+            connection.Close();
+            return;
+        }
+        public async Task UpdateGenreAsync(Genre genre)
+        {
+            connection.Open();
+            var command = new SqlCommand(String.Format("UPDATE Genre SET Title = '{0}' " +
+                "WHERE GenreID = '{1}'", genre.Title, genre.GenreID), connection);
+            await command.ExecuteReaderAsync();
+            connection.Close();
         }
     }
 }

@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAccountRoleService.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="ICastAndCrewService.cs" />
     <Compile Include="ICCMovieService.cs" />
