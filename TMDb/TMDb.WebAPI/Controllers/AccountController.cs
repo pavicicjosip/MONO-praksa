@@ -11,6 +11,8 @@ using Autofac;
 using AutoMapper;
 using TMDb.Common.Account;
 using TMDb.Common;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace TMDb.WebAPI.Controllers
 {
@@ -20,12 +22,14 @@ namespace TMDb.WebAPI.Controllers
     public class AccountController : ApiController
     {
         protected IAccountService AccountService { get; set; }
+        protected TokenController TokenController { get; set; }
 
         protected IAccountFacade AccountFacade { get; set; }
         public AccountController(IAccountService iAccountService, IAccountFacade accountFacade)
         {
             this.AccountService = iAccountService;
             this.AccountFacade = accountFacade;
+            this.TokenController = new TokenController();
         }
 
         [HttpGet]
@@ -35,10 +39,25 @@ namespace TMDb.WebAPI.Controllers
             AccountFacade.AccountID.AccountID = accountID;
             AccountFacade.UserName.UserName = userName;
             AccountFacade.UserPassword.UserPassword = userPassword;
+            string token = "";
 
             Account account = await AccountService.SelectAccountAsync(AccountFacade);
-
-            return Request.CreateResponse(HttpStatusCode.OK, account);
+            if(account != null)
+            {
+                token = TokenController.GenerateToken(account.AccountID, "User");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, token);
+            /*var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                var id = claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value;
+                return Request.CreateResponse(HttpStatusCode.OK, id);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }*/
         }
 
 
