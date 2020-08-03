@@ -2,8 +2,8 @@
 {
     public interface IReviewFacade
     {
-        IReviewAccountID reviewAccountID { get; set; }
-        IReviewMovieID reviewMovieID { get; set; }
+        IReviewAccountID ReviewAccountID { get; set; }
+        IReviewMovieID ReviewMovieID { get; set; }
 
         string WhereStatement();
     }

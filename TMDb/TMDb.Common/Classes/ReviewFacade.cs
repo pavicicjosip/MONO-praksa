@@ -8,17 +8,17 @@ namespace TMDb.Common.Review
 {
     public class ReviewFacade : IReviewFacade
     {
-        public IReviewAccountID reviewAccountID { get; set; }
-        public IReviewMovieID reviewMovieID { get; set; }
+        public IReviewAccountID ReviewAccountID { get; set; }
+        public IReviewMovieID ReviewMovieID { get; set; }
         public ReviewFacade(IReviewAccountID reviewAccountID, IReviewMovieID reviewMovieID)
         {
-            this.reviewAccountID = reviewAccountID;
-            this.reviewMovieID = reviewMovieID;
+            this.ReviewAccountID = reviewAccountID;
+            this.ReviewMovieID = reviewMovieID;
         }
         public string WhereStatement()
         {
-            bool accountBool = reviewAccountID.Default();
-            bool movieBool = reviewMovieID.Default();
+            bool accountBool = ReviewAccountID.Default();
+            bool movieBool = ReviewMovieID.Default();
 
             string _out = "";
 
@@ -27,13 +27,13 @@ namespace TMDb.Common.Review
                 case true when accountBool: 
                     break;
                 case true when !accountBool:
-                    _out += " AND " + reviewAccountID.WhereStatement();
+                    _out += " AND " + ReviewAccountID.WhereStatement();
                     break;
                 case false when accountBool:
-                    _out += " AND " + reviewMovieID.WhereStatement();
+                    _out += " AND " + ReviewMovieID.WhereStatement();
                     break;
                 case false when !accountBool:
-                    _out += " AND " + reviewAccountID.WhereStatement() +" AND " + reviewMovieID.WhereStatement();
+                    _out += " AND " + ReviewAccountID.WhereStatement() +" AND " + ReviewMovieID.WhereStatement();
                     break;
             }
 

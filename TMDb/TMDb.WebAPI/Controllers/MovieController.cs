@@ -36,16 +36,16 @@ namespace TMDb.WebAPI.Controllers
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
             Sorting sort = new Sorting { Column = column, Order = order };
 
-            MovieFacade.movieYearOfProduction.YearOfProduction = yearOfProduction;
-            MovieFacade.movieTitle.Title = title;
-            MovieFacade.movieGenre.Genre = genre;
+            MovieFacade.MovieYearOfProduction.YearOfProduction = yearOfProduction;
+            MovieFacade.MovieTitle.Title = title;
+            MovieFacade.MovieGenre.Genre = genre;
             if (accountID.HasValue)
             {
-                MovieFacade.movieAccountReview.AccountID = accountID.Value;
+                MovieFacade.MovieAccountReview.AccountID = accountID.Value;
             }
             else
             {
-                MovieFacade.movieAccountReview.AccountID = Guid.Empty;
+                MovieFacade.MovieAccountReview.AccountID = Guid.Empty;
             }
 
             var movieTuple = await MovieService.SelectMovieAsync(pagedResponse, MovieFacade, sort);
