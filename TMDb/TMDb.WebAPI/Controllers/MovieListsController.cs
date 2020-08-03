@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TMDb.Common;
@@ -21,11 +22,13 @@ namespace TMDb.WebAPI.Controllers
         protected IMovieListsFacade MovieListsFacade { get; private set; }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<MovieLists, RestMovieLists>().ReverseMap());
+        protected TokenController TokenController { get; set; }
 
         public MovieListsController(IMovieListsService movieListsService, IMovieListsFacade movieListsFacade)
         {
             this.MovieListsService = movieListsService;
             this.MovieListsFacade = movieListsFacade;
+            this.TokenController = new TokenController();
         }
 
         [HttpGet]
@@ -42,12 +45,15 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/MovieLists/{AccountID}/{ListName}")]
-        public async Task<HttpResponseMessage> GetMoviesFromListAsync(Guid accountID, string listName, string column = "default", bool order = true, int pageNumber = 1, int pageSize = 10)
+        [Authorize]
+        [Route("api/MovieLists")]
+        public async Task<HttpResponseMessage> GetMoviesFromListAsync(string listName, string column = "default", bool order = true, int pageNumber = 1, int pageSize = 10)
         {
+            var identity = User.Identity as ClaimsIdentity;
+            IEnumerable<Claim> claims = identity.Claims;
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
             Sorting sort = new Sorting { Column = column, Order = order };
-            MovieListsFacade.MovieListsAccountID.AccountID = accountID;
+            MovieListsFacade.MovieListsAccountID.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             MovieListsFacade.MovieListsListName.ListName = listName;
             MovieListsFacade.MovieListsMovieID.MovieID = Guid.Empty;
 
