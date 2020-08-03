@@ -53,6 +53,15 @@ namespace TMDb.WebAPI.Controllers
             await AccountRoleService.UpdateAccountRoleAsync(accountRole);
             return Request.CreateResponse(HttpStatusCode.OK, "Update successful!");
         }
+        [HttpPost]
+        [Route("api/AccountRole")]
+        public async Task<HttpResponseMessage> InsertAccountRoleAsync([FromBody] RestAccountRole restAccountRole)
+        {
+            var mapper = Mapper.CreateMapper();
+            AccountRole accountRole = mapper.Map<AccountRole>(restAccountRole);
+            await AccountRoleService.UpdateAccountRoleAsync(accountRole);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
 
         public class RestAccountRole
         {
