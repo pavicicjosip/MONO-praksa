@@ -37,20 +37,20 @@ namespace TMDb.WebAPI.Controllers
             Sorting sort = new Sorting { Column = column, Order = order };
             if (accountID.HasValue)
             {
-                ReviewFacade.reviewAccountID.AccountID = accountID.Value;
+                ReviewFacade.ReviewAccountID.AccountID = accountID.Value;
             }
             else
             {
-                ReviewFacade.reviewAccountID.AccountID = Guid.Empty;
+                ReviewFacade.ReviewAccountID.AccountID = Guid.Empty;
             }
 
             if (movieID.HasValue)
             {
-                ReviewFacade.reviewMovieID.MovieID = movieID.Value;
+                ReviewFacade.ReviewMovieID.MovieID = movieID.Value;
             }
             else
             {
-                ReviewFacade.reviewMovieID.MovieID = Guid.Empty;
+                ReviewFacade.ReviewMovieID.MovieID = Guid.Empty;
             }
 
             var reviewTuple = await ReviewService.SelectReviewsAsync(pagedResponse, ReviewFacade, sort);

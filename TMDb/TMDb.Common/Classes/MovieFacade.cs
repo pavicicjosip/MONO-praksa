@@ -9,26 +9,26 @@ namespace TMDb.Common
 {
     public class MovieFacade : IMovieFacade
     {
-        public IMovieGenre movieGenre { get; set; }
-        public IMovieYearOfProduction movieYearOfProduction { get; set; }
-        public IMovieTitle movieTitle { get; set; }
-        public IMovieAccountReview movieAccountReview { get; set; }
+        public IMovieGenre MovieGenre { get; set; }
+        public IMovieYearOfProduction MovieYearOfProduction { get; set; }
+        public IMovieTitle MovieTitle { get; set; }
+        public IMovieAccountReview MovieAccountReview { get; set; }
         public bool GroupByBool { get; set; }
 
         public MovieFacade(IMovieGenre movieGenre, IMovieYearOfProduction movieYearOfProduction, IMovieTitle movieTitle, IMovieAccountReview movieAccountReview)
         {
-            this.movieGenre = movieGenre;
-            this.movieYearOfProduction = movieYearOfProduction;
-            this.movieTitle = movieTitle;
-            this.movieAccountReview = movieAccountReview;
+            this.MovieGenre = movieGenre;
+            this.MovieYearOfProduction = movieYearOfProduction;
+            this.MovieTitle = movieTitle;
+            this.MovieAccountReview = movieAccountReview;
         }
 
         public string WhereStatement()
         {
-            bool genreBool = movieGenre.Default();
-            bool yearOfProductionBool = movieYearOfProduction.Default();
-            bool titleBool = movieTitle.Default();
-            bool accountReview = movieAccountReview.Default();
+            bool genreBool = MovieGenre.Default();
+            bool yearOfProductionBool = MovieYearOfProduction.Default();
+            bool titleBool = MovieTitle.Default();
+            bool accountReview = MovieAccountReview.Default();
 
             string _out = "";
 
@@ -38,49 +38,49 @@ namespace TMDb.Common
                     _out = "";
                     break;
                 case true when titleBool && !yearOfProductionBool && accountReview:
-                    _out = "WHERE " + movieYearOfProduction.WhereStatement();
+                    _out = "WHERE " + MovieYearOfProduction.WhereStatement();
                     break;
                 case true when !titleBool && !yearOfProductionBool && accountReview:
-                    _out = "WHERE " + movieYearOfProduction.WhereStatement() + " AND " + movieTitle.WhereStatement();
+                    _out = "WHERE " + MovieYearOfProduction.WhereStatement() + " AND " + MovieTitle.WhereStatement();
                     break;
                 case true when !titleBool && yearOfProductionBool && accountReview:
-                    _out = "WHERE " + movieTitle.WhereStatement();
+                    _out = "WHERE " + MovieTitle.WhereStatement();
                     break;
                 case false when titleBool && yearOfProductionBool && accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement();
                     break;
                 case false when titleBool && !yearOfProductionBool && accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement() + " AND " + movieYearOfProduction.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement() + " AND " + MovieYearOfProduction.WhereStatement();
                     break;
                 case false when !titleBool && yearOfProductionBool && accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement() + " AND " + movieTitle.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement() + " AND " + MovieTitle.WhereStatement();
                     break;
                 case false when !titleBool && !yearOfProductionBool && accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement() + " AND " + movieTitle.WhereStatement() + " AND " + movieYearOfProduction.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement() + " AND " + MovieTitle.WhereStatement() + " AND " + MovieYearOfProduction.WhereStatement();
                     break;
                 case true when titleBool && yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieAccountReview.WhereStatement();
                     break;
                 case true when titleBool && !yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieYearOfProduction.WhereStatement() + " AND " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieYearOfProduction.WhereStatement() + " AND " + MovieAccountReview.WhereStatement();
                     break;
                 case true when !titleBool && !yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieYearOfProduction.WhereStatement() + " AND " + movieTitle.WhereStatement() + " AND " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieYearOfProduction.WhereStatement() + " AND " + MovieTitle.WhereStatement() + " AND " + MovieAccountReview.WhereStatement();
                     break;
                 case true when !titleBool && yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieTitle.WhereStatement() + " AND " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieTitle.WhereStatement() + " AND " + MovieAccountReview.WhereStatement();
                     break;
                 case false when titleBool && yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement() + " AND " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement() + " AND " + MovieAccountReview.WhereStatement();
                     break;
                 case false when titleBool && !yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement() + " AND " + movieYearOfProduction.WhereStatement() + " AND " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement() + " AND " + MovieYearOfProduction.WhereStatement() + " AND " + MovieAccountReview.WhereStatement();
                     break;
                 case false when !titleBool && yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement() + " AND " + movieTitle.WhereStatement() + " AND " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement() + " AND " + MovieTitle.WhereStatement() + " AND " + MovieAccountReview.WhereStatement();
                     break;
                 case false when !titleBool && !yearOfProductionBool && !accountReview:
-                    _out = "WHERE " + movieGenre.WhereStatement() + " AND " + movieTitle.WhereStatement() + " AND " + movieYearOfProduction.WhereStatement() + " AND " + movieAccountReview.WhereStatement();
+                    _out = "WHERE " + MovieGenre.WhereStatement() + " AND " + MovieTitle.WhereStatement() + " AND " + MovieYearOfProduction.WhereStatement() + " AND " + MovieAccountReview.WhereStatement();
                     break;
                 default:
                     break;
@@ -90,12 +90,12 @@ namespace TMDb.Common
         }
         public bool AccountReviewNull()
         {
-            return movieAccountReview.Default();
+            return MovieAccountReview.Default();
         }
 
         public bool GenreNull()
         {
-            return movieGenre.Default();
+            return MovieGenre.Default();
         }
 
         public string GroupBy()

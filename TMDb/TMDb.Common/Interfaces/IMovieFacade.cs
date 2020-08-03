@@ -8,10 +8,10 @@ namespace TMDb.Common
 {
     public interface IMovieFacade
     {
-        IMovieGenre movieGenre { get; set; }
-        IMovieYearOfProduction movieYearOfProduction { get; set; }
-        IMovieTitle movieTitle { get; set; }
-        IMovieAccountReview movieAccountReview { get; set; }
+        IMovieGenre MovieGenre { get; set; }
+        IMovieYearOfProduction MovieYearOfProduction { get; set; }
+        IMovieTitle MovieTitle { get; set; }
+        IMovieAccountReview MovieAccountReview { get; set; }
         bool GroupByBool { get; set; }
         string WhereStatement();
         bool AccountReviewNull();

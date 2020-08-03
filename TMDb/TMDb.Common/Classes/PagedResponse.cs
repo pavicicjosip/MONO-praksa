@@ -8,7 +8,7 @@ namespace TMDb.Common
 {
     public class PagedResponse
     {
-        const int maxPageSize = 30;
+        const int MaxPageSize = 30;
         public int PageNumber { get; set; }
 
         private int _pageSize = 3;
@@ -20,7 +20,7 @@ namespace TMDb.Common
             }
             set
             {
-                _pageSize = (value > maxPageSize) ? maxPageSize : value;
+                _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
             }
         }
 
