@@ -30,5 +30,9 @@ namespace TMDb.Service
         {
             await AccountRoleRepository.UpdateAccountRoleAsync(accountRole);
         }
+        public async Task InsertAccountRoleAsync(AccountRole accountRole)
+        {
+            await AccountRoleRepository.InsertAccountRoleAsync(accountRole);
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace TMDb.Repository.Common
         Task DeleteAccountAsync(Guid accountID, string role);
         Task<List<string>> GetRoleByAccountIdAsync(Guid accountID);
         Task UpdateAccountRoleAsync(AccountRole accountRole);
+        Task InsertAccountRoleAsync(AccountRole accountRole);
     }
 }
