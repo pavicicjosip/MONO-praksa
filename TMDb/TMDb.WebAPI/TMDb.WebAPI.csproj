@@ -157,7 +157,7 @@
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\MovieListsController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="Controllers\TokenController.cs" />
+    <Compile Include="TokenGenerator.cs" />
     <Compile Include="Controllers\UserGenreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

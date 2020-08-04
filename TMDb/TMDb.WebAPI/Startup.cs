@@ -22,12 +22,10 @@ namespace TMDb.WebAPI
                     AuthenticationMode = AuthenticationMode.Active,
                     TokenValidationParameters = new TokenValidationParameters()
                     {
-                        ValidateIssuer = false, //true,
-                        ValidateAudience = false, //true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateIssuerSigningKey = true,
-                        //ValidIssuer = "http://mysite.com", //some string, normally web url,  
-                        //ValidAudience = "http://mysite.com",
-                        IssuerSigningKey = TokenController.SecurityKey,
+                        IssuerSigningKey = TokenGenerator.SecurityKey,
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.FromMinutes(60)
                     }

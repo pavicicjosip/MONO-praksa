@@ -10,9 +10,9 @@ using System.Text;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 
-namespace TMDb.WebAPI.Controllers
+namespace TMDb.WebAPI
 {
-    public class TokenController : ApiController
+    public class TokenGenerator
     {
         private const string SecretKey = "my_secret_key_12345";
         public static readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));

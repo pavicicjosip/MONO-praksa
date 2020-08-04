@@ -22,14 +22,14 @@ namespace TMDb.WebAPI.Controllers
     public class AccountController : ApiController
     {
         protected IAccountService AccountService { get; set; }
-        protected TokenController TokenController { get; set; }
+        protected TokenGenerator TokenGenerator { get; set; }
 
         protected IAccountFacade AccountFacade { get; set; }
         public AccountController(IAccountService iAccountService, IAccountFacade accountFacade)
         {
             this.AccountService = iAccountService;
             this.AccountFacade = accountFacade;
-            this.TokenController = new TokenController();
+            this.TokenGenerator = new TokenGenerator();
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace TMDb.WebAPI.Controllers
             Account account = await AccountService.SelectAccountAsync(AccountFacade);
             if(account != null)
             {
-                token = TokenController.GenerateToken(account.AccountID, "User");
+                token = TokenGenerator.GenerateToken(account.AccountID, "User");
             }
             return Request.CreateResponse(HttpStatusCode.OK, token);
             /*var identity = User.Identity as ClaimsIdentity;
