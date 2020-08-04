@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,16 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/MovieLists/{AccountID}")]
-        public async Task<HttpResponseMessage> GetMovieListsAsync(Guid accountID, int pageNumber = 1, int pageSize = 10)
+        [Route("api/MovieLists/Lists")]
+        public async Task<HttpResponseMessage> GetMovieListsAsync(int pageNumber = 1, int pageSize = 10)
         {
             var mapper = Mapper.CreateMapper();
 
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+
             var pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
+            var accountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             var movieListsTuple = await MovieListsService.SelectMovieListsAsync(accountID, pagedResponse);
             List<RestMovieLists> restMovieLists = mapper.Map<List<RestMovieLists>>(movieListsTuple.Item2);
             var restMovieListsTuple = new Tuple<int, List<RestMovieLists>>(movieListsTuple.Item1, restMovieLists);
@@ -43,14 +48,16 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User")] //samo za probu
-        [Route("api/MovieLists")]
+        [Authorize]
+        [Route("api/MovieLists/Movies")]
         public async Task<HttpResponseMessage> GetMoviesFromListAsync(string listName, string column = "default", bool order = true, int pageNumber = 1, int pageSize = 10)
         {
-            var identity = User.Identity as ClaimsIdentity;
-            IEnumerable<Claim> claims = identity.Claims;
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
             Sorting sort = new Sorting { Column = column, Order = order };
+            string flag = User.Identity.GetUserId();
             MovieListsFacade.MovieListsAccountID.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             MovieListsFacade.MovieListsListName.ListName = listName;
             MovieListsFacade.MovieListsMovieID.MovieID = Guid.Empty;
@@ -60,23 +67,31 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/MovieLists")]
-        public async Task<HttpResponseMessage> PostMovieListsAsync(Guid accountID, RestMovieLists restMovieList)
+        public async Task<HttpResponseMessage> PostMovieListsAsync(RestMovieLists restMovieList)
         {
             var mapper = Mapper.CreateMapper();
+            
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+            
             MovieLists movieList = mapper.Map<MovieLists>(restMovieList);
-            movieList.AccountID = accountID;
+            movieList.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             await MovieListsService.CreateMovieListAsync(movieList);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/MovieLists")]
-        public async Task<HttpResponseMessage> DeleteMovieListsAsync(string listName = "default", Guid? accountID = null, Guid? movieID = null)
+        public async Task<HttpResponseMessage> DeleteMovieListsAsync(string listName = "default", bool account = false, Guid? movieID = null)
         {
-            if (accountID.HasValue)
+            if (account)
             {
-                MovieListsFacade.MovieListsAccountID.AccountID = accountID.Value;
+                ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+                var claims = identity.Claims;
+                MovieListsFacade.MovieListsAccountID.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             }
             else
             {

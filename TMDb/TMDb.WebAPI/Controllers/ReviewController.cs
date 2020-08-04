@@ -10,6 +10,7 @@ using AutoMapper;
 using System.Threading.Tasks;
 using TMDb.Common;
 using TMDb.Common.Review;
+using System.Security.Claims;
 
 namespace TMDb.WebAPI.Controllers
 {
@@ -29,15 +30,17 @@ namespace TMDb.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/Review")]
-        public async Task<HttpResponseMessage> GetReviewsAsync(Guid? movieID = null, Guid? accountID = null, string column = "default", bool order = true,int pageNumber = 1, int pageSize = 10)
+        public async Task<HttpResponseMessage> GetReviewsAsync(Guid? movieID = null, bool account = false, string column = "default", bool order = true,int pageNumber = 1, int pageSize = 10)
         {
             var mapper = Mapper.CreateMapper();
 
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
             Sorting sort = new Sorting { Column = column, Order = order };
-            if (accountID.HasValue)
+            if (account && User.Identity.IsAuthenticated)
             {
-                ReviewFacade.ReviewAccountID.AccountID = accountID.Value;
+                var identity = User.Identity as ClaimsIdentity;
+                var claims = identity.Claims;
+                ReviewFacade.ReviewAccountID.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             }
             else
             {
@@ -61,17 +64,24 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("api/Review/{MovieID}/{AccountID}")]
-        public async Task<HttpResponseMessage> PostReviewAsync(Guid movieID, Guid accountID, RestReview restReview)
+        [Authorize]
+        [Route("api/Review/{MovieID}")]
+        public async Task<HttpResponseMessage> PostReviewAsync(Guid movieID, RestReview restReview)
         {
             var mapper = Mapper.CreateMapper();
+
+            var identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+
             Review review = mapper.Map<Review>(restReview);
             review.MovieID = movieID;
+            var accountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             await ReviewService.CreateReviewAsync(review, accountID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Review/{ReviewID}")]
         public async Task<HttpResponseMessage> PutReviewAsync(Guid reviewID, RestReview restReview)
         {
@@ -83,6 +93,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("api/Review/{ReviewID}")]
         public async Task<HttpResponseMessage> DeleteReviewAsync(Guid reviewID)
         {
