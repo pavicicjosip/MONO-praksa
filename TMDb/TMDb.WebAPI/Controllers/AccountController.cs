@@ -13,6 +13,7 @@ using TMDb.Common.Account;
 using TMDb.Common;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
+using TMDb.Repository;
 
 namespace TMDb.WebAPI.Controllers
 {
@@ -40,11 +41,12 @@ namespace TMDb.WebAPI.Controllers
             AccountFacade.UserName.UserName = userName;
             AccountFacade.UserPassword.UserPassword = userPassword;
             string token = "";
-
+            
             Account account = await AccountService.SelectAccountAsync(AccountFacade);
-            if(account != null)
+
+            if (account != null)
             {
-                token = TokenGenerator.GenerateToken(account.AccountID, "User");
+                token = TokenGenerator.GenerateToken(account.AccountID, "User"); //dohvatiti ulogu iz tablice AccountRole
             }
             return Request.CreateResponse(HttpStatusCode.OK, token);
             /*var identity = User.Identity as ClaimsIdentity;

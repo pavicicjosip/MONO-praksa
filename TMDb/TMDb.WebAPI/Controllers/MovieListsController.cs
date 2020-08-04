@@ -43,7 +43,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "User")] //samo za probu
         [Route("api/MovieLists")]
         public async Task<HttpResponseMessage> GetMoviesFromListAsync(string listName, string column = "default", bool order = true, int pageNumber = 1, int pageSize = 10)
         {
