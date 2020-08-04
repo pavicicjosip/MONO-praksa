@@ -9,6 +9,8 @@ using TMDb.Model;
 using TMDb.Service.Common;
 using TMDb.Common;
 using TMDb.Service;
+using System.Security.Claims;
+using System.Linq;
 
 namespace TMDb.WebAPI.Controllers
 {
@@ -40,9 +42,14 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/UserGenre/{accountID}")]
-        public async Task<HttpResponseMessage> SelectFavouriteGenreAsync(Guid accountID)
+        [Authorize]
+        [Route("api/UserGenre")]
+        public async Task<HttpResponseMessage> SelectFavouriteGenreAsync()
         {
+            var identity = User.Identity as ClaimsIdentity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var accountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
+            
             List<Genre> list = await UserGenreService.SelectFavouriteGenreAsync(accountID);
             try
             {
