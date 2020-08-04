@@ -22,13 +22,11 @@ namespace TMDb.WebAPI.Controllers
         protected IMovieListsFacade MovieListsFacade { get; private set; }
 
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<MovieLists, RestMovieLists>().ReverseMap());
-        protected TokenController TokenController { get; set; }
 
         public MovieListsController(IMovieListsService movieListsService, IMovieListsFacade movieListsFacade)
         {
             this.MovieListsService = movieListsService;
             this.MovieListsFacade = movieListsFacade;
-            this.TokenController = new TokenController();
         }
 
         [HttpGet]
