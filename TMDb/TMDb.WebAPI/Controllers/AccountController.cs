@@ -98,7 +98,6 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [Route("api/Account/InsertAccountAsync")]
         public async Task<HttpResponseMessage> InsertAccountAsync([FromBody] RestAccount restAcc)
         {
