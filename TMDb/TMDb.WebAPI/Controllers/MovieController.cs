@@ -8,6 +8,8 @@ using System.Web.Http;
 using TMDb.Model;
 using TMDb.Service.Common;
 using TMDb.Common;
+using System.Security.Claims;
+using System.Linq;
 
 namespace TMDb.WebAPI.Controllers
 {
@@ -28,7 +30,7 @@ namespace TMDb.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/Movie")]
-        public async Task<HttpResponseMessage> SelectMovieAsync(Guid? accountID = null, int pageNumber = 1, int pageSize = 10, string yearOfProduction = "default"
+        public async Task<HttpResponseMessage> SelectMovieAsync(bool account = false, int pageNumber = 1, int pageSize = 10, string yearOfProduction = "default"
             , string genre = "default", string title = "default", string column = "default", bool order = true)
         {
             var mapper = Mapper.CreateMapper();
@@ -39,9 +41,11 @@ namespace TMDb.WebAPI.Controllers
             MovieFacade.MovieYearOfProduction.YearOfProduction = yearOfProduction;
             MovieFacade.MovieTitle.Title = title;
             MovieFacade.MovieGenre.Genre = genre;
-            if (accountID.HasValue)
+            if (account && User.Identity.IsAuthenticated)
             {
-                MovieFacade.MovieAccountReview.AccountID = accountID.Value;
+                var identity = User.Identity as ClaimsIdentity;
+                var claims = identity.Claims;
+                MovieFacade.MovieAccountReview.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             }
             else
             {
@@ -55,6 +59,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/Movie")]
         public async Task<HttpResponseMessage> PostMovieAsync(RestMovie restMovie)
         {
@@ -65,6 +70,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [Route("api/Movie")]
         public async Task<HttpResponseMessage> PutMovieAsync(Guid movieID, RestMovie restMovie)
         {
@@ -76,6 +82,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("api/Movie")]
         public async Task<HttpResponseMessage> DeleteMoviewAsync(Guid movieID)
         {

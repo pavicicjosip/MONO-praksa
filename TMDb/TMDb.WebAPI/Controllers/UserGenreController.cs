@@ -25,18 +25,29 @@ namespace TMDb.WebAPI.Controllers
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserGenre, RestUserGenre>().ReverseMap());
 
         [HttpPost]
+        [Authorize]
         [Route("api/UserGenre/insertUserGenreAsync")]
         public async Task<HttpResponseMessage> InsertUserGenreAsync([FromBody] RestUserGenre restUserGenre)
         {
             var mapper = Mapper.CreateMapper();
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+
             UserGenre userGenre = mapper.Map<UserGenre>(restUserGenre);
+            userGenre.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             await UserGenreService.InsertUserGenreAsync(userGenre);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
         [HttpDelete]
+        [Authorize]
         [Route("api/UserGenre/deleteUserGenre")]
-        public async Task<HttpResponseMessage> RemoveUserGenreAsync(Guid accountID, Guid genreID)
+        public async Task<HttpResponseMessage> RemoveUserGenreAsync(Guid genreID)
         {
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+
+            var accountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             await UserGenreService.RemoveUserGenreAsync(accountID, genreID);
             return Request.CreateResponse(HttpStatusCode.OK);
         }

@@ -31,6 +31,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("api/MovieLists/Lists")]
         public async Task<HttpResponseMessage> GetMovieListsAsync(int pageNumber = 1, int pageSize = 10)
         {
@@ -58,7 +59,6 @@ namespace TMDb.WebAPI.Controllers
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
             Sorting sort = new Sorting { Column = column, Order = order };
 
-            //string flag = User.Identity.GetUserId();
             MovieListsFacade.MovieListsAccountID.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             MovieListsFacade.MovieListsListName.ListName = listName;
             MovieListsFacade.MovieListsMovieID.MovieID = Guid.Empty;
