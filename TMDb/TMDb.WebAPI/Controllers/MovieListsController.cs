@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ using TMDb.Common;
 using TMDb.Common.MovieLists;
 using TMDb.Model;
 using TMDb.Service.Common;
+
 
 namespace TMDb.WebAPI.Controllers
 {
@@ -57,7 +57,8 @@ namespace TMDb.WebAPI.Controllers
 
             PagedResponse pagedResponse = new PagedResponse { PageNumber = pageNumber, PageSize = pageSize };
             Sorting sort = new Sorting { Column = column, Order = order };
-            string flag = User.Identity.GetUserId();
+
+            //string flag = User.Identity.GetUserId();
             MovieListsFacade.MovieListsAccountID.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
             MovieListsFacade.MovieListsListName.ListName = listName;
             MovieListsFacade.MovieListsMovieID.MovieID = Guid.Empty;

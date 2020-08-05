@@ -50,6 +50,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/CastAndCrew/InsertAsync")]
         public async Task<HttpResponseMessage> InsertAsync([FromBody] RestCastAndCrew restCastAndCrew)
         {
@@ -62,6 +63,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [Route("api/CastAndCrew/UpdateAsync/{castID}")]
         public async Task<HttpResponseMessage> UpdateAsync([FromBody] RestCastAndCrew restCastAndCrew, [FromUri] Guid castID)
         {
@@ -74,6 +76,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("api/CastAndCrew/DeleteAsync/{castID}")]
         public async Task<HttpResponseMessage> DeleteAsync([FromUri] Guid castID)
         {

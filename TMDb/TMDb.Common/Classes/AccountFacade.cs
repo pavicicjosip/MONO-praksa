@@ -25,9 +25,6 @@ namespace TMDb.Common
         {
             string _out = default(string);
 
-            bool b1 = UserName.Default();
-            bool b2 = UserPassword.Default();
-
 
             if (UserName.Default() && UserPassword.Default())
             {

@@ -11,9 +11,9 @@ using Autofac;
 using AutoMapper;
 using TMDb.Common.Account;
 using TMDb.Common;
-using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using TMDb.Repository;
+using TMDb.Model.Common;
 
 namespace TMDb.WebAPI.Controllers
 {
@@ -24,12 +24,14 @@ namespace TMDb.WebAPI.Controllers
     {
         protected IAccountService AccountService { get; set; }
         protected TokenGenerator TokenGenerator { get; set; }
+        protected IAccountRoleService AccountRoleService { get; private set; }
 
         protected IAccountFacade AccountFacade { get; set; }
-        public AccountController(IAccountService iAccountService, IAccountFacade accountFacade)
+        public AccountController(IAccountService iAccountService, IAccountFacade accountFacade, IAccountRoleService accountRoleService)
         {
             this.AccountService = iAccountService;
             this.AccountFacade = accountFacade;
+            this.AccountRoleService = accountRoleService;
             this.TokenGenerator = new TokenGenerator();
         }
 
@@ -46,7 +48,7 @@ namespace TMDb.WebAPI.Controllers
 
             if (account != null)
             {
-                token = TokenGenerator.GenerateToken(account.AccountID, "User"); //dohvatiti ulogu iz tablice AccountRole
+                token = TokenGenerator.GenerateToken(account.AccountID, await AccountRoleService.GetRoleByAccountIdAsync(account.AccountID)); 
             }
             return Request.CreateResponse(HttpStatusCode.OK, token);
             /*var identity = User.Identity as ClaimsIdentity;
@@ -56,7 +58,7 @@ namespace TMDb.WebAPI.Controllers
                 var id = claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value;
                 return Request.CreateResponse(HttpStatusCode.OK, id);
             }
-            else
+            else  
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }*/
@@ -64,24 +66,31 @@ namespace TMDb.WebAPI.Controllers
 
 
         [HttpDelete]
-        [Route("api/Account/DeleteAccountAsync/{accountID}")]
-        public async Task<HttpResponseMessage> DeleteAccountAsync([FromUri] Guid accountID)
+        [Authorize]
+        [Route("api/Account/DeleteAccountAsync")]
+        public async Task<HttpResponseMessage> DeleteAccountAsync()
         {
-            await AccountService.DeleteAccountAsync(accountID);
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+            await AccountService.DeleteAccountAsync(Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value));
 
             return Request.CreateResponse(HttpStatusCode.OK, "Delete successful");
         }
 
         [HttpPut]
+        [Authorize]
         [Route("api/Account/UpdateAccountAsync/{accountID}")]
-        public async Task<HttpResponseMessage> UpdateAccountAsync([FromUri] Guid accountID, [FromBody] RestAccount restAcc)
+        public async Task<HttpResponseMessage> UpdateAccountAsync([FromBody] RestAccount restAcc)
         {
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = identity.Claims;
+
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<RestAccount, Account>(); });
             IMapper iMapper = config.CreateMapper();
 
             Account acc = iMapper.Map<RestAccount, Account>(restAcc);
 
-            acc.AccountID = accountID;
+            acc.AccountID = Guid.Parse(claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value);
 
             await AccountService.UpdateAccountAsync(acc);
 
@@ -89,6 +98,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/Account/InsertAccountAsync")]
         public async Task<HttpResponseMessage> InsertAccountAsync([FromBody] RestAccount restAcc)
         {

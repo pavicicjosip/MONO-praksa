@@ -22,6 +22,7 @@ namespace TMDb.WebAPI.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/CCmovie/InsertAsync")]
         public async Task<HttpResponseMessage> InsertAsync([FromBody] CCMovie ccMovie)
         {
@@ -30,6 +31,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("api/CCmovie/DeleteAsync")]
         public async Task<HttpResponseMessage> DeleteAsync(Guid castID, Guid movieID, string roleInMovie)
         {

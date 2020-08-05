@@ -30,9 +30,9 @@ namespace TMDb.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/AccountRole")]
-        public async Task<HttpResponseMessage> GetRoleByAccountIdAsync(Guid accountID)
+        public async Task<HttpResponseMessage> GetRoleByAccountIdAsync(Guid? accountID)
         {
-            List<string> list = await AccountRoleService.GetRoleByAccountIdAsync(accountID);
+            string list = await AccountRoleService.GetRoleByAccountIdAsync(accountID);
             try
             {
                 return Request.CreateResponse(HttpStatusCode.OK, list);
