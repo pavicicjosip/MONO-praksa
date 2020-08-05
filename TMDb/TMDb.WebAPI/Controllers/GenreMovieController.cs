@@ -22,6 +22,7 @@ namespace TMDb.WebAPI.Controllers
         static MapperConfiguration Mapper = new MapperConfiguration(cfg => cfg.CreateMap<GenreMovie, RestGenreMovie>().ReverseMap());
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/GenreMovie/insertGenreMovieAsync")]
         public async Task<HttpResponseMessage> InsertGenreMovieAsync([FromBody] RestGenreMovie restGenreMovie)
         {
@@ -45,6 +46,7 @@ namespace TMDb.WebAPI.Controllers
             }
         }
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("api/GenreMovie/deleteGenreMovie")]
         public async Task<HttpResponseMessage> RemoveGenreMovieAsync(Guid movieID, Guid genreID)
         {

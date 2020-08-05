@@ -47,6 +47,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/Genre")]
         public async Task<HttpResponseMessage> InsertGenreAsync(string title)
         {

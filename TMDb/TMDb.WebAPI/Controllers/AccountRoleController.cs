@@ -44,6 +44,7 @@ namespace TMDb.WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [Route("api/AccountRole")]
         public async Task<HttpResponseMessage> UpdateAccountRoleAsync(Guid accountID, [FromBody]RestAccountRole restAccountRole)
         {
