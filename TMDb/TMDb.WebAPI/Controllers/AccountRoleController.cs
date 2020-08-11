@@ -8,6 +8,7 @@ using TMDb.Model;
 using TMDb.Service.Common;
 using AutoMapper;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace TMDb.WebAPI.Controllers
 {

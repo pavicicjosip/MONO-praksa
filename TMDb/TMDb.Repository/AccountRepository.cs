@@ -32,7 +32,11 @@ namespace TMDb.Repository
 
             await reader.ReadAsync();
 
-            account = new Account(reader.GetGuid(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetGuid(4));
+            if (reader.HasRows)
+            {
+                account = new Account(reader.GetGuid(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetGuid(4));
+            }
+
             reader.Close();
             connection.Close();
             return account;

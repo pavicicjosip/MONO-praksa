@@ -1,7 +1,7 @@
 import React from 'react';
-import './loginPage.scss';
-import { Login } from './login';
-import { Register } from './register';
+import './LoginPage.scss';
+import { Login } from './Login';
+import { Register } from './Register';
 
 
 export class LoginPage extends React.Component {

@@ -10,6 +10,8 @@ namespace TMDb.WebAPI
     {
         public static void Register(HttpConfiguration config)
         {
+            config.EnableCors();
+
             // Web API configuration and services
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));

@@ -14,12 +14,14 @@ using TMDb.Common;
 using System.Security.Claims;
 using TMDb.Repository;
 using TMDb.Model.Common;
+using System.Web.Http.Cors;
 
 namespace TMDb.WebAPI.Controllers
 {
     /// <summary>
     /// kada napravimo tokenizaciju bit ce promjena 
     /// </summary>
+    [EnableCors(origins: "http://localhost:3002", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         protected IAccountService AccountService { get; set; }
@@ -46,7 +48,7 @@ namespace TMDb.WebAPI.Controllers
             
             Account account = await AccountService.SelectAccountAsync(AccountFacade);
 
-            if (account != null)
+            if (account.UserName != null)
             {
                 token = TokenGenerator.GenerateToken(account.AccountID, await AccountRoleService.GetRoleByAccountIdAsync(account.AccountID)); 
             }

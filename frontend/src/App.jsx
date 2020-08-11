@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { LoginPage } from './components/login';
+import { LoginPage } from './components/login/Index';
 
 
 class App extends React.Component {
