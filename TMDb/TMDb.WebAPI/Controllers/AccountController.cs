@@ -21,7 +21,7 @@ namespace TMDb.WebAPI.Controllers
     /// <summary>
     /// kada napravimo tokenizaciju bit ce promjena 
     /// </summary>
-    [EnableCors(origins: "http://localhost:3002", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         protected IAccountService AccountService { get; set; }

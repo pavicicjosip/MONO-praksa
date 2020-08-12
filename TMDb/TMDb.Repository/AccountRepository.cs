@@ -88,6 +88,13 @@ namespace TMDb.Repository
 
             await command.ExecuteNonQueryAsync();
             connection.Close();
+
+            Account account = await this.SelectAccountAsync(String.Format("Where UserName='{0}' AND UserPassword='{1}'", acc.UserName, acc.UserPassword));
+
+            var commandInsertRole = new SqlCommand(String.Format("INSERT INTO AccountRole VALUES('{1}', '{0}')", account.AccountID, "User"), connection);
+            await connection.OpenAsync();
+            await commandInsertRole.ExecuteNonQueryAsync();
+            connection.Close();
         }
 
     }

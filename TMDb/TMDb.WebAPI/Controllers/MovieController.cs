@@ -10,9 +10,11 @@ using TMDb.Service.Common;
 using TMDb.Common;
 using System.Security.Claims;
 using System.Linq;
+using System.Web.Http.Cors;
 
 namespace TMDb.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MovieController : ApiController
     {
         protected IMovieService MovieService { get; private set; }

@@ -4,10 +4,13 @@ import { LoginPage } from "./components/login/Index";
 import Toolbar from "./components/Toolbar/Toolbar";
 import SideDrawer from "./components/SideDrawer/SideDrawer";
 import Backdrop from "./components/Backdrop/Backdrop";
+import HomePage from "./components/HomePage/HomePage";
+import { Switch, Route } from "react-router-dom";
 
 class App extends Component {
   state = {
     SideDrawerOpen: false,
+    token: "",
   };
 
   drawerToggleClickHandler = () => {
@@ -18,6 +21,10 @@ class App extends Component {
 
   backdropClickHandler = () => {
     this.setState({ SideDrawerOpen: false });
+  };
+
+  evaluateData = (token) => {
+    this.setState({ token: token });
   };
 
   render() {
@@ -34,7 +41,15 @@ class App extends Component {
         {sideDrawer}
         {backdrop}
         <main style={{ marginTop: "64px" }}>
-          <p>This is an empty homepage!</p>
+          <Switch>
+            <Route path="/login">
+              <LoginPage onLogin={this.evaluateData} />
+            </Route>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+          <p>{this.state.token}</p>
         </main>
       </div>
     );
