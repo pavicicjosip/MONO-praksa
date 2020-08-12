@@ -8,9 +8,11 @@ using TMDb.Model;
 using TMDb.Service.Common;
 using AutoMapper;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace TMDb.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FileStorageController : ApiController
     {
         protected IFileStorageService FileStorageService
@@ -49,7 +51,8 @@ namespace TMDb.WebAPI.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, String.Format("There is no file with Id: {0}", fileID));
             }
-            var Path = System.Web.Hosting.HostingEnvironment.MapPath("~/" + file.ImagePath + file.ImageName);
+            //var Path = System.Web.Hosting.HostingEnvironment.MapPath("~/" + file.ImagePath + file.ImageName);
+            var Path = file.ImagePath + file.ImageName;
             return Request.CreateResponse(HttpStatusCode.OK, Path);
         }
 
