@@ -22,7 +22,11 @@ const HomePage = observer(
       }
       return (
         <div>
-          <p><img src={require("./jw.jpg")} class="center" alt=""/></p>
+          <p><img src={require("./b.png")} class="center" alt=""/></p>
+          <h1 className='centerd'>Welcome...</h1>
+          <h3 className='centerd1'>You've found the most accurate source for TV and film. Our information comes from fans like you, so create a free account and help your favorite shows and movies.</h3>
+          <h2 className='title'>Featured Movies</h2>
+          <div className='spacer'></div>
           <Movies movies={moviesProp} />
         </div>
       );

@@ -28,7 +28,7 @@ const Movie = observer(
       return (
         <div>
           <p>{this.props.movie.Title}</p>
-          <img src={this.path} alt="movie" height="200px" width="300px" />;
+          <img src={this.path} alt="movie" height="390px" width="280px" />;
         </div>
       );
     }
