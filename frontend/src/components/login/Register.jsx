@@ -35,7 +35,7 @@ export class Register extends React.Component {
         <div className="header">Register</div>
         <div className="content">
           <div className="image">
-            <img src={require("./Person.png")} alt="" />
+            <img src={require("./person4.png")} alt=""/>
           </div>
           <div className="form">
             <div className="form-group">

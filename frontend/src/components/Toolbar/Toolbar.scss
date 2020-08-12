@@ -3,15 +3,15 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: #222831;
-    height: 56px;
+    background: #000000;
+    height: 70px;
 }
 
 .toolbar__navigation {
     display: flex;
     height: 100%;
     align-items: center;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
 }
 .toolbar__logo a {
     color: white;
@@ -19,14 +19,28 @@
     font-size: 1.5rem;
 }
 
-.toolbar__logo {
-    margin-left: 1rem;
+.toolbar__logo img {
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
 
+.toolbar__logo {
+    margin-left: 0.5rem;
+}
+
+.toolbar__logo img {
+    position: relative;
+    top: 15px;
+    height: 65px;
+    width: 120px;
+    margin-right: 1rem;
+}
 .toolbar_navigation-items a {
     color: white;
     text-decoration: none;
 }
+
 .spacer {
     flex: 1;
 }
@@ -39,6 +53,7 @@
 }
 
 .toolbar_navigation-items li {
+    margin-right: 1rem;
     padding: 0 0.5rem;
 }
 
