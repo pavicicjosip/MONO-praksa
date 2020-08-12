@@ -1,8 +1,35 @@
 .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 75%;
-    height: 100%;
-    margin-top: 6rem;
-  }
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  height: 100%;
+  margin-top: 6rem;
+}
+
+.centerd {
+  position: absolute;
+  top: 55%;
+  left: 26.5%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: Impact, fantasy;
+  font-size: 40px;
+}
+
+.centerd1 {
+  position: absolute;
+  top: 67%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 20px;
+}
+
+.title {
+  position: absolute;
+  top: 84%;
+  left: 3%;
+  color: white;
+}
