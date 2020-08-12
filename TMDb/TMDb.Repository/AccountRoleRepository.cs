@@ -59,7 +59,7 @@ namespace TMDb.Repository
         public async Task InsertAccountRoleAsync(AccountRole accountRole)
         {
             connection.Open();
-            var command = new SqlCommand(String.Format("INSERT INTO Movie(AccountID, Role)" +
+            var command = new SqlCommand(String.Format("INSERT INTO AccountRole(AccountID, Role)" +
                 " VALUES('{0}', '{1}')", accountRole.AccountID, accountRole.Role), connection);
             await command.ExecuteReaderAsync();
             connection.Close();
