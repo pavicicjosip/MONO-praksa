@@ -631,3 +631,6 @@ C:\Users\josip\Desktop\TMBd\TMDb\TMDb.WebAPI\bin\System.Web.Http.Owin.xml
 C:\Users\josip\Desktop\TMBd\TMDb\TMDb.WebAPI\bin\System.Web.Cors.dll
 C:\Users\josip\Desktop\TMBd\TMDb\TMDb.WebAPI\bin\System.Web.Http.Cors.dll
 C:\Users\josip\Desktop\TMBd\TMDb\TMDb.WebAPI\bin\System.Web.Http.Cors.xml
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.WebAPI\bin\System.Web.Cors.dll
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.WebAPI\bin\System.Web.Http.Cors.dll
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.WebAPI\bin\System.Web.Http.Cors.xml

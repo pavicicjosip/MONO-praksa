@@ -1,40 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { LoginPage } from './components/login/Index';
-import Toolbar from './components/Toolbar/Toolbar';
-import SideDrawer from './components/SideDrawer/SideDrawer';
-import Backdrop from './components/Backdrop/Backdrop';
+import { LoginPage } from "./components/login/Index";
+import Toolbar from "./components/Toolbar/Toolbar";
+import SideDrawer from "./components/SideDrawer/SideDrawer";
+import Backdrop from "./components/Backdrop/Backdrop";
 
 class App extends Component {
   state = {
-    SideDrawerOpen: false
+    SideDrawerOpen: false,
   };
 
   drawerToggleClickHandler = () => {
     this.setState((prevState) => {
-      return {siideDrawerOpen: !prevState.SideDrawerOpen};
+      return { SideDrawerOpen: !prevState.SideDrawerOpen };
     });
   };
 
   backdropClickHandler = () => {
-    this.setState({sideDrawerOpen: false});
+    this.setState({ SideDrawerOpen: false });
   };
 
   render() {
     let sideDrawer;
     let backdrop;
 
-    if(this.state.siideDrawerOpen) {
-      sideDrawer = <SideDrawer />
-      backdrop = <Backdrop click={this.backdropClickHandler} />
+    if (this.state.SideDrawerOpen) {
+      sideDrawer = <SideDrawer />;
+      backdrop = <Backdrop click={this.backdropClickHandler} />;
     }
     return (
-      <div style={{height: '100%'}}>
+      <div style={{ height: "100%" }}>
         <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
         {sideDrawer}
         {backdrop}
-        <main style={{marginTop: '64px'}}>
-        <p>This is an empty homepage!</p>
+        <main style={{ marginTop: "64px" }}>
+          <p>This is an empty homepage!</p>
         </main>
       </div>
     );
