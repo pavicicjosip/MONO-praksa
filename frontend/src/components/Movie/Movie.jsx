@@ -17,7 +17,7 @@ const Movie = observer(
       await axios
         .get(
           "https://localhost:44336/api/FileStorage?fileID=" +
-            this.props.movie.FileID
+            this.props.movie.FileID +"&pageSize=5"
         )
         .then((response) => {
           console.log(response.data);
