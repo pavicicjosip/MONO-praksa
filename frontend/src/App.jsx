@@ -7,6 +7,8 @@ import Backdrop from "./components/Backdrop/Backdrop";
 import HomePage from "./components/HomePage/HomePage";
 import { Switch, Route } from "react-router-dom";
 import MovieInfoPage from "./components/MovieInfo/MovieInfoPage";
+import Footer from './components/Footer/Footer';
+
 
 class App extends Component {
   state = {
@@ -55,7 +57,8 @@ class App extends Component {
           </Switch>
           <p>{this.state.token}</p>
         </main>
-      </div>
+        <Footer ></Footer>
+        </div>
     );
   }
 }
