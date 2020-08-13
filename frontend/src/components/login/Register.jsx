@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 export class Register extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ export class Register extends React.Component {
 
     this.state = {
       url: "",
+      token: "",
     };
   }
 
@@ -64,7 +66,8 @@ export class Register extends React.Component {
             onClick={this.evaluateData.bind(this)}
           >
             Register
-          </button>
+          </button>    
+          <Redirect to={(this.state.token === "")? "/login" : "/"}/> 
         </div>
       </div>
     );

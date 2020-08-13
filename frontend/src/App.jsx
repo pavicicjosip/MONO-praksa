@@ -6,11 +6,14 @@ import SideDrawer from "./components/SideDrawer/SideDrawer";
 import Backdrop from "./components/Backdrop/Backdrop";
 import HomePage from "./components/HomePage/HomePage";
 import { Switch, Route } from "react-router-dom";
+import MovieInfoPage from "./components/MovieInfo/MovieInfoPage";
 
 class App extends Component {
   state = {
     SideDrawerOpen: false,
     token: "",
+    user: "",
+    path: "",
   };
 
   drawerToggleClickHandler = () => {
@@ -23,8 +26,8 @@ class App extends Component {
     this.setState({ SideDrawerOpen: false });
   };
 
-  evaluateData = (token) => {
-    this.setState({ token: token });
+  evaluateData = (token, user) => {
+    this.setState({ token: token, user: user });
   };
 
   render() {
@@ -45,6 +48,7 @@ class App extends Component {
             <Route path="/login">
               <LoginPage onLogin={this.evaluateData} />
             </Route>
+            <Route exact path="/movieInfoPage/:id" render={(props) => <MovieInfoPage {...props}/>}/>
             <Route path="/">
               <HomePage />
             </Route>

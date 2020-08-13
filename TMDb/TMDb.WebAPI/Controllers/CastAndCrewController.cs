@@ -12,9 +12,11 @@ using AutoMapper;
 using System.Web;
 using TMDb.Common.CastAndCrew;
 using TMDb.Common;
+using System.Web.Http.Cors;
 
 namespace TMDb.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CastAndCrewController : ApiController
     {
         protected ICastAndCrewService CastAndCrewService { get; private set; }
@@ -46,7 +48,7 @@ namespace TMDb.WebAPI.Controllers
 
             Tuple<int, List<CastAndCrew>> tuple =  await CastAndCrewService.SelectAsync(pagedResponse, CastAndCrewFacade);
 
-            return Request.CreateResponse(HttpStatusCode.OK, tuple.Item2);
+            return Request.CreateResponse(HttpStatusCode.OK, tuple);
         }
 
         [HttpPost]

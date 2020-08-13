@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 export class Login extends React.Component {
   constructor(props) {
@@ -29,8 +30,10 @@ export class Login extends React.Component {
     if (this.state.token === "") {
       this.setState({ wrong: "Wrong login data" });
     }
-    this.props.onLogin(this.state.token);
+    this.props.onLogin(this.state.token, user);
   };
+
+  
 
   render() {
     console.log(this.state.token);
@@ -43,7 +46,7 @@ export class Login extends React.Component {
           </div>
           <div className="form">
             <div className="form-group">
-              <p>{this.state.wrong}</p>
+              <p className="error">{this.state.wrong}</p>
               <label htmlFor="username">Username</label>
               <input type="text" id="user" placeholder="username" />
             </div>
@@ -54,9 +57,10 @@ export class Login extends React.Component {
           </div>
         </div>
         <div className="footer">
-          <button type="button" className="btn" onClick={this.handleLogin}>
-            Login
-          </button>
+            <button type="button" className="btn" onClick={this.handleLogin}>
+              Login
+            </button>
+            <Redirect to={(this.state.token === "")? "/login" : "/"}/>            
         </div>
       </div>
     );

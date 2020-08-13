@@ -46,7 +46,9 @@ export class LoginPage extends React.Component {
               />
             )}
             {!isLogginActive && (
-              <Register containerRef={(ref) => (this.current = ref)} />
+              <Register 
+              onLogin={this.props.onLogin}
+              containerRef={(ref) => (this.current = ref)} />
             )}
           </div>
           <RightSide
