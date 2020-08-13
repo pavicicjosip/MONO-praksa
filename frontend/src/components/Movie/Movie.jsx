@@ -29,9 +29,6 @@ const Movie = observer(
       return (
         <div className="base-container">
           <div>
-            <p>{this.props.movie.Title}</p>
-          </div>
-          <div>
             <img
               className="image"
               src={this.path}

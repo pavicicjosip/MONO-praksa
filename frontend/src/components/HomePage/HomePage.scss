@@ -33,3 +33,24 @@
   left: 3%;
   color: white;
 }
+
+
+.button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #1C7E3E;
+  padding: 20px;
+  border-radius: 50px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+
+.Row {
+  display: table;
+  margin-left: 77rem;
+}
+.Column {
+  display: table-cell;
+}

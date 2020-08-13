@@ -57,9 +57,11 @@ const HomePage = observer(
           </h3>
           <h2 className="title">Featured Movies</h2>
           <div className="spacer"></div>
-          <button onClick={this.Next}>Next</button>
           <Movies movies={moviesProp} />
-          <button onClick={this.Previous}>Previous</button>
+          <div class="Row">
+            <div class="Column"><button className='button' onClick={this.Previous}>Previous</button></div>
+            <div class="Column"><button className='button' onClick={this.Next}>Next</button></div>
+          </div>
           <div>
             <Link to="/movieInfoPage/99120BAA-5B4C-46CB-A1A2-0805930A0EE9">
               PROBA FILM
