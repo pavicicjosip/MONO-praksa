@@ -62,6 +62,7 @@ const HomePage = observer(
             <div class="Column"><button className='button' onClick={this.Previous}>Previous</button></div>
             <div class="Column"><button className='button' onClick={this.Next}>Next</button></div>
           </div>
+          <h2 className="title2">Born Today</h2>
           <div>
             <Link to="/movieInfoPage/99120BAA-5B4C-46CB-A1A2-0805930A0EE9">
               PROBA FILM

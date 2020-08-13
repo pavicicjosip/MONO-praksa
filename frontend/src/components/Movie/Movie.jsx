@@ -27,23 +27,23 @@ const Movie = observer(
 
     render() {
       return (
-        <div className="base-container">
-          <div>
-            <img
-              className="image"
-              src={this.path}
-              alt="movie"
-              height="390px"
-              width="280px"
-            />
-            ;
+          <div className="base-container">
+            <div>
+             <img
+                className="image"
+                src={this.path}
+                alt="movie"
+                height="390px"
+                width="260px"
+              />
+              ;
+            </div>
+            <div className='plot-outline'>
+             <p>{this.props.movie.PlotOutline}</p>
+            </div>
           </div>
-          <div>
-            <p>{this.props.movie.PlotOutline}</p>
-          </div>
-        </div>
-      );
-    }
+        );
+     }
   }
 );
 
