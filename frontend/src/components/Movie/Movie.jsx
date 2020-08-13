@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { decorate, observable } from "mobx";
 import { observer } from "mobx-react";
+import "./Movie.scss";
 
 const Movie = observer(
   class Movie extends Component {
@@ -26,9 +27,13 @@ const Movie = observer(
 
     render() {
       return (
-        <div>
-          <p>{this.props.movie.Title}</p>
-          <img src={this.path} alt="movie" height="390px" width="280px" />;
+        <div className="base-container">
+          <div className="title">
+            <p>{this.props.movie.Title}</p>
+          </div>
+          <div>
+            <img className="image" src={this.path} alt="movie" height="390px" width="280px" />;
+          </div>
         </div>
       );
     }
