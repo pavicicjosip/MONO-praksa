@@ -8,12 +8,13 @@ import HomePage from "./components/HomePage/HomePage";
 import { Switch, Route } from "react-router-dom";
 import MovieInfoPage from "./components/MovieInfo/MovieInfoPage";
 import Footer from "./components/Footer/Footer";
+import Profile from "./components/Profile/Profile";
 
 class App extends Component {
   state = {
     SideDrawerOpen: false,
     token: "",
-    user: "",
+    user: "LOGIN",
     path: "",
   };
 
@@ -41,7 +42,11 @@ class App extends Component {
     }
     return (
       <div style={{ height: "100%" }}>
-        <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
+        <Toolbar
+          username={this.state.user}
+          token={this.state.token}
+          drawerClickHandler={this.drawerToggleClickHandler}
+        />
         {sideDrawer}
         {backdrop}
         <main style={{ marginTop: "64px" }}>
@@ -54,11 +59,13 @@ class App extends Component {
               path="/movieInfoPage/:id"
               render={(props) => <MovieInfoPage {...props} />}
             />
+            <Route path="/profile">
+              <Profile username={this.state.user} />
+            </Route>
             <Route path="/">
               <HomePage />
             </Route>
           </Switch>
-          <p>{this.state.token}</p>
         </main>
         <Footer></Footer>
       </div>
