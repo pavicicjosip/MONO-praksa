@@ -9,14 +9,35 @@ import { Link } from "react-router-dom";
 const HomePage = observer(
   class HomePage extends Component {
     movies = [];
+    pageNumber = 1;
 
     componentDidMount() {
+      this.getMovies();
+    }
+    Next = () => {
+      if ((this.pageNumber + 1) * 4 < this.movies.m_Item1 + 4) {
+        this.pageNumber++;
+        this.getMovies();
+      }
+    };
+
+    Previous = () => {
+      if (this.pageNumber !== 1) {
+        this.pageNumber--;
+        this.getMovies();
+      }
+    };
+
+    getMovies = () => {
       axios
-        .get("https://localhost:44336/api/Movie?pageSize=5")
+        .get(
+          "https://localhost:44336/api/Movie?pageSize=4&pageNumber=" +
+            this.pageNumber
+        )
         .then((response) => {
           this.movies = response.data;
         });
-    }
+    };
 
     render() {
       let moviesProp = [];
@@ -36,7 +57,9 @@ const HomePage = observer(
           </h3>
           <h2 className="title">Featured Movies</h2>
           <div className="spacer"></div>
+          <button onClick={this.Next}>Next</button>
           <Movies movies={moviesProp} />
+          <button onClick={this.Previous}>Previous</button>
           <div>
             <Link to="/movieInfoPage/99120BAA-5B4C-46CB-A1A2-0805930A0EE9">
               PROBA FILM
@@ -50,6 +73,7 @@ const HomePage = observer(
 
 decorate(HomePage, {
   movies: observable,
+  pageNumber: observable,
 });
 
 export default HomePage;
