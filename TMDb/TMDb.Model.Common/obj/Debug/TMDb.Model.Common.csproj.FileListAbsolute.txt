@@ -49,7 +49,6 @@ C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\bin\Debug\System.Web.Http.xml
-C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.csprojAssemblyReference.cache
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.csproj.CoreCompileInputs.cache
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.csproj.CopyComplete
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.dll
@@ -166,3 +165,4 @@ C:\Users\josip\Desktop\TMDb\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.c
 C:\Users\josip\Desktop\TMDb\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.csproj.CopyComplete
 C:\Users\josip\Desktop\TMDb\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.dll
 C:\Users\josip\Desktop\TMDb\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.pdb
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Model.Common\obj\Debug\TMDb.Model.Common.csprojAssemblyReference.cache
