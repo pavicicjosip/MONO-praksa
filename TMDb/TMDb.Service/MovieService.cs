@@ -78,6 +78,12 @@ namespace TMDb.Service
             return new Tuple<int, List<Movie>>(numberOfResults, await MovieRepository.SelectMovieAsync(pageNumberStart, pageNumberStart + pagedResponse.PageSize, whereStatement, joinTables, extraColumn, imovieFacade.GroupBy(), sort));
         }
 
+        public async Task<Movie> SelectMovieByIdAsync(Guid movieID)
+        {
+            var movie = await MovieRepository.SelectMovieByIdAsync(movieID);
+            return movie;
+        }
+
         public async Task CreateMovieAsync(Movie movie)
         {
             await MovieRepository.InsertMovieAsync(movie);

@@ -16,7 +16,6 @@ namespace TMDb.Model
         public string Duration { get; set; }
         public string PlotOutline { get; set; }
         public Guid FileID { get; set; }
-
         public Movie(Guid movieID, string title, int yearOfProduction, string countryOfOrigin, string duration, string plotOutline, Guid fileID)
         {
             this.MovieID = movieID;

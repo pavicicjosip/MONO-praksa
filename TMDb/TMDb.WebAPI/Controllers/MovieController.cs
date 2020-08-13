@@ -59,6 +59,18 @@ namespace TMDb.WebAPI.Controllers
             var restMovieTuple = new Tuple<int, List<RestMovie>>(movieTuple.Item1, restMovieList);
             return Request.CreateResponse(HttpStatusCode.OK, restMovieTuple);
         }
+        [HttpGet]
+        [Route("api/Movie/{MovieID}")]
+        public async Task<HttpResponseMessage> SelectMovieByIdAsync(Guid movieID)
+        {
+            var mapper = Mapper.CreateMapper();
+            var movie = mapper.Map<RestMovie>( await MovieService.SelectMovieByIdAsync(movieID));
+            if(movie == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, movie);
+        }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
