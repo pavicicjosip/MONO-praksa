@@ -17,7 +17,7 @@ const Movie = observer(
       await axios
         .get(
           "https://localhost:44336/api/FileStorage?fileID=" +
-            this.props.movie.FileID +"&pageSize=5"
+            this.props.movie.FileID
         )
         .then((response) => {
           console.log(response.data);
@@ -28,11 +28,21 @@ const Movie = observer(
     render() {
       return (
         <div className="base-container">
-          <div className="title">
+          <div>
             <p>{this.props.movie.Title}</p>
           </div>
           <div>
-            <img className="image" src={this.path} alt="movie" height="390px" width="280px" />;
+            <img
+              className="image"
+              src={this.path}
+              alt="movie"
+              height="390px"
+              width="280px"
+            />
+            ;
+          </div>
+          <div>
+            <p>{this.props.movie.PlotOutline}</p>
           </div>
         </div>
       );

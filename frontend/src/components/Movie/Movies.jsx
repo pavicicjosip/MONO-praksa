@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Movie from "./Movie";
+import "./Movie.scss";
 
 class Movies extends Component {
   render() {
@@ -7,7 +8,7 @@ class Movies extends Component {
     let movies = this.props.movies.map((movie) => {
       return <Movie key={movie.MovieID} movie={movie} />;
     });
-    return <div>{movies}</div>;
+    return <div className="moviesDiv">{movies}</div>;
   }
 }
 

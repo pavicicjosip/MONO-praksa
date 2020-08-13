@@ -7,8 +7,7 @@ import Backdrop from "./components/Backdrop/Backdrop";
 import HomePage from "./components/HomePage/HomePage";
 import { Switch, Route } from "react-router-dom";
 import MovieInfoPage from "./components/MovieInfo/MovieInfoPage";
-import Footer from './components/Footer/Footer';
-
+import Footer from "./components/Footer/Footer";
 
 class App extends Component {
   state = {
@@ -50,15 +49,19 @@ class App extends Component {
             <Route path="/login">
               <LoginPage onLogin={this.evaluateData} />
             </Route>
-            <Route exact path="/movieInfoPage/:id" render={(props) => <MovieInfoPage {...props}/>}/>
+            <Route
+              exact
+              path="/movieInfoPage/:id"
+              render={(props) => <MovieInfoPage {...props} />}
+            />
             <Route path="/">
               <HomePage />
             </Route>
           </Switch>
           <p>{this.state.token}</p>
         </main>
-        <Footer ></Footer>
-        </div>
+        <Footer></Footer>
+      </div>
     );
   }
 }

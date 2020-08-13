@@ -1,26 +1,29 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 
-
 .base-container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+
+  .title {
+    font-size: 34px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 6%;
     text-align: center;
+    width: 60%;
+  }
 
-    .title{
-        font-size: 34px;
-        position: absolute;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        top: 6%; 
-        text-align: center;
-        width: 60%;
-    }
-
-    .image{
-        margin-top: 6em;
-    }
+  .image {
+    margin-top: 6em;
+  }
 }
 
+.moviesDiv {
+  display: flex;
+  justify-content: space-between;
+}
