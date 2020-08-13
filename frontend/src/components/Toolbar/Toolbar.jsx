@@ -7,16 +7,23 @@ import { Link } from "react-router-dom";
 const toolbar = (props) => (
   <header className="toolbar">
     <nav className="toolbar__navigation">
-      
       <div className="toolbar__logo">
-        <a href="/"><img src="https://thetvdb.com/images/logo.png" alt="" /></a>
+        <Link to="/">
+          <img src="https://thetvdb.com/images/logo.png" alt="" />
+        </Link>
       </div>
       <div>
         <DrawerToggleButton click={props.drawerClickHandler} />
       </div>
       <div className="spacer" />
       <div className="toolbar_navigation-items">
-        <Link to="/login">LOGIN</Link>
+        <Link
+          to={() => {
+            return props.token === "" ? "/login" : "/profile";
+          }}
+        >
+          {props.username}
+        </Link>
       </div>
     </nav>
   </header>
