@@ -10,6 +10,7 @@ namespace TMDb.Repository.Common
     {
         Task<List<Movie>> SelectMovieAsync(int pageNumberStart, int pageNumberEnd, string whereStatement, string joinTables, string extraColumn, string groupBy, Sorting sort);
         Task<int> SelectNumberOfResultsAsync(string whereStatement, string joinTables);
+        Task<Movie> SelectMovieByIdAsync(Guid movieID);
         Task InsertMovieAsync(Movie movie);
         Task UpdateMovieAsync(Movie movie);
         Task DeleteMovieAsync(Guid movieID);
