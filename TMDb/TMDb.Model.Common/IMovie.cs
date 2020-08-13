@@ -15,5 +15,6 @@ namespace TMDb.Model.Common
         string Duration { get; set; }
         string PlotOutline { get; set; }
         Guid FileID { get; set; }
+        double Rating { get; set; }
     }
 }

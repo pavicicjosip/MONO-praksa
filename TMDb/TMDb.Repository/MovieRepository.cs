@@ -70,14 +70,16 @@ namespace TMDb.Repository
         public async Task<Movie> SelectMovieByIdAsync(Guid movieID)
         {
             Movie movie = null; 
-            var command = new SqlCommand(String.Format("SELECT MovieID, Title, YearOfProduction, CountryOfOrigin, Duration, PlotOutline, FileID " +
-                "FROM Movie WHERE MovieID = '{0}'", movieID), connection);
+            var command = new SqlCommand(String.Format("SELECT m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID, CAST(ISNULL(CAST(AVG(r.NumberOfStars) AS FLOAT), 0)AS FLOAT) AS Rating " +
+                "FROM Movie m LEFT OUTER JOIN Review r ON(m.MovieID = r.MovieID) WHERE m.MovieID = '{0}'" +
+                "GROUP BY m.MovieID, m.Title, m.YearOfProduction, m.CountryOfOrigin, m.Duration, m.PlotOutline, m.FileID", movieID), connection);
 
             connection.Open();
             SqlDataReader reader = await command.ExecuteReaderAsync();
             await reader.ReadAsync();
 
             movie = new Movie(reader.GetGuid(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetGuid(6));
+            movie.Rating = reader.GetDouble(7);
             reader.Close();
             connection.Close();
             return movie;

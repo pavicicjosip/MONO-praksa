@@ -77,7 +77,6 @@ C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\bin\De
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\bin\Debug\System.Web.Http.xml
-C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\obj\Debug\TMDb.Common.csprojAssemblyReference.cache
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\obj\Debug\TMDb.Common.csproj.CoreCompileInputs.cache
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\obj\Debug\TMDb.Common.csproj.CopyComplete
 C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\obj\Debug\TMDb.Common.dll

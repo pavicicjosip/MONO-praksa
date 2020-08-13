@@ -120,6 +120,8 @@ namespace TMDb.WebAPI.Controllers
             { get; set; }
             public Guid FileID
             { get; set; }
+            public double Rating
+            { get; set; }
 
         }
     }
