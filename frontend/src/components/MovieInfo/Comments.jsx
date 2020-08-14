@@ -11,7 +11,7 @@ const Comments = observer(
         comments = []
 
         componentDidMount() {
-            axios.get("https://localhost:44336/api/Review?movieID=99120BAA-5B4C-46CB-A1A2-0805930A0EE9")
+            axios.get("https://localhost:44336/api/Review?movieID=" + this.props.movieID)
             .then((response) => this.comments = response.data);
         }
 
