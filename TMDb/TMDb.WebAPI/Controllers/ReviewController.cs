@@ -11,9 +11,11 @@ using System.Threading.Tasks;
 using TMDb.Common;
 using TMDb.Common.Review;
 using System.Security.Claims;
+using System.Web.Http.Cors;
 
 namespace TMDb.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ReviewController : ApiController
     {
         protected IReviewService ReviewService

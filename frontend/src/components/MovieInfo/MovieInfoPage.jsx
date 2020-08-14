@@ -20,13 +20,7 @@ const MovieInfoPage = observer(
         {
             let comm = document.getElementById("commentToPost").value;
 
-            var newComment = {
-                NumberOfStars: document.getElementById("email").value,
-                UserName: document.getElementById("user").value,
-                UserPassword: document.getElementById("pass").value,
-                FileID: "1180C2F6-A482-49F1-9628-5CA3D7EA6A3B",
-            };
-              console.log(newAccount);
+           	
           
 
             console.log(comm)
