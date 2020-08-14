@@ -66,8 +66,8 @@ class App extends Component {
               <HomePage />
             </Route>
           </Switch>
+          <Footer></Footer>
         </main>
-        <Footer></Footer>
       </div>
     );
   }

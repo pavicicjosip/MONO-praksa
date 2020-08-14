@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Movies from "../Movie/Movies";
+import Cast from "../CastAndCrew/CC";
 import { decorate, observable } from "mobx";
 import { observer } from "mobx-react";
 import "./HomePage.scss";
@@ -8,15 +9,19 @@ import "./HomePage.scss";
 const HomePage = observer(
   class HomePage extends Component {
     movies = [];
+    cast = [];
     pageNumber = 1;
 
     componentDidMount() {
       this.getMovies();
+      this.getCast();
     }
+
     Next = () => {
       if ((this.pageNumber + 1) * 4 < this.movies.m_Item1 + 4) {
         this.pageNumber++;
         this.getMovies();
+        this.getCast();
       }
     };
 
@@ -24,6 +29,7 @@ const HomePage = observer(
       if (this.pageNumber !== 1) {
         this.pageNumber--;
         this.getMovies();
+        this.getCast();
       }
     };
 
@@ -38,15 +44,30 @@ const HomePage = observer(
         });
     };
 
+    getCast = () => {
+      axios
+        .get(
+          "https://localhost:44336/api/CastAndCrew/SelectAsync?pageSize=4&pageNumber=" +
+            this.pageNumber
+        )
+        .then((response) => {
+          this.cast = response.data;
+        });
+    };
+
     render() {
       let moviesProp = [];
+      let castProp = [];
       if (this.movies.length !== 0) {
         moviesProp = this.movies.m_Item2;
+      }
+      if (this.cast.length !== 0) {
+        castProp = this.cast.m_Item2;
       }
       return (
         <div>
           <p>
-            <img src={require("./b.png")} className="center" alt="" />
+            <img src={require("./c.png")} className="center" alt="" />
           </p>
           <h1 className="centerd">Welcome...</h1>
           <h3 className="centerd1">
@@ -70,6 +91,7 @@ const HomePage = observer(
             </div>
           </div>
           <h2 className="title2">Born Today</h2>
+          <Cast cast={castProp} />
         </div>
       );
     }
