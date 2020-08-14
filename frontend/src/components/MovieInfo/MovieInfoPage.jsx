@@ -6,10 +6,13 @@ import axios from "axios";
 import Movie from "../Movie/Movie";
 import Comments from "./Comments";
 
+var movieID = "";
+var token = "";
+
 const MovieInfoPage = observer(
     class MovieInfoPage extends Component {
         movie = { FileID: "1180C2F6-A482-49F1-9628-5CA3D7EA6A3B" }
-
+        
 
         componentDidMount() {
             axios.get("https://localhost:44336/api/Movie/" + this.props.match.params.id)
@@ -18,12 +21,23 @@ const MovieInfoPage = observer(
 
         postComment()
         {
-            let comm = document.getElementById("commentToPost").value;
+            if(token !== "prazno")
+            {
+                let comm = document.getElementById("commentToPost").value;
+                let rating = document.getElementById("rating").value;
+                
 
-           	
-          
 
-            console.log(comm)
+                axios.post(
+                    "https://localhost:44336/api/Review/" + movieID,
+                    { 'NumberOfStars': rating, 'Comment': comm },
+                    { headers: {Authorization: `Bearer ${token}`} }
+                )
+                .then((response) => {
+                    console.log(response);
+                });
+
+            }
         }
 
         render() {
@@ -31,7 +45,9 @@ const MovieInfoPage = observer(
             if (this.movie.length !== 0) {
                 moviesProp = this.movie;
             }
-
+            token = (this.props.token)? this.props.token:"prazno" ;
+            movieID = this.movie.MovieID;
+            console.log(movieID);
             return(
                 <div>
                     <div  className="base-container">
@@ -63,20 +79,26 @@ const MovieInfoPage = observer(
                             <div></div>
                             
                     </div>
-
+                    <div className="error">
+                        {(token === "prazno")? "Login to comment" : ""}
+                    </div>
                     <div className="color">
                                 Comments
                     </div>
 
                     <div>
-                    <textarea id="commentToPost" name="Text1" className="input" maxLength="999" rows="6"></textarea>
+                    <textarea placeholder="Comment here" id="commentToPost" name="Text1" className="input" maxLength="999" rows="6"></textarea>
                     </div>
-                    <button type="button" className="postBtn" onClick={this.postComment}>
+                    <div className="starRow">
+                        RATE (1-10 ): 
+                        <input id="rating" placeholder="1-10"></input>
+                    </div>
+                    <button type="button" className="postBtn" onClick={this.postComment.bind(this.movie.MovieID)}>
                         Post
                     </button>
-
+                    
                     <div className="base-comment">
-                        <Comments />
+                        <Comments movieID={this.props.match.params.id} />
                     </div>
                     
                 
