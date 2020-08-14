@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using TMDb.Common;
 using TMDb.Common.MovieLists;
 using TMDb.Model;
@@ -15,6 +16,7 @@ using TMDb.Service.Common;
 
 namespace TMDb.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MovieListsController : ApiController
     {
         protected IMovieListsService MovieListsService
