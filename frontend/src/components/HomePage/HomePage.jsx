@@ -4,7 +4,6 @@ import Movies from "../Movie/Movies";
 import { decorate, observable } from "mobx";
 import { observer } from "mobx-react";
 import "./HomePage.scss";
-import { Link } from "react-router-dom";
 
 const HomePage = observer(
   class HomePage extends Component {
@@ -59,15 +58,18 @@ const HomePage = observer(
           <div className="spacer"></div>
           <Movies movies={moviesProp} />
           <div class="Row">
-            <div class="Column"><button className='button' onClick={this.Previous}>Previous</button></div>
-            <div class="Column"><button className='button' onClick={this.Next}>Next</button></div>
+            <div class="Column">
+              <button className="button" onClick={this.Previous}>
+                Previous
+              </button>
+            </div>
+            <div class="Column">
+              <button className="button" onClick={this.Next}>
+                Next
+              </button>
+            </div>
           </div>
           <h2 className="title2">Born Today</h2>
-          <div>
-            <Link to="/movieInfoPage/99120BAA-5B4C-46CB-A1A2-0805930A0EE9">
-              PROBA FILM
-            </Link>
-          </div>
         </div>
       );
     }

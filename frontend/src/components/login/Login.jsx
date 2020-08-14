@@ -33,8 +33,6 @@ export class Login extends React.Component {
     this.props.onLogin(this.state.token, user);
   };
 
-  
-
   render() {
     console.log(this.state.token);
     return (
@@ -57,10 +55,10 @@ export class Login extends React.Component {
           </div>
         </div>
         <div className="footer">
-            <button type="button" className="btn" onClick={this.handleLogin}>
-              Login
-            </button>
-            <Redirect to={(this.state.token === "")? "/login" : "/"}/>            
+          <button type="button" className="btn" onClick={this.handleLogin}>
+            Login
+          </button>
+          <Redirect to={this.state.token === "" ? "/login" : "/"} />
         </div>
       </div>
     );

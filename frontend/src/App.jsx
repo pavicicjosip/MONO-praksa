@@ -60,7 +60,7 @@ class App extends Component {
               render={(props) => <MovieInfoPage {...props} />}
             />
             <Route path="/profile">
-              <Profile username={this.state.user} />
+              <Profile token={this.state.token} username={this.state.user} />
             </Route>
             <Route path="/">
               <HomePage />
