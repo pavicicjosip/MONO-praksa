@@ -1,12 +1,9 @@
 import React, { Component } from "react";
+import Movies from "../Movie/Movies";
 
 class MovieList extends Component {
   render() {
-    return (
-      <div>
-        <p>Bla bla test</p>
-      </div>
-    );
+    return <Movies movies={this.props.movies} />;
   }
 }
 
