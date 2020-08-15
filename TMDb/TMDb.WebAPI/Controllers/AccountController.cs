@@ -48,22 +48,11 @@ namespace TMDb.WebAPI.Controllers
             
             Account account = await AccountService.SelectAccountAsync(AccountFacade);
 
-            if (account.UserName != null)
+            if (account != null)
             {
                 token = TokenGenerator.GenerateToken(account.AccountID, await AccountRoleService.GetRoleByAccountIdAsync(account.AccountID)); 
             }
             return Request.CreateResponse(HttpStatusCode.OK, token);
-            /*var identity = User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                var id = claims.Where(p => p.Type == "guid").FirstOrDefault()?.Value;
-                return Request.CreateResponse(HttpStatusCode.OK, id);
-            }
-            else  
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }*/
         }
 
 

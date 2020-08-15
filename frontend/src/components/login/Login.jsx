@@ -19,22 +19,27 @@ export class Login extends React.Component {
   handleLogin = async () => {
     let user = document.getElementById("user").value;
     let pass = document.getElementById("pass").value;
-    let url =
-      "https://localhost:44336/api/Account/SelectAccountAsync?userName=" +
-      user +
-      "&userPassword=" +
-      pass;
-    await fetch(url)
-      .then((response) => response.json())
-      .then((data) => this.setState({ token: data, wrong: "" }));
-    if (this.state.token === "") {
-      this.setState({ wrong: "Wrong login data" });
+    if (user === "" || pass === "") {
+      this.setState({
+        wrong: "Wrong login data",
+      });
+    } else {
+      let url =
+        "https://localhost:44336/api/Account/SelectAccountAsync?userName=" +
+        user +
+        "&userPassword=" +
+        pass;
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => this.setState({ token: data, wrong: "" }));
+      if (this.state.token === "") {
+        this.setState({ wrong: "Wrong login data" });
+      }
+      this.props.onLogin(this.state.token, user);
     }
-    this.props.onLogin(this.state.token, user);
   };
 
   render() {
-    console.log(this.state.token);
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>

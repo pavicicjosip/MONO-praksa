@@ -21,7 +21,6 @@ const Movie = observer(
             this.props.movie.FileID
         )
         .then((response) => {
-          console.log(response.data);
           this.path = require("../../Assets/" + response.data);
         });
     };
