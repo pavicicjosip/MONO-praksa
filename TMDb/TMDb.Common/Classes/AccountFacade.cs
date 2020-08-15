@@ -30,7 +30,8 @@ namespace TMDb.Common
             {
                 _out = " WHERE " + AccountID.WhereStatement();
             }
-            else if (!UserName.Default() && !UserPassword.Default())
+            //else if (!UserName.Default() && !UserPassword.Default())
+            else
             {
                 _out = " WHERE " + UserName.WhereStatement() + " AND " + UserPassword.WhereStatement();
             }

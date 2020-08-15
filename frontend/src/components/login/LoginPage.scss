@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 
-.error {
-  font-family: "Open Sans", sans-serif;
-  color: red;
-}
-
 .App {
   text-align: center;
   display: flex;
@@ -82,7 +77,7 @@
     flex-direction: column;
     justify-content: center;
     height: 90%;
-    background-color: #1C7E3E;
+    background-color: #1c7e3e;
     width: 100%;
     position: absolute;
     right: -34%;

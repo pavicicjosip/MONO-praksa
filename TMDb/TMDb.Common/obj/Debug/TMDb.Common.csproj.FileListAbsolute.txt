@@ -193,3 +193,4 @@ C:\Users\josip\Desktop\New folder\TMDb\TMDb.Common\obj\Debug\TMDb.Common.csproj.
 C:\Users\josip\Desktop\New folder\TMDb\TMDb.Common\obj\Debug\TMDb.Common.csproj.CopyComplete
 C:\Users\josip\Desktop\New folder\TMDb\TMDb.Common\obj\Debug\TMDb.Common.dll
 C:\Users\josip\Desktop\New folder\TMDb\TMDb.Common\obj\Debug\TMDb.Common.pdb
+C:\Users\Laptop\Desktop\praksa\Projekt\Praksa2020-g03-03\TMDb\TMDb.Common\obj\Debug\TMDb.Common.csprojAssemblyReference.cache

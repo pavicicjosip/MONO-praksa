@@ -36,6 +36,10 @@ namespace TMDb.Repository
             {
                 account = new Account(reader.GetGuid(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetGuid(4));
             }
+            else
+            {
+                account = null;
+            }
 
             reader.Close();
             connection.Close();
