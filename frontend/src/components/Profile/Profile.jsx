@@ -18,7 +18,6 @@ const Profile = observer(
           headers: { Authorization: `Bearer ${this.props.token}` },
         })
         .then((response) => {
-          console.log(response.data);
           this.lists = response.data;
         });
     };
@@ -33,7 +32,7 @@ const Profile = observer(
           <Redirect to={this.props.token === "" ? "/" : "/profile"} />
           <h1>{this.props.username}</h1>
           <h2>My Movie Lists:</h2>
-          <MovieLists lists={listsProp} />
+          <MovieLists token={this.props.token} lists={listsProp} />
         </div>
       );
     }
