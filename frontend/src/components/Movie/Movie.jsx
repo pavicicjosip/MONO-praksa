@@ -25,9 +25,19 @@ const Movie = observer(
         });
     };
 
+    buttonFunction = (event) => {
+      event.preventDefault();
+      this.props.button(this.props.movie.MovieID);
+    };
+
     render() {
       return (
         <div className="base-container">
+          {this.props.buttonTitle ? (
+            <button onClick={this.buttonFunction}>
+              {this.props.buttonTitle}
+            </button>
+          ) : null}
           <div>
             <Link to={"/movieInfoPage/" + this.props.movie.MovieID}>
               <img

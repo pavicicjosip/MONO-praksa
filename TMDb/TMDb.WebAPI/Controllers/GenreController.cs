@@ -9,9 +9,11 @@ using TMDb.Model;
 using TMDb.Service.Common;
 using TMDb.Common;
 using TMDb.Service;
+using System.Web.Http.Cors;
 
 namespace TMDb.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GenreController : ApiController
     {
         protected IGenreService GenreService { get; private set; }

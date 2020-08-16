@@ -32,7 +32,6 @@ namespace TMDb.Service
             if (sort.Column == "default")
             {
                 sort.Column = "m.Title";
-                sort.Order = true;
             }
 
             if (sort.Column == "COUNT(ReviewID)")
