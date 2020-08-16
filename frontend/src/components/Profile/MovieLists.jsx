@@ -7,6 +7,7 @@ import axios from "axios";
 const MovieLists = observer(
   class MovieLists extends Component {
     movies = [];
+    listName = "";
 
     chooseList = async (listName) => {
       await axios
@@ -18,7 +19,15 @@ const MovieLists = observer(
         )
         .then((response) => {
           this.movies = response.data;
+          this.listName = listName;
         });
+    };
+
+    onDelete = (listName) => {
+      if (this.listName === listName) {
+        this.movies = [];
+      }
+      this.props.onDelete(listName);
     };
 
     render() {
@@ -32,6 +41,9 @@ const MovieLists = observer(
                 key={list.ListName}
               >
                 {list.ListName}
+              </button>
+              <button onClick={() => this.onDelete(list.ListName)}>
+                Delete
               </button>
             </div>
           );
@@ -53,6 +65,7 @@ const MovieLists = observer(
 
 decorate(MovieLists, {
   movies: observable,
+  listName: observable,
 });
 
 export default MovieLists;

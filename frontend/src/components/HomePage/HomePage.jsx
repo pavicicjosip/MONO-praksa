@@ -78,13 +78,13 @@ const HomePage = observer(
           <h2 className="title">Featured Movies</h2>
           <div className="spacer"></div>
           <Movies movies={moviesProp} />
-          <div class="Row">
-            <div class="Column">
+          <div className="Row">
+            <div className="Column">
               <button className="button" onClick={this.Previous}>
                 Previous
               </button>
             </div>
-            <div class="Column">
+            <div className="Column">
               <button className="button" onClick={this.Next}>
                 Next
               </button>
