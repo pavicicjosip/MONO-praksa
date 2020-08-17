@@ -11,24 +11,39 @@ const HomePage = observer(
   class HomePage extends Component {
     movies = [];
     cast = [];
-    pageNumber = 1;
+    pageNumberMovies = 1;
+    pageNumberCast = 1;
 
     componentDidMount() {
       this.getMovies();
       this.getCast();
     }
 
-    Next = () => {
-      if ((this.pageNumber + 1) * 4 < this.movies.m_Item1 + 4) {
-        this.pageNumber++;
-        this.getMovies();
+    Next = (button) => {
+      if (button === "movies") {
+        if ((this.pageNumberMovies + 1) * 4 < this.movies.m_Item1 + 4) {
+          this.pageNumberMovies++;
+          this.getMovies();
+        }
+      } else {
+        if ((this.pageNumberCast + 1) * 4 < this.cast.m_Item1 + 4) {
+          this.pageNumberCast++;
+          this.getCast();
+        }
       }
     };
 
-    Previous = () => {
-      if (this.pageNumber !== 1) {
-        this.pageNumber--;
-        this.getMovies();
+    Previous = (button) => {
+      if (button === "movies") {
+        if (this.pageNumberMovies !== 1) {
+          this.pageNumberMovies--;
+          this.getMovies();
+        }
+      } else {
+        if (this.pageNumberCast !== 1) {
+          this.pageNumberCast--;
+          this.getCast();
+        }
       }
     };
 
@@ -36,7 +51,8 @@ const HomePage = observer(
       axios
         .get(
           "https://localhost:44336/api/Movie?pageSize=4&pageNumber=" +
-            this.pageNumber
+            this.pageNumberMovies +
+            "&column=NumberOfStars&order=false"
         )
         .then((response) => {
           this.movies = response.data;
@@ -47,7 +63,7 @@ const HomePage = observer(
       axios
         .get(
           "https://localhost:44336/api/CastAndCrew/SelectAsync?pageSize=4&pageNumber=" +
-            this.pageNumber
+            this.pageNumberCast
         )
         .then((response) => {
           this.cast = response.data;
@@ -79,18 +95,33 @@ const HomePage = observer(
           <Movies movies={moviesProp} />
           <div className="Row">
             <div className="Column">
-              <button className="button" onClick={this.Previous}>
+              <button
+                className="button"
+                onClick={() => this.Previous("movies")}
+              >
                 Previous
               </button>
             </div>
             <div className="Column">
-              <button className="button" onClick={this.Next}>
+              <button className="button" onClick={() => this.Next("movies")}>
                 Next
               </button>
             </div>
           </div>
           <h2 className="title2">Born Today</h2>
           <Cast cast={castProp} />
+          <div className="Row">
+            <div className="Column">
+              <button className="button" onClick={() => this.Previous("cast")}>
+                Previous
+              </button>
+            </div>
+            <div className="Column">
+              <button className="button" onClick={() => this.Next("cast")}>
+                Next
+              </button>
+            </div>
+          </div>
           <Footer></Footer>
         </div>
       );
@@ -100,7 +131,9 @@ const HomePage = observer(
 
 decorate(HomePage, {
   movies: observable,
-  pageNumber: observable,
+  pageNumberMovies: observable,
+  pageNumberCast: observable,
+  cast: observable,
 });
 
 export default HomePage;

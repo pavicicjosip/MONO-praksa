@@ -21,8 +21,12 @@ const toolbar = (props) => (
           to={() => {
             return props.token === "" ? "/login" : "/profile";
           }}
+          className="loginLink"
         >
           {props.username}
+        </Link>
+        <Link to="/" onClick={props.LogOut}>
+          {props.token === "" ? "" : "Log Out"}
         </Link>
       </div>
     </nav>
