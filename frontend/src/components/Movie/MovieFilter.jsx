@@ -135,7 +135,7 @@ const MovieFilter = observer(
               </select>
             </label>
             <label>
-              Ascending/Descending
+              Ascending
               <input
                 type="checkbox"
                 checked={this.order}
