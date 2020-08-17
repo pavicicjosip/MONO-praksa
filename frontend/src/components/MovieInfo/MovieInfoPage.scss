@@ -149,3 +149,27 @@
     color: white;
     margin: 10px 10px; 
   }
+
+  .forma p {
+      color: white;
+      font-size: 22px;
+      margin-left: 3rem;
+  }
+
+  .forma select {
+      margin-left: 3rem;
+  }
+
+  .forma button {
+    color: #fff !important;
+    text-decoration: none;
+    background: #1C7E3E;
+    padding: 13px;
+    border-radius: 13px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+    height: auto;
+    font-size: 12px;
+    margin-left: 15px;
+  }
