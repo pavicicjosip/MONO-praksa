@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Movie = observer(
   class Movie extends Component {
     path = require("../../Assets/Images/Movies/DefaultMovieImage.png");
-
+    addMovieFlag = true;
     constructor(props) {
       super(props);
       this.getImage();
@@ -27,16 +27,32 @@ const Movie = observer(
 
     buttonFunction = (event) => {
       event.preventDefault();
-      this.props.button(this.props.movie.MovieID);
+      if (this.addMovieFlag) {
+        this.props.button(this.props.movie.MovieID);
+      }
     };
 
     render() {
+      let buttonTitle = "";
+      if (this.props.buttonTitle) {
+        buttonTitle = this.props.buttonTitle;
+      }
+      if (this.props.addedMovies) {
+        if (this.props.addedMovies.length !== 0) {
+          this.props.addedMovies.map((movieID) => {
+            if (this.props.movie.MovieID === movieID) {
+              this.addMovieFlag = false;
+              buttonTitle = "Added";
+              return true;
+            }
+            return false;
+          });
+        }
+      }
       return (
         <div className="base-container">
           {this.props.buttonTitle ? (
-            <button onClick={this.buttonFunction}>
-              {this.props.buttonTitle}
-            </button>
+            <button onClick={this.buttonFunction}>{buttonTitle}</button>
           ) : null}
           <div>
             <Link to={"/movieInfoPage/" + this.props.movie.MovieID}>

@@ -7,6 +7,7 @@ class Movies extends Component {
     let movies = this.props.movies.map((movie) => {
       return (
         <Movie
+          addedMovies={this.props.addedMovies}
           button={this.props.button}
           buttonTitle={this.props.buttonTitle}
           key={movie.MovieID}

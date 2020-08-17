@@ -3,6 +3,7 @@ import { decorate, observable } from "mobx";
 import { observer } from "mobx-react";
 import MovieFilter from "../Movie/MovieFilter";
 import axios from "axios";
+import "./Profile.scss";
 
 const CreateListForm = observer(
   class CreateListForm extends Component {
@@ -50,7 +51,12 @@ const CreateListForm = observer(
               onChange={this.handleChange}
             />
           </label>
-          <MovieFilter button={this.addMovie} buttonTitle="Add" />
+          <div className="spacer" />
+          <MovieFilter
+            addedMovies={this.movies}
+            button={this.addMovie}
+            buttonTitle="Add"
+          />
           <br />
           <input
             type="submit"
@@ -65,6 +71,7 @@ const CreateListForm = observer(
 
 decorate(CreateListForm, {
   listName: observable,
+  movies: observable,
 });
 
 export default CreateListForm;
