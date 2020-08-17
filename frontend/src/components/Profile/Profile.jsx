@@ -5,6 +5,7 @@ import MovieLists from "./MovieLists";
 import CreateListForm from "./CreateListForm";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import "./Profile.scss"
 
 const Profile = observer(
   class Profile extends Component {
@@ -65,11 +66,10 @@ const Profile = observer(
         listsProp = this.lists.m_Item2;
       }
       return (
-        <div>
+        <div className="container">
           <Redirect to={this.props.token === "" ? "/" : "/profile"} />
-          <h1>{this.props.username}</h1>
           <h2>My Movie Lists:</h2>
-          <button onClick={this.toggleCreateForm}> Create Movie List</button>
+          <button className="create-button" onClick={this.toggleCreateForm}> Create Movie List</button>
           <MovieLists
             toggle={this.toggleMovieList}
             getLists={this.getMovieLists}

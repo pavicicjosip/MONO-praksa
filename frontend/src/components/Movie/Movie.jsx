@@ -52,7 +52,7 @@ const Movie = observer(
       return (
         <div className="base-container">
           {this.props.buttonTitle ? (
-            <button onClick={this.buttonFunction}>{buttonTitle}</button>
+            <button className="btn1" onClick={this.buttonFunction}>{buttonTitle}</button>
           ) : null}
           <div>
             <Link to={"/movieInfoPage/" + this.props.movie.MovieID}>

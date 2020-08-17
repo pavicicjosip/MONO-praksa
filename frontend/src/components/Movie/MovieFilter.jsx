@@ -91,7 +91,7 @@ const MovieFilter = observer(
       }
       return (
         <div>
-          <div>
+          <div className="forma1">
             <label>
               Title
               <input
@@ -100,7 +100,7 @@ const MovieFilter = observer(
                 onChange={this.handleInputChange}
               />
             </label>
-            <label>
+            <label className="year-of-production">
               Year Of Production
               <input
                 name="year"
@@ -108,7 +108,7 @@ const MovieFilter = observer(
                 onChange={this.handleInputChange}
               />
             </label>
-            <label>
+            <label className="Genre">
               Genre
               <select
                 name="genre"
@@ -142,7 +142,7 @@ const MovieFilter = observer(
                 onChange={this.handleInputChange}
               />
             </label>
-            <button onClick={this.filterEvent}>Filter</button>
+            <button className="filter-button"onClick={this.filterEvent}>Filter</button>
           </div>
           <div className="spacer" />
           <Movies
@@ -153,8 +153,8 @@ const MovieFilter = observer(
           />
           {this.movies.length !== 0 ? (
             <div>
-              <button onClick={this.Next}>Next</button>
-              <button onClick={this.Previous}>Previous</button>
+              <button className="previous-button" onClick={this.Previous}>Previous</button>
+              <button className="next-button" onClick={this.Next}>Next</button>
             </div>
           ) : null}
         </div>

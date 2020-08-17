@@ -42,9 +42,9 @@ const CreateListForm = observer(
     render() {
       return (
         <form>
-          <label>
+          <label className="proba">
             ListName:
-            <input
+            <input className="list-name__input"
               type="text"
               name="listName"
               value={this.listName}
@@ -55,10 +55,10 @@ const CreateListForm = observer(
           <MovieFilter
             addedMovies={this.movies}
             button={this.addMovie}
-            buttonTitle="Add"
+            buttonTitle="+ Add"
           />
           <br />
-          <input
+          <input className="create-btn"
             type="submit"
             value="Create New List"
             onClick={this.handleSubmit}

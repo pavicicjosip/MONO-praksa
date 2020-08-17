@@ -1,4 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Raleway:500');
+
+//palette
+$green: #1C7E3E;
+$light-peach: #ffecd9;
+$peach: #ee786e;
+$sand: #fceeb5;
+$white: #fff;
 
 .base-container {
   width: 100%;
@@ -32,4 +40,100 @@
 .moviesDiv {
   display: flex;
   justify-content: space-between;
+}
+
+.filter-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #1C7E3E;
+  padding: 13px;
+  border-radius: 13px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  margin-left: 25rem;
+  margin-top: 2rem;
+}
+
+.previous-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #1C7E3E;
+  padding: 13px;
+  border-radius: 13px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  margin-left: 82rem;
+}
+
+.next-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #1C7E3E;
+  padding: 13px;
+  border-radius: 13px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+
+.add-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #1C7E3E;
+  padding: 13px;
+  border-radius: 13px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+
+.btn1 {
+  -webkit-appearance: none;  
+  background: -webkit-gradient(to right,$green 0%,$sand 50%,$peach 100%);
+  background: linear-gradient(to right,$green 0%,$sand 50%,$peach 100%);
+  background-size: 500%;
+  border: none;
+  border-radius: 2rem;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  color: $white;
+  cursor: pointer;
+  font: 1rem Raleway, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 5rem;
+  letter-spacing: .05em;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: auto;
+  height: 3rem;
+}
+
+.btn1:hover{
+  animation-name: gradient;
+  -webkit-animation-name: gradient;
+  animation-duration: 2s;
+  -webkit-animation-duration: s;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100%; 
+  }
 }

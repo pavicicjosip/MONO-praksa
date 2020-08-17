@@ -1,5 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import "./Style.scss";
+import "./LoginPage.scss";
 
 export class Login extends React.Component {
   constructor(props) {
@@ -42,7 +44,7 @@ export class Login extends React.Component {
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <div className="header">Login</div>
+        <div className="header1">Login</div>
         <div className="content">
           <div className="image">
             <img src={require("./person4.png")} alt="" />
