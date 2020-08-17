@@ -28,7 +28,8 @@
 }
 
 .color {
-    background-color: darken($color: #000000, $amount: 0);
+    margin-left: 1%;
+    background-color: darken($color: #282828, $amount: 0);
     height: 40px;
     color: white;
     font-family: "Open Sans", sans-serif;
@@ -53,8 +54,6 @@
     text-align: center;
     border: 2em;
     padding: 1em;
-    margin-top: 1em;
-    margin-bottom: -6em;
     margin-left: 2em;
     background-color: gray;
 }
@@ -65,9 +64,9 @@
     border: 2em;
     padding: 1em;
     margin: 2em;
-    margin-top: 10em;
+    margin-top: 3em;
     margin-bottom: 1em;
-    background-color: black;
+    background-color: #3f3f44;
 }
 
 .input{
@@ -77,14 +76,16 @@
 }
 
 .postBtn{
-    background-color: black;
-    color: white;
-    font-size: 20px;
-    font-family: "Open Sans", sans-serif;
-    padding: 0.5em;
-    width: 10%;
-    margin-left: 2em;
-
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #1C7E3E;
+    padding: 13px;
+    border-radius: 13px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+    margin-left: 2.8%;
 }
 
 .starRow{
@@ -97,9 +98,54 @@
 }
 
 .error{
-    margin: 1em;
-    color: rgb(158, 7, 7);
+    color: rgba(255, 0, 0, 0.842);
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
+    margin-left: 2.8%;
 }
 
+#comment_form input, #comment_form textarea {
+	border: 4px solid rgba(0,0,0,0.1);
+	padding: 8px 10px;
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+	outline: 0;
+}
+
+.tip {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    background: transparent;
+    border: 10px solid #1C7E3E;
+  }
+  
+  .tip-up {
+    top: -25px; /* Same as body margin top + border */
+    left: 10px;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+  }
+
+  .dialogbox .body {
+    position: relative;
+    max-width: 1500px;
+    height: 100%;
+    margin-top: 0%;
+    margin-left: 45px;
+    margin-right: 45px;
+    background-color: white;
+    border-radius: 3px;
+    border: 5px solid #1C7E3E;
+  }
+  
+  .message {
+    font-family: Arial;
+    font-size: 16px;
+    color: white;
+    margin: 10px 10px; 
+  }
