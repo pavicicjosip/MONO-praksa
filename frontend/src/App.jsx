@@ -7,7 +7,6 @@ import Backdrop from "./components/Backdrop/Backdrop";
 import HomePage from "./components/HomePage/HomePage";
 import { Switch, Route } from "react-router-dom";
 import MovieInfoPage from "./components/MovieInfo/MovieInfoPage";
-import Footer from "./components/Footer/Footer";
 import Profile from "./components/Profile/Profile";
 
 class App extends Component {
@@ -42,7 +41,7 @@ class App extends Component {
     }
     return (
       <div style={{ height: "100%" }}>
-        <Toolbar
+      <Toolbar
           username={this.state.user}
           token={this.state.token}
           drawerClickHandler={this.drawerToggleClickHandler}
@@ -66,7 +65,6 @@ class App extends Component {
               <HomePage />
             </Route>
           </Switch>
-          <Footer></Footer>
         </main>
       </div>
     );

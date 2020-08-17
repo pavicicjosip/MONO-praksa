@@ -5,6 +5,7 @@ import Cast from "../CastAndCrew/CC";
 import { decorate, observable } from "mobx";
 import { observer } from "mobx-react";
 import "./HomePage.scss";
+import Footer from "../Footer/Footer";
 
 const HomePage = observer(
   class HomePage extends Component {
@@ -21,7 +22,6 @@ const HomePage = observer(
       if ((this.pageNumber + 1) * 4 < this.movies.m_Item1 + 4) {
         this.pageNumber++;
         this.getMovies();
-        this.getCast();
       }
     };
 
@@ -29,7 +29,6 @@ const HomePage = observer(
       if (this.pageNumber !== 1) {
         this.pageNumber--;
         this.getMovies();
-        this.getCast();
       }
     };
 
@@ -92,6 +91,7 @@ const HomePage = observer(
           </div>
           <h2 className="title2">Born Today</h2>
           <Cast cast={castProp} />
+          <Footer></Footer>
         </div>
       );
     }

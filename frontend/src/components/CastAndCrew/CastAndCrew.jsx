@@ -36,7 +36,7 @@ const CastAndCrew = observer(
               width="220px"
             />
           </div>
-          <div>
+          <div className='Name'>
             <p>{this.props.castAndCrew.FirstName}</p>
             <p>{this.props.castAndCrew.LastName}</p>
           </div>

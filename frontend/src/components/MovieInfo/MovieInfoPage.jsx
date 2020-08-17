@@ -39,6 +39,7 @@ const MovieInfoPage = observer(
 
             }
         }
+        
 
         render() {
             let moviesProp = [];
@@ -51,14 +52,10 @@ const MovieInfoPage = observer(
             return(
                 <div>
                     <div  className="base-container">
-
                         <div className="image">
                             <Movie key={this.movie.MovieID} movie={moviesProp} />
                         </div>  
-
-                        
                     </div>
-
                     <div className="info">
                         <div>
                                 Title: {this.movie.Title}
@@ -86,28 +83,30 @@ const MovieInfoPage = observer(
                                 Comments
                     </div>
 
-                    <div>
-                    <textarea placeholder="Comment here" id="commentToPost" name="Text1" className="input" maxLength="999" rows="6"></textarea>
+                    <div id="comment_form">
+                        <div>
+                            <textarea placeholder="Comment here" id="commentToPost" name="Text1" className="input" maxLength="999" rows="6"></textarea>
+                        </div>
                     </div>
                     <div className="starRow">
                         RATE (1-10 ): 
                         <input id="rating" placeholder="1-10"></input>
-                    </div>
-                    <button type="button" className="postBtn" onClick={this.postComment.bind(this.movie.MovieID)}>
+                        <button type="button" className="postBtn" onClick={this.postComment.bind(this.movie.MovieID)}>
                         Post
                     </button>
-                    
-                    <div className="base-comment">
-                        <Comments movieID={this.props.match.params.id} />
                     </div>
-                    
-                
-                    
+                    <div className="container">
+                        <div className="dialogbox">
+                            <div className="body">
+                                <span className="tip tip-up"></span>
+                                <div className="message">
+                                    <span><Comments movieID={this.props.match.params.id} /></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-               
             );
-
-            
         }
     }
 );
