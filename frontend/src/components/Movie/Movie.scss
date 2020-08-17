@@ -66,7 +66,9 @@ $white: #fff;
   display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
-  margin-left: 82rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
 }
 
 .next-button {
@@ -79,6 +81,19 @@ $white: #fff;
   display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
+}
+
+.next-button1 {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #1C7E3E;
+  padding: 13px;
+  border-radius: 13px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  margin-left: 1.6rem;
 }
 
 .add-button {
