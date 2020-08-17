@@ -90,13 +90,13 @@ const MovieInfoPage = observer(
             </div>
           </div>
           {this.props.token ? (
-            <div>
+            <div className="forma">
               <p>Add to my list</p>
               <select onChange={this.handleInputChange} value={this.list}>
                 <option onChange={this.handleInputChange}>*</option>
                 {listsToSelect}
               </select>
-              <button onClick={this.addMovieToList}>Add</button>
+              <button className="btn" onClick={this.addMovieToList}>Add</button>
             </div>
           ) : null}
           <div className="info">
