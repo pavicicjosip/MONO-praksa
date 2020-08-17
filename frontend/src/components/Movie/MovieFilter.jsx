@@ -3,6 +3,7 @@ import { decorate, observable } from "mobx";
 import { observer } from "mobx-react";
 import axios from "axios";
 import Movies from "./Movies";
+import "./Movie.scss";
 
 const MovieFilter = observer(
   class MovieFilter extends Component {
@@ -143,7 +144,9 @@ const MovieFilter = observer(
             </label>
             <button onClick={this.filterEvent}>Filter</button>
           </div>
+          <div className="spacer" />
           <Movies
+            addedMovies={this.props.addedMovies}
             button={this.props.button}
             buttonTitle={this.props.buttonTitle}
             movies={moviesProp}
