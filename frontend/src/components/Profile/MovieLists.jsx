@@ -74,13 +74,17 @@ const MovieLists = observer(
         lists = this.props.lists.map((list) => {
           return (
             <div key={list.ListName + "div"}>
-              <button className="previous-button"
+              <button
+                className="list-button"
                 onClick={() => this.chooseList(list.ListName)}
                 key={list.ListName}
               >
                 {list.ListName}
               </button>
-              <button className="next-button1" onClick={() => this.onDelete(list.ListName)}>
+              <button
+                className="delete-button"
+                onClick={() => this.onDelete(list.ListName)}
+              >
                 Delete
               </button>
             </div>
@@ -96,8 +100,12 @@ const MovieLists = observer(
           {lists}
           {this.props.lists.length !== 0 ? (
             <div>
-              <button className="previous-button" onClick={this.props.Previous}>Previous</button>
-              <button className="next-button" onClick={this.props.Next}>Next</button>
+              <button className="previous-button" onClick={this.props.Previous}>
+                Previous
+              </button>
+              <button className="next-button" onClick={this.props.Next}>
+                Next
+              </button>
             </div>
           ) : null}
           <div className="spacer" />
