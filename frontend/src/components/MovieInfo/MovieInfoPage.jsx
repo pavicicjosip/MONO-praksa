@@ -15,7 +15,6 @@ const MovieInfoPage = observer(
     lists = [];
     comments = [];
     list = "";
-    renderFlag = true;
     comment = "";
     rating = "";
     componentDidMount() {
