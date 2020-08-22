@@ -34,8 +34,12 @@ const Movie = observer(
 
     render() {
       let buttonTitle = "";
+      let buttonClassName = "btn1";
       if (this.props.buttonTitle) {
         buttonTitle = this.props.buttonTitle;
+        if (buttonTitle === "Remove") {
+          buttonClassName = "delete-button";
+        }
       }
       if (this.props.addedMovies) {
         if (this.props.addedMovies.length !== 0) {
@@ -52,7 +56,9 @@ const Movie = observer(
       return (
         <div className="base-container">
           {this.props.buttonTitle ? (
-            <button className="btn1" onClick={this.buttonFunction}>{buttonTitle}</button>
+            <button className={buttonClassName} onClick={this.buttonFunction}>
+              {buttonTitle}
+            </button>
           ) : null}
           <div>
             <Link to={"/movieInfoPage/" + this.props.movie.MovieID}>

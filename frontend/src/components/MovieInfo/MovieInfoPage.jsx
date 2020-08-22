@@ -13,11 +13,16 @@ const MovieInfoPage = observer(
   class MovieInfoPage extends Component {
     movie = { FileID: "1180C2F6-A482-49F1-9628-5CA3D7EA6A3B" };
     lists = [];
+    comments = [];
     list = "";
+    renderFlag = true;
+    comment = "";
+    rating = "";
     componentDidMount() {
       axios
         .get("https://localhost:44336/api/Movie/" + this.props.match.params.id)
         .then((response) => (this.movie = response.data));
+      this.getComments();
       if (this.props.token) {
         this.getLists();
       }
@@ -28,22 +33,43 @@ const MovieInfoPage = observer(
       this.list = target.value;
     };
 
-    postComment() {
+    handleChange = (event) => {
+      const target = event.target;
+      if (target.name === "Text1") {
+        this.comment = target.value;
+      } else {
+        this.rating = target.value;
+      }
+    };
+
+    postComment = async () => {
       if (token !== "prazno") {
         let comm = document.getElementById("commentToPost").value;
         let rating = document.getElementById("rating").value;
 
-        axios
+        await axios
           .post(
             "https://localhost:44336/api/Review/" + movieID,
             { NumberOfStars: rating, Comment: comm },
             { headers: { Authorization: `Bearer ${token}` } }
           )
           .then((response) => {
-            console.log(response);
+            this.comment = "";
+            this.rating = "";
           });
+        this.getComments();
       }
-    }
+    };
+
+    getComments = async () => {
+      axios
+        .get(
+          "https://localhost:44336/api/Review?movieID=" +
+            this.props.match.params.id +
+            "&column=DateAndTime&order=false"
+        )
+        .then((response) => (this.comments = response.data));
+    };
 
     getLists = async () => {
       await axios
@@ -63,6 +89,7 @@ const MovieInfoPage = observer(
       axios.post("https://localhost:44336/api/MovieLists", movie, {
         headers: { Authorization: `Bearer ${this.props.token}` },
       });
+      this.list = "";
     };
 
     render() {
@@ -93,10 +120,12 @@ const MovieInfoPage = observer(
             <div className="forma">
               <p>Add to my list</p>
               <select onChange={this.handleInputChange} value={this.list}>
-                <option onChange={this.handleInputChange}>*</option>
+                <option onChange={this.handleInputChange}>Select List</option>
                 {listsToSelect}
               </select>
-              <button className="btn" onClick={this.addMovieToList}>Add</button>
+              <button className="btn" onClick={this.addMovieToList}>
+                Add
+              </button>
             </div>
           ) : null}
           <div className="info">
@@ -122,16 +151,24 @@ const MovieInfoPage = observer(
                 className="input"
                 maxLength="999"
                 rows="6"
+                value={this.comment}
+                onChange={this.handleChange}
               ></textarea>
             </div>
           </div>
           <div className="starRow">
             RATE (1-10 ):
-            <input id="rating" placeholder="1-10"></input>
+            <input
+              name="rating"
+              id="rating"
+              placeholder="1-10"
+              value={this.rating}
+              onChange={this.handleChange}
+            ></input>
             <button
               type="button"
               className="postBtn"
-              onClick={this.postComment.bind(this.movie.MovieID)}
+              onClick={this.postComment}
             >
               Post
             </button>
@@ -142,7 +179,7 @@ const MovieInfoPage = observer(
                 <span className="tip tip-up"></span>
                 <div className="message">
                   <span>
-                    <Comments movieID={this.props.match.params.id} />
+                    <Comments comments={this.comments} />
                   </span>
                 </div>
               </div>
@@ -158,6 +195,9 @@ decorate(MovieInfoPage, {
   movie: observable,
   lists: observable,
   list: observable,
+  comments: observable,
+  comment: observable,
+  rating: observable,
 });
 
 export default MovieInfoPage;

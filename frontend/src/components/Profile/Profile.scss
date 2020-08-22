@@ -11,7 +11,7 @@
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: #1C7E3E;
+  background: #1c7e3e;
   padding: 13px;
   border-radius: 13px;
   display: inline-block;
@@ -19,15 +19,40 @@
   transition: all 0.4s ease 0s;
 }
 
+.delete-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: red;
+  padding: 13px;
+  border-radius: 13px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+
+.list-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: lightseagreen;
+  padding: 13px;
+  border-radius: 13px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  margin-top: 10px;
+  margin-right: 5px;
+}
 
 .forma1 label {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    text-align: right;
-    width: 400px;
-    line-height: 26px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+  width: 400px;
+  line-height: 26px;
+  margin-bottom: 10px;
 }
 
 .proba {
@@ -38,13 +63,13 @@
   width: 400px;
   line-height: 26px;
   margin-bottom: 10px;
-}  
+}
 
-.forma1  input {
-    height: 25px;
-    flex: 0 0 200px;
-    margin-left: 10px;
-    border-radius: 10px;
+.forma1 input {
+  height: 25px;
+  flex: 0 0 200px;
+  margin-left: 10px;
+  border-radius: 10px;
 }
 
 .forma1 select {
@@ -57,7 +82,7 @@
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: #1C7E3E;
+  background: #1c7e3e;
   padding: 13px;
   border-radius: 13px;
   display: inline-block;
@@ -71,4 +96,3 @@
   margin-left: 10px;
   border-radius: 10px;
 }
-   
